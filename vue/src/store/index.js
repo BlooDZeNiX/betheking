@@ -7,6 +7,7 @@ const store = createStore({
             data: {},
             token: sessionStorage.getItem("TOKEN"),
         },
+        voteStream: {},
         dashboard: {
             loading: false,
             data: {}
@@ -55,12 +56,15 @@ const store = createStore({
                     return res.data;
                 })
         },
-        voteStreamer() {
-            return axiosClient.post('/voting/streamer', vote)
+        voteStreamer({ commit }, voteStream) {
+            console.log(voteStream)
+            return axiosClient.post('/voteStreamer', voteStream)
                 .then(({ data }) => {
-
-                });
-        }
+                    commit('setVoteStream', data);
+                    console.log(voteStream)
+                    return store.voteStream;
+                })
+        },
     },
     mutations: {
         setUser: (state, user) => {
@@ -69,6 +73,9 @@ const store = createStore({
         setToken: (state, token) => {
             state.user.token = token;
             sessionStorage.setItem('TOKEN', token);
+        },
+        setVoteStream: (state, voteStream) => {
+            state.user.voteStream = voteStream;
         },
         logout: (state) => {
             state.user.token = null;

@@ -26,4 +26,4 @@ Route::middleware('auth:sanctum')->group(function() {
 Route::post('/signup', [AuthController::class, 'signUp']);
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::post('/voting/streamer', [VoteController::class, 'voteStream']);
+Route::post('/voteStreamer', [VoteController::class, 'voteStreamer']);
