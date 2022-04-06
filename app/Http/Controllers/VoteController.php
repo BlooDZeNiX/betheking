@@ -12,14 +12,14 @@ use Illuminate\Validation\Rules\Password;
 use Laravel\Sanctum\NewAccessToken;
 
 /**
- * Class AuthController
+ * Class VoteController
  *
  * @author  cmsf <cesarmsfelipe@gmail.com>
  * @package App\Http\Controllers
  */
 class VoteController extends Controller
 {
-    public function voteGame($vote)
+    public function voteGame($voteGame)
     {
         /** @var \App\Models\StreamVotes $vote */
         $vote = StreamVotes::create([
@@ -27,17 +27,22 @@ class VoteController extends Controller
             'game_voted' => $vote['gameVoted'],
         ]);
 
-        return $vote;
+        return response([
+            $vote
+        ]);
     }
 
-    public function voteStreamer($vote)
+    public function voteStreamer(Request $request)
     {
+        // return dd($voteStream);
         /** @var \App\Models\StreamVotes $vote */
         $vote = StreamVotes::create([
-            'voter' => $vote['voter'],
-            'streamer_voted' => $vote['streamerVoted'],
+            'voter' => $request['voter'],
+            'streamer_voted' => $request['streamerVoted'],
         ]);
 
-        return $vote;
+        return response([
+            $vote,
+        ]);
     }
 }

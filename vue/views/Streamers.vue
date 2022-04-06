@@ -31,10 +31,9 @@
                   {{ topStream.user_name.trim() }}
                 </p>
                 <button
-                  v-on:click="voteStreamer"
-                  :id="myId"
-                  ref="myId"
-                  :data="`${topStream.id}`"
+                  v-on:click="voteStreamerAds"
+                  :id="`${topStream.user_id}`"
+                  :name="`${topStream.user_name}`"
                   class="
                     border border-black-600
                     rounded-lg
@@ -63,22 +62,32 @@ import { LockClosedIcon } from "@heroicons/vue/solid";
 import store from "../src/store";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
-
+import { computed } from "vue";
 const router = useRouter();
-const vote = {
-  voter: "",
-  streamerVoted: "",
-};
 
 let loading = ref(false);
 let errorMsg = ref("");
 
-function voteStreamer(ev) {
+store.dispatch("getUser").then(() => {
+  return store.state.user.data.id;
+});
+
+function voteStreamerAds(ev) {
   ev.preventDefault();
+
   router.push({
-    name: "StreamersVoteAnnounce",
+    name: "StreamersVoteAds",
+    params: {
+      streamer_id: ev.target.id,
+      login: ev.target.id,
+      title: "Voting " + ev.target.name,
+      voter: store.state.user.data.id,
+    }
   });
+
+  console.log(ev.target.id, ev.target.name, store.state.user.data.id);
 }
+
 </script>
 
 <script>
@@ -93,7 +102,7 @@ export default {
   components: {},
   methods: {
     fetchStreamers: function () {
-      let fetchLink = "https://api.twitch.tv/helix/streams?first=40";
+      let fetchLink = "https://api.twitch.tv/helix/streams?first=100";
       fecth(fetchLink, {
         method: "get",
         headers: {
