@@ -312,6 +312,9 @@ export default {
     }
 
     store.dispatch("getUser").then(() => {
+      if(store.state.user.data.imageUrl == ''){
+        store.state.user.data.imageUrl = "../assets/images/default.png";
+      }
       console.log(store.state.user.data);
     });
 

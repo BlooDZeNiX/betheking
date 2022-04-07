@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('streams', function (Blueprint $table) {
+        Schema::create('streamers', function (Blueprint $table) {
             $table->id();
             $table->integer('twitch_id');
             $table->string('name');
