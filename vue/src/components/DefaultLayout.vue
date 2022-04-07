@@ -7,7 +7,7 @@
             <div class="flex-shrink-0">
               <img
                 class=""
-                src="../assets/betheking.png"
+                src="../assets/images/betheking.png"
                 alt="Logo"
                 style="height: 5rem"
               />
@@ -310,13 +310,6 @@ export default {
         name: "Profile",
       });
     }
-
-    store.dispatch("getUser").then(() => {
-      if(store.state.user.data.imageUrl == ''){
-        store.state.user.data.imageUrl = "../assets/images/default.png";
-      }
-      console.log(store.state.user.data);
-    });
 
     return {
       user: computed(() => store.state.user.data),

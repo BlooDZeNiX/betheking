@@ -47,6 +47,10 @@ const store = createStore({
         getUser({ commit }) {
             return axiosClient.get('/user')
                 .then(res => {
+                    console.log(res.data)
+                    if (res.data.imageUrl === '') {
+                        res.data.imageUrl = "../src/assets/images/default.png";
+                    }
                     commit('setUser', res.data)
                 })
         },
@@ -57,11 +61,9 @@ const store = createStore({
                 })
         },
         voteStreamer({ commit }, voteStream) {
-            console.log(voteStream)
             return axiosClient.post('/voteStreamer', voteStream)
                 .then(({ data }) => {
                     commit('setVoteStream', data);
-                    console.log(voteStream)
                     return store.voteStream;
                 })
         },
