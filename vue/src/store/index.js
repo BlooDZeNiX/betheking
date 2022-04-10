@@ -1,3 +1,4 @@
+import axios from "axios";
 import { createStore } from "vuex";
 import axiosClient from "../axios";
 
@@ -7,7 +8,20 @@ const store = createStore({
             data: {},
             token: sessionStorage.getItem("TOKEN"),
         },
-        voteStream: {},
+        topStreams: {},
+        topGames: {},
+        voteStream: {
+            vote: {},
+            votingStreamer: {},
+        },
+        voteGame: {
+            vote: {},
+            votingGame: {},
+        },
+        topVoted: {
+            streamers: {},
+            games: {},
+        },
         dashboard: {
             loading: false,
             data: {}
@@ -47,8 +61,7 @@ const store = createStore({
         getUser({ commit }) {
             return axiosClient.get('/user')
                 .then(res => {
-                    console.log(res.data)
-                    if (res.data.imageUrl === '') {
+                    if (res.data.imageUrl === '' || res.data.imageUrl === null) {
                         res.data.imageUrl = "../src/assets/images/default.png";
                     }
                     commit('setUser', res.data)
@@ -64,9 +77,32 @@ const store = createStore({
             return axiosClient.post('/voteStreamer', voteStream)
                 .then(({ data }) => {
                     commit('setVoteStream', data);
-                    return store.voteStream;
+                    return store.state.voteStream.vote;
                 })
         },
+        getTopStreams({ commit }) {
+            return axiosClient.get('/getTopStreams')
+                .then(({ data }) => {
+                    commit('setTopStreams', data)
+                    return store.state.topStreams;
+                })
+        },
+
+        getStreamer({ commit }, streamer_id) {
+            return axiosClient.post('/getStreamer', { id: streamer_id })
+                .then((data) => {
+                    commit('setVotingStreamer', data)
+                    return store.state.voteStream.votingStreamer;
+                })
+        },
+        getTopVoted({ commit }) {
+            return axiosClient.get('/getTopVoted')
+                .then((data) => {
+                    commit('setTopVoted', data)
+                    return store.state.topVoted;
+                })
+        }
+
     },
     mutations: {
         setUser: (state, user) => {
@@ -77,7 +113,16 @@ const store = createStore({
             sessionStorage.setItem('TOKEN', token);
         },
         setVoteStream: (state, voteStream) => {
-            state.user.voteStream = voteStream;
+            state.voteStream.vote = voteStream;
+        },
+        setVotingStreamer: (state, votingStreamer) => {
+            state.voteStream.votingStreamer = votingStreamer;
+        },
+        setTopStreams: (state, topStreams) => {
+            state.topStreams = topStreams;
+        },
+        setTopVoted: (state, topVoted) => {
+            state.topVoted = topVoted;
         },
         logout: (state) => {
             state.user.token = null;

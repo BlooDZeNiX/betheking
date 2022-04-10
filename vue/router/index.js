@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
+import Home from '../views/Home.vue'
 import Streamers from '../views/Streamers.vue'
 import Login from '../views/Login.vue'
 import SignUp from "../views/SignUp.vue"
@@ -11,11 +12,12 @@ import store from '../src/store/index'
 
 const routes = [{
         path: "/",
-        redirect: "/Streamers",
+        redirect: "/Home",
         name: "Streamers",
         component: DefaultLayout,
         meta: { requiresAuth: true },
         children: [
+            { path: '/Home', name: 'Home', component: Home },
             { path: '/Streamers', name: 'Streamers', component: Streamers },
             { path: '/Games', name: 'Games', component: Games },
             { path: '/Profile', name: 'Profile', component: Profile },

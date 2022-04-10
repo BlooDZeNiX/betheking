@@ -15,10 +15,13 @@ return new class extends Migration
     {
         Schema::create('streamers', function (Blueprint $table) {
             $table->id();
-            $table->integer('twitch_id');
-            $table->string('name');
-            $table->string('login');
-            $table->integer('user_id');
+            $table->string('id_streamer');
+            $table->string('broadcaster_type');
+            $table->string('description');
+            $table->string('display_name');
+            $table->string('offline_image_url');
+            $table->string('profile_image_url');
+            $table->timestamps();
         });
     }
 
@@ -29,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('streams');
+        Schema::dropIfExists('streamers');
     }
 };

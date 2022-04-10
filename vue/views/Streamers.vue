@@ -2,7 +2,7 @@
   <PageComponent title="Streamers">
     <div class="grid2" id="topStreamers">
       <div
-        v-for="topStream in listOfStreamers"
+        v-for="topStream in topList"
         :key="topStream.id"
         class="rounded-lg flex justify-center overflow-hidden"
       >
@@ -62,9 +62,8 @@ import { LockClosedIcon } from "@heroicons/vue/solid";
 import store from "../src/store";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
-import { computed } from "vue";
-const router = useRouter();
 
+const router = useRouter();
 let loading = ref(false);
 let errorMsg = ref("");
 
@@ -74,7 +73,6 @@ store.dispatch("getUser").then(() => {
 
 function voteStreamerAds(ev) {
   ev.preventDefault();
-
   router.push({
     name: "StreamersVoteAds",
     params: {
@@ -84,48 +82,28 @@ function voteStreamerAds(ev) {
       voter: store.state.user.data.id,
     }
   });
-
-  console.log(ev.target.id, ev.target.name, store.state.user.data.id);
 }
-
 </script>
 
 <script>
-import fecth from "cross-fetch";
 export default {
   name: "Streamers",
   data: function () {
     return {
-      listOfStreamers: [],
-    };
+      topList: [],
+    }
   },
   components: {},
   methods: {
-    fetchStreamers: function () {
-      let fetchLink = "https://api.twitch.tv/helix/streams?first=100";
-      fecth(fetchLink, {
-        method: "get",
-        headers: {
-          Authorization: "Bearer e1wlww25qpoew82axu3m566feqzvaz",
-          "Client-Id": "xd72gmt643nbmegt9990z4c4iuvmc1",
-        },
+    getTopStreams: function(){
+      store.dispatch("getTopStreams").
+      then((data)=>{
+        this.topList = data;
       })
-        .then(function (response) {
-          return response.json();
-        })
-        .then((data) => {
-          console.log(data.data);
-          this.listOfStreamers = data.data;
-          this.listOfStreamers.forEach((element) => {
-            element.thumbnail_url = element.thumbnail_url
-              .replace("{width}", "262")
-              .replace("{height}", "147");
-          });
-        });
     },
   },
   mounted() {
-    this.fetchStreamers();
+    this.getTopStreams();
   },
 };
 </script>

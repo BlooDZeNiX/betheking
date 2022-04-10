@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TwitchController;
 use App\Http\Controllers\VoteController;
 
 /*
@@ -26,4 +27,8 @@ Route::middleware('auth:sanctum')->group(function() {
 Route::post('/signup', [AuthController::class, 'signUp']);
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::get('/getTopVoted', [Votecontroller::class, 'getTopVoted']);
 Route::post('/voteStreamer', [VoteController::class, 'voteStreamer']);
+
+Route::get('/getTopStreams', [TwitchController::class, 'getTopStreams']);
+Route::post('/getStreamer', [TwitchController::class, 'getStreamer']);

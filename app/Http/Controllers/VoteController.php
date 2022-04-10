@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\StreamVotes;
 use Illuminate\Http\Request;
@@ -44,5 +45,11 @@ class VoteController extends Controller
         return response([
             $vote,
         ]);
+    }
+
+    public function getTopVoted()
+    {
+        $topStreams = StreamVotes::all();
+        return $topStreams;
     }
 }

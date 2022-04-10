@@ -1,20 +1,21 @@
-<template>
+<template >
   <PageComponent title="">
-    <div>
-      <div class="rounded-lg flex justify-center overflow-hidden">
-        <!-- <img :src="`${img}`" alt="" /> -->
+    <div  >
+      <div id="1" v-on:click="ads" class="rounded-lg flex justify-center overflow-hidden">
         <iframe
           :src="`https://player.twitch.tv/?channel=${name}&parent=localhost&autoplay=false`"
            height="320"
            width="640"
     allowfullscreen>
+      <div v-on:click="ads" class="rounded-lg flex justify-center overflow-hidden">
+      </div>
 </iframe>
-        <!-- <p>{{name}}</p> -->
       </div>
       <br />
       <div class="rounded-lg flex justify-center overflow-hidden">
         <button
           v-on:click="voteStreamer"
+
           class="
             border border-black-600
             rounded-lg
@@ -47,7 +48,6 @@ const voteStream = {
 
 let loading = ref(false);
 let errorMsg = ref("");
-
 function voteStreamer(ev) {
   ev.preventDefault();
   voteStream.voter =
@@ -58,16 +58,14 @@ function voteStreamer(ev) {
     ev.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute(
       "streamer_id"
     );
-    console.log(voteStream)
     store.dispatch("voteStreamer", voteStream).
     then(() => {
-
+      console.log('voto realizado');
     })
 }
 </script>
 
 <script>
-import fecth from "cross-fetch";
 export default {
   name: "StreamersVoteAds",
   data: function () {
@@ -78,29 +76,20 @@ export default {
   },
   components: {},
   methods: {
-    clip: function () {
-      let fetchLink =
-        "https://api.twitch.tv/helix/users?id=" +
-        this.$route.params.streamer_id;
-      fecth(fetchLink, {
-        method: "get",
-        headers: {
-          Authorization: "Bearer e1wlww25qpoew82axu3m566feqzvaz",
-          "Client-Id": "xd72gmt643nbmegt9990z4c4iuvmc1",
-        },
-      })
-        .then(function (response) {
-          return response.json();
-        })
+    getStreamer: function () {
+      store.dispatch('getStreamer',  this.$route.params.streamer_id)
         .then((data) => {
-          console.log(data.data[0])
-          this.img = data.data[0]["profile_image_url"];
-          this.name = data.data[0]["display_name"];
+          this.img = data.data["offline_image_url"];
+          this.name = data.data["display_name"];
         });
     },
+    ads (ev){
+      ev.preventDefault();
+    console.log(this);
+    }
   },
   mounted() {
-    this.clip();
+    this.getStreamer();
   },
 };
 </script>
