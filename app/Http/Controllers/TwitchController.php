@@ -112,12 +112,10 @@ class TwitchController extends Controller
         }
     }
 
-    public function getGame($id)
+    public function getGame(Request $request)
     {
         $id = $request->all();
-        $data = Http::withHeaders($this->headers)
-            ->get("https://api.twitch.tv/helix/games?id=" . $id['id']);
-        $data = $data->json();
-        return $data;
+        $game = Games::where('id_game', '=', $id['id'])->get();
+        return $game;
     }
 }

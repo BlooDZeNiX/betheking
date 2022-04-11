@@ -6,7 +6,9 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\StreamVotes;
+use App\Models\GameVotes;
 use App\Models\Streamers;
+use App\Models\Games;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Testing\Fluent\Concerns\Has;
@@ -21,12 +23,12 @@ use Laravel\Sanctum\NewAccessToken;
  */
 class VoteController extends Controller
 {
-    public function voteGame($voteGame)
+    public function voteGame(Request $request)
     {
-        /** @var \App\Models\StreamVotes $vote */
-        $vote = StreamVotes::create([
-            'voter' => $vote['voter'],
-            'game_voted' => $vote['gameVoted'],
+        /** @var \App\Models\GameVotes $vote */
+        $vote = GameVotes::create([
+            'voter' => $request['voter'],
+            'game_voted' => $request['gameVoted'],
         ]);
 
         return response([
@@ -70,6 +72,23 @@ class VoteController extends Controller
             $topStreams[$key]['position'] = ++$i;
         }
 
-        return $topStreams;
+        $topGames = GameVotes::select('game_voted',
+                    GameVotes::raw('count("game_voted") as votes')
+                    )->groupBy('game_voted')
+                    ->orderByDesc('votes')
+                    ->take(10)->get()->toArray();
+        $i = 0;
+        foreach ($topGames as $key => $value) {
+            $id = $topGames[$key]['game_voted'];
+            $name = Games::select('name as game')
+            ->where(
+                'id_game',
+                "=",
+                $id
+            )->get()->toArray()[0]['game'];
+            $topGames[$key]['game_voted'] = $name;
+            $topGames[$key]['position'] = ++$i;
+        }
+        return ["topGames" => $topGames,"topStreams" => $topStreams];
     }
 }

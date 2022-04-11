@@ -276,6 +276,7 @@ import { computed } from "vue";
 import { useRouter } from "vue-router";
 
 const navigation = [
+  { name: "Hall of Fame", to: { name: "Home" } },
   { name: "Streamers", to: { name: "Streamers" } },
   { name: "Games", to: { name: "Games" } },
 ];

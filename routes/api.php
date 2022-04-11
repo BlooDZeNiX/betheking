@@ -29,7 +29,9 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/getTopVoted', [Votecontroller::class, 'getTopVoted']);
 Route::post('/voteStreamer', [VoteController::class, 'voteStreamer']);
+Route::post('/voteGame', [VoteController::class, 'voteGame']);
 
 Route::get('/getTopStreams', [TwitchController::class, 'getTopStreams']);
 Route::get('/getTopGames', [TwitchController::class, 'getTopGames']);
 Route::post('/getStreamer', [TwitchController::class, 'getStreamer']);
+Route::post('/getGame', [TwitchController::class, 'getGame']);

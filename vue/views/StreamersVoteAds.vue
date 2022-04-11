@@ -1,7 +1,7 @@
 <template >
   <PageComponent title="">
     <div  >
-      <div v-on:click="ads" class="rounded-lg flex justify-center overflow-hidden">
+      <div id="1" v-on:click="ads" class="rounded-lg flex justify-center overflow-hidden">
         <iframe
           :src="`https://player.twitch.tv/?channel=${name}&parent=localhost&autoplay=false`"
            height="320"

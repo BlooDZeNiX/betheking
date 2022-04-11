@@ -8,6 +8,7 @@ import Profile from "../views/Profile.vue"
 import DefaultLayout from "../src/components/DefaultLayout.vue"
 import AuthLayout from "../src/components/AuthLayout.vue"
 import StreamersVoteAds from "../views/StreamersVoteAds.vue"
+import GamesVoteAds from "../views/GamesVoteAds.vue"
 import store from '../src/store/index'
 
 const routes = [{
@@ -22,6 +23,7 @@ const routes = [{
             { path: '/Games', name: 'Games', component: Games },
             { path: '/Profile', name: 'Profile', component: Profile },
             { path: '/StreamersVoteAds', name: 'StreamersVoteAds', component: StreamersVoteAds, props: true },
+            { path: '/GamesVoteAds', name: 'GamesVoteAds', component: GamesVoteAds, props: true },
         ]
     },
     {

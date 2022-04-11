@@ -80,6 +80,13 @@ const store = createStore({
                     return store.state.voteStream.vote;
                 })
         },
+        voteGame({ commit }, voteGames) {
+            return axiosClient.post('/voteGame', voteGames)
+                .then(({ data }) => {
+                    commit('setVoteStream', data);
+                    return store.state.voteGame.vote;
+                })
+        },
         getTopStreams({ commit }) {
             return axiosClient.get('/getTopStreams')
                 .then(({ data }) => {
@@ -102,6 +109,13 @@ const store = createStore({
                     return store.state.voteStream.votingStreamer;
                 })
         },
+        getGame({ commit }, streamer_id) {
+            return axiosClient.post('/getGame', { id: streamer_id })
+                .then((data) => {
+                    commit('setVotingGame', data)
+                    return store.state.voteGame.votingGame;
+                })
+        },
         getTopVoted({ commit }) {
             return axiosClient.get('/getTopVoted')
                 .then((data) => {
@@ -122,8 +136,14 @@ const store = createStore({
         setVoteStream: (state, voteStream) => {
             state.voteStream.vote = voteStream;
         },
+        setVoteGame: (state, voteGame) => {
+            state.voteGame.vote = voteGame;
+        },
         setVotingStreamer: (state, votingStreamer) => {
             state.voteStream.votingStreamer = votingStreamer;
+        },
+        setVotingGame: (state, votingGame) => {
+            state.voteGame.votingGame = votingGame;
         },
         setTopStreams: (state, topStreams) => {
             state.topStreams = topStreams;

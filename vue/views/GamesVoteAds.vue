@@ -1,21 +1,13 @@
 <template >
   <PageComponent title="">
-    <div  >
-      <div v-on:click="ads" class="rounded-lg flex justify-center overflow-hidden">
-        <iframe
-          :src="`https://player.twitch.tv/?channel=${name}&parent=localhost&autoplay=false`"
-           height="320"
-           width="640"
-    allowfullscreen>
-      <div v-on:click="ads" class="rounded-lg flex justify-center overflow-hidden">
-      </div>
-</iframe>
+    <div>
+      <div class="rounded-lg flex justify-center overflow-hidden">
+        <img :src="`${img}`" :alt="`${name}`" />
       </div>
       <br />
       <div class="rounded-lg flex justify-center overflow-hidden">
         <button
-          v-on:click="voteStreamer"
-
+          v-on:click="voteGame"
           class="
             border border-black-600
             rounded-lg
@@ -41,33 +33,33 @@ import store from "../src/store";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 
-const voteStream = {
+const voteGames = {
   voter: "",
-  streamerVoted: "",
+  gameVoted: "",
 };
 
 let loading = ref(false);
 let errorMsg = ref("");
-function voteStreamer(ev) {
+function voteGame(ev) {
   ev.preventDefault();
-  voteStream.voter =
+  voteGames.voter =
     ev.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute(
       "voter"
     );
-  voteStream.streamerVoted =
+  voteGames.gameVoted =
     ev.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute(
-      "streamer_id"
+      "game_id"
     );
-    store.dispatch("voteStreamer", voteStream).
-    then(() => {
-      console.log('voto realizado');
-    })
+    console.log(voteGames);
+  store.dispatch("voteGame", voteGames).then(() => {
+    console.log("voto realizado");
+  });
 }
 </script>
 
 <script>
 export default {
-  name: "StreamersVoteAds",
+  name: "GamesVoteAds",
   data: function () {
     return {
       img: "",
@@ -76,20 +68,20 @@ export default {
   },
   components: {},
   methods: {
-    getStreamer: function () {
-      store.dispatch('getStreamer',  this.$route.params.streamer_id)
-        .then((data) => {
-          this.img = data.data["offline_image_url"];
-          this.name = data.data["display_name"];
-        });
+    getGame: function () {
+      store.dispatch("getGame", this.$route.params.game_id).then((data) => {
+        console.log(data.data);
+        this.img = data.data[0]["box_art_url"];
+        this.name = data.data[0]["name"];
+      });
     },
-    ads (ev){
+    ads(ev) {
       ev.preventDefault();
-    console.log(this);
-    }
+      console.log(this);
+    },
   },
   mounted() {
-    this.getStreamer();
+    this.getGame();
   },
 };
 </script>

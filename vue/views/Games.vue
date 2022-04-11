@@ -11,14 +11,28 @@
                 :alt="`${topGame.name}`"
               />
             </a>
-            <div class="  rounded-b-lg justify-center">
-              <div class=" text-center bg-gray-200 rounded-b-lg ">
+            <div class="rounded-b-lg justify-center">
+              <div class="text-center bg-gray-200 rounded-b-lg">
                 <div class="">
-                  <p class="text-gray-800 whitespace-nowrap font-bold px-1 pt-2 pb-2 text-ellipsis">
-                    {{ topGame.name.trim().slice(0,16) }}<span v-if="topGame.name.length > 17">...</span>
+                  <p
+                    class="
+                      text-gray-800
+                      whitespace-nowrap
+                      font-bold
+                      px-1
+                      pt-2
+                      pb-2
+                      text-ellipsis
+                    "
+                  >
+                    {{ topGame.name.trim().slice(0, 16)
+                    }}<span v-if="topGame.name.length > 17">...</span>
                   </p>
                 </div>
                 <button
+                  v-on:click="voteGameAds"
+                  :id="`${topGame.id}`"
+                  :name="`${topGame.name}`"
                   class="
                     border border-black-600
                     rounded-lg
@@ -45,11 +59,31 @@
 <script setup>
 import PageComponent from "../src/components/PageComponent.vue";
 import store from "../src/store";
+import { useRouter } from "vue-router";
+import { ref } from "vue";
+
+
+const router = useRouter();
+let loading = ref(false);
+let errorMsg = ref("");
+
+store.dispatch("getUser").then(() => {
+  return store.state.user.data.id;
+});
+
+function voteGameAds(ev) {
+  ev.preventDefault();
+  router.push({
+    name: "GamesVoteAds",
+    params: {
+      game_id: ev.target.id,
+      title: "Voting " + ev.target.name,
+      voter: store.state.user.data.id,
+    },
+  });
+}
 </script>
 <script>
-import fecth from "cross-fetch";
-import { createElementBlock } from "@vue/runtime-core";
-
 export default {
   name: "Games",
   data: function () {
@@ -59,13 +93,11 @@ export default {
   },
   components: {},
   methods: {
-  getTopGames: function () {
-     store.dispatch("getTopGames").
-      then((data)=>{
-        console.log(data);
+    getTopGames: function () {
+      store.dispatch("getTopGames").then((data) => {
         this.topGames = data;
-      })
-  },
+      });
+    },
   },
   mounted() {
     this.getTopGames();

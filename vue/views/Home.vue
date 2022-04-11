@@ -20,7 +20,7 @@
               <th scope="col" class="px-6 py-3">Votes</th>
             </tr>
           </thead>
-          <tbody v-for="votes in topVoted.data" :key="votes.id">
+          <tbody v-for="votes in topVoted.streamers" :key="votes.id">
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
               <th
                 scope="row"
@@ -59,7 +59,7 @@
               <th scope="col" class="px-6 py-3">Votes</th>
             </tr>
           </thead>
-          <tbody v-for="votes in topVoted.data" :key="votes.id">
+          <tbody v-for="votes in topVoted.games" :key="votes.id">
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
               <th
                 scope="row"
@@ -74,7 +74,7 @@
               >
                 {{votes.position}}
               </th>
-              <td class="px-6 py-4">{{votes.streamer_voted}}</td>
+              <td class="px-6 py-4">{{votes.game_voted}}</td>
               <td class="px-6 py-4">{{votes.votes}}</td>
             </tr>
           </tbody>
@@ -98,7 +98,7 @@
               <th scope="col" class="px-6 py-3">Votes</th>
             </tr>
           </thead>
-          <tbody v-for="votes in topVoted.data" :key="votes.id">
+          <tbody v-for="votes in topVoted.streamers" :key="votes.id">
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
               <th
                 scope="row"
@@ -153,8 +153,9 @@ export default {
   methods: {
     getTopVoted: function () {
       store.dispatch("getTopVoted").then((data) => {
-        console.log(data.data);
-        this.topVoted = data;
+        this.topVoted.streamers = data.data.topStreams;
+        this.topVoted.games = data.data.topGames;
+        console.log(this.topVoted)
       });
     },
   },
