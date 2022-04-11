@@ -13,7 +13,7 @@ import store from '../src/store/index'
 const routes = [{
         path: "/",
         redirect: "/Home",
-        name: "Streamers",
+        name: "Home",
         component: DefaultLayout,
         meta: { requiresAuth: true },
         children: [
