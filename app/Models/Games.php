@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Games extends Model
 {
     use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'id_game',
+        'box_art_url',
+        'name',
+    ];
 }

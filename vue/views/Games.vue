@@ -1,7 +1,7 @@
 <template>
   <PageComponent title="Games">
     <div class="grid" id="topGames">
-      <div v-for="topGame in listOfGames" :key="topGame.id">
+      <div v-for="topGame in topGames" :key="topGame.id">
         <div class="rounded-lg flex justify-center overflow-hidden m-1">
           <card>
             <a href="#">
@@ -44,6 +44,7 @@
 
 <script setup>
 import PageComponent from "../src/components/PageComponent.vue";
+import store from "../src/store";
 </script>
 <script>
 import fecth from "cross-fetch";
@@ -53,36 +54,21 @@ export default {
   name: "Games",
   data: function () {
     return {
-      listOfGames: [],
+      topGames: [],
     };
   },
   components: {},
   methods: {
-    fetchGames: function () {
-      let fetchLink = "https://api.twitch.tv/helix/games/top?first=100";
-      fecth(fetchLink, {
-        method: "get",
-        headers: {
-          Authorization: "Bearer e1wlww25qpoew82axu3m566feqzvaz",
-          "Client-Id": "xd72gmt643nbmegt9990z4c4iuvmc1",
-        },
+  getTopGames: function () {
+     store.dispatch("getTopGames").
+      then((data)=>{
+        console.log(data);
+        this.topGames = data;
       })
-        .then(function (response) {
-          return response.json();
-        })
-        .then((data) => {
-          console.log(data.data);
-          this.listOfGames = data.data;
-          this.listOfGames.forEach((element) => {
-            element.box_art_url = element.box_art_url
-              .replace("{width}", "180")
-              .replace("{height}", "240");
-          });
-        });
-    },
+  },
   },
   mounted() {
-    this.fetchGames();
+    this.getTopGames();
   },
 };
 </script>

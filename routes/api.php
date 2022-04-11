@@ -31,4 +31,5 @@ Route::get('/getTopVoted', [Votecontroller::class, 'getTopVoted']);
 Route::post('/voteStreamer', [VoteController::class, 'voteStreamer']);
 
 Route::get('/getTopStreams', [TwitchController::class, 'getTopStreams']);
+Route::get('/getTopGames', [TwitchController::class, 'getTopGames']);
 Route::post('/getStreamer', [TwitchController::class, 'getStreamer']);

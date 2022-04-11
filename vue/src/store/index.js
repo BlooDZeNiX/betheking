@@ -87,6 +87,13 @@ const store = createStore({
                     return store.state.topStreams;
                 })
         },
+        getTopGames({ commit }) {
+            return axiosClient.get('/getTopGames')
+                .then(({ data }) => {
+                    commit('setTopGames', data)
+                    return store.state.topGames;
+                })
+        },
 
         getStreamer({ commit }, streamer_id) {
             return axiosClient.post('/getStreamer', { id: streamer_id })
@@ -120,6 +127,9 @@ const store = createStore({
         },
         setTopStreams: (state, topStreams) => {
             state.topStreams = topStreams;
+        },
+        setTopGames: (state, topGames) => {
+            state.topGames = topGames;
         },
         setTopVoted: (state, topVoted) => {
             state.topVoted = topVoted;

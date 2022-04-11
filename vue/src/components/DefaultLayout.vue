@@ -5,12 +5,14 @@
         <div class="flex items-center justify-between h-24">
           <div class="flex items-center">
             <div class="flex-shrink-0">
-              <img
-                class=""
-                src="../assets/images/betheking.png"
-                alt="Logo"
-                style="height: 5rem"
-              />
+              <router-link :to="{ name: 'Home' }">
+                <img
+                  class=" "
+                  src="../assets/images/betheking.png"
+                  alt="Logo"
+                  style="height: 5rem"
+                />
+              </router-link>
             </div>
             <div class="hidden md:block">
               <div class="ml-10 flex items-baseline space-x-4">
@@ -21,7 +23,7 @@
                   active-class=""
                   :class="[
                     this.$route.name === item.to.name
-                      ? 'bg-gray-900 text-teal-700'
+                      ? 'bg-gray-700 text-white border-2 border-teal-700'
                       : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                     'px-3 py-2 rounded-md text-sm font-medium',
                   ]"
@@ -43,6 +45,8 @@
                     rounded-lg
                     text-sm
                     focus:outline-none
+                    focus:ring focus:ring-teal-700
+                    focus:border-gray-900
                   "
                   type="search"
                   name="search"
@@ -97,7 +101,8 @@
                   >
                     <span class="sr-only">Open user menu</span>
                     <img
-                      class="h-8 w-8 rounded-full"
+                      class="h-8 w-8 rounded-full hover:ring hover:ring-teal-700
+                    hover:border-gray-900"
                       :src="user.imageUrl"
                       alt=""
                     />
@@ -317,6 +322,7 @@ export default {
       userNavigation,
       logout,
       profile,
+
     };
   },
 };
