@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('streamers', function (Blueprint $table) {
             $table->id();
-            $table->string('id_streamer');
+            $table->unsignedBigInteger('id_streamer');
             $table->string('broadcaster_type');
             $table->string('description');
             $table->string('display_name');

@@ -8,13 +8,11 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "@handsontable/vue3": "^11.1.0",
         "@headlessui/vue": "^1.5.0",
         "@heroicons/vue": "^1.0.5",
         "axios": "^0.26.1",
         "cross-env": "^7.0.3",
         "cross-fetch": "^3.1.5",
-        "handsontable": "^11.1.0",
         "vue": "^3.2.25",
         "vue-router": "^4.0.12",
         "vuex": "^4.0.2"

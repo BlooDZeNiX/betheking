@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('streams', function (Blueprint $table) {
             $table->id();
-            $table->string('id_streamer')->unique();
+            $table->unsignedBigInteger('id_streamer')->unique();
             $table->string('language');
             $table->string('source');
             $table->string('user_login');

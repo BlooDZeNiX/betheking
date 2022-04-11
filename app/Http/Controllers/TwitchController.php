@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Streams;
 use App\Models\Streamers;
-
+use App\Models\Games;
+use Brick\Math\BigInteger;
 use Illuminate\Support\Facades\Http;
 
 /**
@@ -38,7 +39,8 @@ class TwitchController extends Controller
         }
         return $response;
     }
-    public function SetStream($data)
+
+    public function setStream($data)
     {
         /** @var \App\Models\Streams $stream */
         $stream = Streams::where('id_streamer', $data['id'])->first();
@@ -58,11 +60,12 @@ class TwitchController extends Controller
     {
         $id = $request->all();
         $data = Http::withHeaders($this->headers)
-            ->get("https://api.twitch.tv/helix/users?id=" . $id['id']);
+            ->get("https://api.twitch.tv/helix/users?id=" .$id['id']);
         $data = $data->json();
         return $this->setStreamer($data, $id['id']);
 
     }
+
     public function setStreamer($data, $id)
     {
 
@@ -79,5 +82,42 @@ class TwitchController extends Controller
             ]);
         }
         return $streamer;
+    }
+
+    public function getTopGames()
+    {
+        $data = Http::withHeaders($this->headers)
+            ->get("https://api.twitch.tv/helix/games/top?first=100");
+        $data = $data->json();
+        $response = $data['data'];
+        foreach ($response as $key => $value) {
+            $response[$key]['box_art_url'] = str_replace("{width}", "180", $response[$key]['box_art_url']);
+            $response[$key]['box_art_url'] = str_replace("{height}", "240", $response[$key]['box_art_url']);
+            $this->setGame($response[$key]);
+        }
+
+        return $response;
+    }
+
+    public function setGame($data)
+    {
+        /** @var \App\Models\Games $Game */
+        $game = Games::where('id_game', $data['id'])->first();
+        if (!$game) {
+            Games::create([
+                'id_game' => $data['id'],
+                'box_art_url' => $data['box_art_url'],
+                'name' => $data['name'],
+            ]);
+        }
+    }
+
+    public function getGame($id)
+    {
+        $id = $request->all();
+        $data = Http::withHeaders($this->headers)
+            ->get("https://api.twitch.tv/helix/games?id=" . $id['id']);
+        $data = $data->json();
+        return $data;
     }
 }
