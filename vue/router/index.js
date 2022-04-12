@@ -4,6 +4,7 @@ import Streamers from '../views/Streamers.vue'
 import Voters from '../views/Voters.vue'
 import Login from '../views/Login.vue'
 import SignUp from "../views/SignUp.vue"
+import PasswordRecovery from "../views/PasswordRecovery.vue"
 import Games from "../views/Games.vue"
 import Profile from "../views/Profile.vue"
 import DefaultLayout from "../src/components/DefaultLayout.vue"
@@ -42,6 +43,10 @@ const routes = [{
                 path: "/signup",
                 name: "SignUp",
                 component: SignUp,
+            }, {
+                path: "/passwordRecovery",
+                name: "PasswordRecovery",
+                component: PasswordRecovery,
             },
         ]
     },

@@ -11,13 +11,13 @@
           />
         </div>
         <h2 class="mt-6 text-center text-4xl font-extrabold text-gray-900">
-          Sign into your account
+          Sign in to your account
         </h2>
         <p class="mt-2 font-medium text-center text-sm text-gray-900">
           Do you need an account?
           <router-link :to="{ name: 'SignUp' }" class="font-medium"
             ><span class="text-white hover-greenwater"
-              >click here</span
+              >Click here</span
             ></router-link
           >
         </p>
@@ -74,9 +74,14 @@
           </div>
 
           <div class="text-sm text-white">
-            <a href="#" class="font-medium">
-              <p class="text-white hover-greenwater">Forgot your password?</p>
-            </a>
+            <router-link
+              :to="{ name: 'PasswordRecovery' }"
+              class="font-medium text-indigo-600 hover:text-indigo-500"
+            >
+              <span class="text-white hover-greenwater"
+                >Forgot your password?</span
+              ></router-link
+            >
           </div>
         </div>
 
@@ -134,11 +139,9 @@
   display: block;
   position: relative;
 }
-#email-address:focus{
-  border-color: #24728A;
-}
-#password:focus{
-  border-color: #24728A;
+input:focus {
+  border-color: #24728a;
+  z-index: 10;
 }
 </style>
 <script setup>

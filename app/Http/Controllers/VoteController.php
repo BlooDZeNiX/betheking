@@ -38,7 +38,6 @@ class VoteController extends Controller
 
     public function voteStreamer(Request $request)
     {
-        // return dd($voteStream);
         /** @var \App\Models\StreamVotes $vote */
         $vote = StreamVotes::create([
             'voter' => $request['voter'],
@@ -49,6 +48,17 @@ class VoteController extends Controller
             $vote,
         ]);
     }
+
+    public function getUserVotes(Request $request)
+    {
+        $streamVotes = StreamVotes::where('voter', '=', $request['user_id'])->get();
+        $gameVotes = GameVotes::where('voter', '=', $request['user_id'])->get();
+
+        return ['streamVotes' => $streamVotes,
+                'gameVotes' => $gameVotes,
+        ];
+    }
+
 
     public function getTopVoted()
     {

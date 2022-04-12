@@ -12,10 +12,10 @@
                   <span class="text-gray-900 font-bold text-xl leading-8 my-1">
                     {{ user.name }}
                   </span>
-                  <button
+                  <span
                     class="bg-teal-700 py-1 px-2 rounded text-gray-200 text-sm"
-                    >edit</button>
-
+                    >edit</span
+                  >
                 </li>
                 <li class="flex items-center py-3 justify-between">
                   <span class="text-gray-400 text-s my-1">
@@ -106,12 +106,8 @@ export default {
   name: "Profile",
   data: function () {},
   components: {},
-  methods: {
-
-  },
-  mounted() {
-
-  },
+  methods: {},
+  mounted() {},
   setup() {
     const store = useStore();
     const router = useRouter();
