@@ -38,3 +38,8 @@
 .bg-custom-greenwater {
     background-color: #24728A;
 }
+
+.hover-greenwater:hover {
+    background-color: #24728A;
+    border-color: darkslategrey;
+}

@@ -1,8 +1,8 @@
 <template>
   <div>
        <div>
-      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign Up</h2>
-      <p class="mt-2 text-center text-sm text-gray-600">
+      <h2 class="mt-6 text-center text-4xl font-extrabold text-gray-900">Sign Up</h2>
+      <p class="mt-2 font-medium text-center text-sm text-gray-900">
         If you are registered
         <router-link :to="{name: 'Login'}" class="font-medium text-indigo-600 hover:text-indigo-500">Login</router-link>
         to your account

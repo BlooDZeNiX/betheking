@@ -1,6 +1,6 @@
 <template>
-  <div class="h-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-8">
+  <div class="h-fit flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-teal-700" style="height:100vh">
+    <div class="max-w-md w-full  space-y-8 bg-teal-700">
      <router-view></router-view>
     </div>
   </div>
@@ -20,6 +20,4 @@ export default {
   },
 }
 </script>
-<style scoped>
 
-</style>

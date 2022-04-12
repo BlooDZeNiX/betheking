@@ -7,7 +7,6 @@
             <div class="flex-shrink-0">
               <router-link :to="{ name: 'Home' }">
                 <img
-                  class=" "
                   src="../assets/images/betheking.png"
                   alt="Logo"
                   style="height: 5rem"

@@ -41,7 +41,7 @@
                     bg-gray-800
                     font-semibold
                     leading-relaxed
-                    hover:bg-teal-700
+                    hover-greenwater
                     mb-2
                   "
                 >
