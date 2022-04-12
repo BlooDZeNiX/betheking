@@ -1,21 +1,27 @@
 <template >
   <PageComponent title="">
-    <div  >
-      <div id="1" v-on:click="ads" class="rounded-lg flex justify-center overflow-hidden">
+    <div>
+      <div
+        id="1"
+        v-on:click="ads"
+        class="rounded-lg flex justify-center overflow-hidden"
+      >
         <iframe
           :src="`https://player.twitch.tv/?channel=${name}&parent=localhost&autoplay=false`"
-           height="320"
-           width="640"
-    allowfullscreen>
-      <div v-on:click="ads" class="rounded-lg flex justify-center overflow-hidden">
-      </div>
-</iframe>
+          height="320"
+          width="640"
+          allowfullscreen
+        >
+          <div
+            v-on:click="ads"
+            class="rounded-lg flex justify-center overflow-hidden"
+          ></div>
+        </iframe>
       </div>
       <br />
       <div class="rounded-lg flex justify-center overflow-hidden">
         <button
           v-on:click="voteStreamer"
-
           class="
             border border-black-600
             rounded-lg
@@ -58,10 +64,9 @@ function voteStreamer(ev) {
     ev.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute(
       "streamer_id"
     );
-    store.dispatch("voteStreamer", voteStream).
-    then(() => {
-      console.log('voto realizado');
-    })
+  store.dispatch("voteStreamer", voteStream).then(() => {
+    console.log("voto realizado");
+  });
 }
 </script>
 
@@ -77,16 +82,17 @@ export default {
   components: {},
   methods: {
     getStreamer: function () {
-      store.dispatch('getStreamer',  this.$route.params.streamer_id)
+      store
+        .dispatch("getStreamer", this.$route.params.streamer_id)
         .then((data) => {
           this.img = data.data["offline_image_url"];
           this.name = data.data["display_name"];
         });
     },
-    ads (ev){
+    ads(ev) {
       ev.preventDefault();
-    console.log(this);
-    }
+      console.log(this);
+    },
   },
   mounted() {
     this.getStreamer();

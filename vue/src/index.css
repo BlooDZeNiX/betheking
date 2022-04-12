@@ -1,6 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*Grid for Games*/
+
 .grid {
     display: grid;
     gap: 1.2rem;
@@ -8,9 +11,30 @@
     grid-template-columns: repeat(auto-fill, minmax(11.5rem, 1fr));
 }
 
+
+/*Grid for Streamers*/
+
 .grid2 {
     display: grid;
     gap: 1.2rem;
     grid-auto-rows: 14rem;
     grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+}
+
+
+/*Grid for Tables*/
+
+.grid3 {
+    display: grid;
+    gap: 1.2rem;
+    /* grid-auto-rows: 50rem; */
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 7fr));
+}
+
+.text-custom-greenwater {
+    color: #24728A;
+}
+
+.bg-custom-greenwater {
+    background-color: #24728A;
 }

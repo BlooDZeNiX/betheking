@@ -80,7 +80,7 @@ function voteStreamerAds(ev) {
       login: ev.target.id,
       title: "Voting " + ev.target.name,
       voter: store.state.user.data.id,
-    }
+    },
   });
 }
 </script>
@@ -91,15 +91,14 @@ export default {
   data: function () {
     return {
       topList: [],
-    }
+    };
   },
   components: {},
   methods: {
-    getTopStreams: function(){
-      store.dispatch("getTopStreams").
-      then((data)=>{
+    getTopStreams: function () {
+      store.dispatch("getTopStreams").then((data) => {
         this.topList = data;
-      })
+      });
     },
   },
   mounted() {

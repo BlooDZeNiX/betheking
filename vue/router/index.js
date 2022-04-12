@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Streamers from '../views/Streamers.vue'
+import Voters from '../views/Voters.vue'
 import Login from '../views/Login.vue'
 import SignUp from "../views/SignUp.vue"
 import Games from "../views/Games.vue"
@@ -21,6 +22,7 @@ const routes = [{
             { path: '/Home', name: 'Home', component: Home },
             { path: '/Streamers', name: 'Streamers', component: Streamers },
             { path: '/Games', name: 'Games', component: Games },
+            { path: '/Voters', name: 'Voters', component: Voters },
             { path: '/Profile', name: 'Profile', component: Profile },
             { path: '/StreamersVoteAds', name: 'StreamersVoteAds', component: StreamersVoteAds, props: true },
             { path: '/GamesVoteAds', name: 'GamesVoteAds', component: GamesVoteAds, props: true },
