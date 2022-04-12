@@ -124,7 +124,7 @@
             >
               <tr>
                 <th scope="col" class="px-6 py-3">#</th>
-                <th scope="col" class="px-6 py-3">Youtuber</th>
+                <th scope="col" class="px-6 py-3">Voter</th>
                 <th scope="col" class="px-6 py-3">Votes</th>
               </tr>
             </thead>
@@ -185,7 +185,6 @@ export default {
       store.dispatch("getTopVoted").then((data) => {
         this.topVoted.streamers = data.data.topStreams;
         this.topVoted.games = data.data.topGames;
-        console.log(this.topVoted);
       });
     },
   },
