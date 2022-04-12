@@ -1,126 +1,156 @@
 <template>
   <PageComponent title="Hall of Fame">
     <div>
-      <div class="w-full flex relative">
-      <div class="w-1/3 pr-1">
-        <table
-          class="w-full text-sm text-left text-gray-500 dark:text-gray-400 overflow-x-auto shadow-md sm:rounded-lg"
-        >
-          <thead
+      <!-- <h1>Actual King is {{topVoted.streamers[0]['streamer_voted']}} playing {{topVoted.games[0]['game_voted']}}</h1> -->
+      <div class="w-full flex relative grid3">
+        <div class="pr-1">
+          <table
             class="
-              text-xs text-gray-700
-              uppercase
-              bg-gray-50
-              dark:bg-gray-700 dark:text-gray-400
+              w-full
+              text-sm text-left text-gray-500
+              dark:text-gray-400
+              overflow-x-auto
+              shadow-md
+              sm:rounded-lg
             "
           >
-            <tr>
-              <th scope="col" class="px-6 py-3"> # </th>
-              <th scope="col" class="px-6 py-3">Streamer</th>
-              <th scope="col" class="px-6 py-3">Votes</th>
-            </tr>
-          </thead>
-          <tbody v-for="votes in topVoted.streamers" :key="votes.id">
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th
-                scope="row"
-                class="
-                  px-6
-                  py-4
-                  font-medium
-                  text-gray-900
-                  dark:text-white
-                  whitespace-nowrap
-                "
+            <thead
+              class="
+                text-xs text-white
+                uppercase
+                bg-gray-700
+                dark:bg-gray-700 dark:text-gray-400
+                shadow-md
+                sm:rounded-lg
+              "
+            >
+              <tr>
+                <th scope="col" class="px-6 py-3">#</th>
+                <th scope="col" class="px-6 py-3">Streamer</th>
+                <th scope="col" class="px-6 py-3">Votes</th>
+              </tr>
+            </thead>
+            <tbody v-for="votes in topVoted.streamers" :key="votes.id">
+              <tr
+                :class="{
+                  'bg-teal-700 border-b text-white text-white dark:text-white text-base shadow-md sm:rounded-lg':
+                    votes.position == 1,
+                  'bg-custom-greenwater border-b dark:bg-gray-800 dark:border-gray-700 text-white dark:text-white text-base shadow-md sm:rounded-lg':
+                    votes.position == 2,
+                  'bg-zinc-400 border-b dark:bg-gray-800 dark:border-gray-700 text-white dark:text-white text-base shadow-md sm:rounded-lg':
+                    votes.position == 3,
+                  'bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-gray-500 dark:text-white':
+                    votes.position > 3,
+                }"
               >
-                {{votes.position}}
-              </th>
-              <td class="px-6 py-4">{{votes.streamer_voted}}</td>
-              <td class="px-6 py-4">{{votes.votes}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="w-1/3 pr-1">
-         <table
-          class="w-full text-sm text-left text-gray-500 dark:text-gray-400 overflow-x-auto shadow-md sm:rounded-lg"
-        >
-          <thead
+                <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                  {{ votes.position }}
+                </th>
+                <td class="px-6 py-4">{{ votes.streamer_voted }}</td>
+                <td class="px-6 py-4">{{ votes.votes }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pr-1">
+          <table
             class="
-              text-xs text-gray-700
-              uppercase
-              bg-gray-50
-              dark:bg-gray-700 dark:text-gray-400
+              w-full
+              text-sm text-left text-gray-500
+              dark:text-gray-400
+              overflow-x-auto
+              shadow-md
+              sm:rounded-lg
             "
           >
-            <tr>
-              <th scope="col" class="px-6 py-3"> # </th>
-              <th scope="col" class="px-6 py-3">Game</th>
-              <th scope="col" class="px-6 py-3">Votes</th>
-            </tr>
-          </thead>
-          <tbody v-for="votes in topVoted.games" :key="votes.id">
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th
-                scope="row"
-                class="
-                  px-6
-                  py-4
-                  font-medium
-                  text-gray-900
-                  dark:text-white
-                  whitespace-nowrap
-                "
+            <thead
+              class="
+                text-xs text-white
+                uppercase
+                bg-gray-700
+                dark:bg-gray-700 dark:text-gray-400
+                shadow-md
+                sm:rounded-lg
+              "
+            >
+              <tr>
+                <th scope="col" class="px-6 py-3">#</th>
+                <th scope="col" class="px-6 py-3">Game</th>
+                <th scope="col" class="px-6 py-3">Votes</th>
+              </tr>
+            </thead>
+            <tbody v-for="votes in topVoted.games" :key="votes.id">
+              <tr
+                :class="{
+                  'bg-teal-700 border-b text-white text-white dark:text-white text-base shadow-md sm:rounded-lg':
+                    votes.position == 1,
+                  'bg-custom-greenwater border-b dark:bg-gray-800 dark:border-gray-700 text-white dark:text-white text-base shadow-md sm:rounded-lg':
+                    votes.position == 2,
+                  'bg-zinc-400 border-b dark:bg-gray-800 dark:border-gray-700 text-white dark:text-white text-base shadow-md sm:rounded-lg':
+                    votes.position == 3,
+                  'bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-gray-500 dark:text-white':
+                    votes.position > 3,
+                }"
               >
-                {{votes.position}}
-              </th>
-              <td class="px-6 py-4">{{votes.game_voted}}</td>
-              <td class="px-6 py-4">{{votes.votes}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="w-1/3">
-         <table
-          class="w-full text-sm text-left text-gray-500 dark:text-gray-400 overflow-x-auto shadow-md sm:rounded-lg"
-        >
-          <thead
+                <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                  {{ votes.position }}
+                </th>
+                <td class="px-6 py-4">{{ votes.game_voted }}</td>
+                <td class="px-6 py-4">{{ votes.votes }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="">
+          <table
             class="
-              text-xs text-gray-700
-              uppercase
-              bg-gray-50
-              dark:bg-gray-700 dark:text-gray-400
+              w-full
+              text-sm text-left text-gray-500
+              dark:text-gray-400
+              overflow-x-auto
+              shadow-md
+              sm:rounded-lg
             "
           >
-            <tr>
-              <th scope="col" class="px-6 py-3"> # </th>
-              <th scope="col" class="px-6 py-3">Youtuber</th>
-              <th scope="col" class="px-6 py-3">Votes</th>
-            </tr>
-          </thead>
-          <tbody v-for="votes in topVoted.streamers" :key="votes.id">
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-              <th
-                scope="row"
-                class="
-                  px-6
-                  py-4
-                  font-medium
-                  text-gray-900
-                  dark:text-white
-                  whitespace-nowrap
-                "
+            <thead
+              class="
+                text-xs text-white
+                uppercase
+                bg-gray-700
+                dark:bg-gray-700 dark:text-gray-400
+                shadow-md
+                sm:rounded-lg
+              "
+            >
+              <tr>
+                <th scope="col" class="px-6 py-3">#</th>
+                <th scope="col" class="px-6 py-3">Youtuber</th>
+                <th scope="col" class="px-6 py-3">Votes</th>
+              </tr>
+            </thead>
+            <tbody v-for="votes in topVoted.streamers" :key="votes.id">
+              <tr
+                :class="{
+                  'bg-teal-700 border-b text-white text-white dark:text-white text-base shadow-md sm:rounded-lg':
+                    votes.position == 1,
+                  'bg-custom-greenwater border-b dark:bg-gray-800 dark:border-gray-700 text-white dark:text-white text-base shadow-md sm:rounded-lg':
+                    votes.position == 2,
+                  'bg-zinc-400 border-b dark:bg-gray-800 dark:border-gray-700 text-white dark:text-white text-base shadow-md sm:rounded-lg':
+                    votes.position == 3,
+                  'bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-gray-500 dark:text-white':
+                    votes.position > 3,
+                }"
               >
-               {{votes.position}}
-              </th>
-              <td class="px-6 py-4">{{votes.streamer_voted}}</td>
-              <td class="px-6 py-4">{{votes.votes}}</td>
-            </tr>
-          </tbody>
-        </table>
+                <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                  {{ votes.position }}
+                </th>
+                <td class="px-6 py-4">{{ votes.streamer_voted }}</td>
+                <td class="px-6 py-4">{{ votes.votes }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-      </div>
-
     </div>
   </PageComponent>
 </template>
@@ -155,7 +185,7 @@ export default {
       store.dispatch("getTopVoted").then((data) => {
         this.topVoted.streamers = data.data.topStreams;
         this.topVoted.games = data.data.topGames;
-        console.log(this.topVoted)
+        console.log(this.topVoted);
       });
     },
   },

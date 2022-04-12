@@ -60,10 +60,9 @@ class TwitchController extends Controller
     {
         $id = $request->all();
         $data = Http::withHeaders($this->headers)
-            ->get("https://api.twitch.tv/helix/users?id=" .$id['id']);
+            ->get("https://api.twitch.tv/helix/users?id=" . $id['id']);
         $data = $data->json();
         return $this->setStreamer($data, $id['id']);
-
     }
 
     public function setStreamer($data, $id)
@@ -72,7 +71,7 @@ class TwitchController extends Controller
         /** @var \App\Models\Streamers $streamer */
         $streamer = Streamers::where('id_streamer', $id)->first();
         if (!$streamer) {
-           $streamer =  Streamers::create([
+            $streamer =  Streamers::create([
                 'id_streamer' => $id,
                 'broadcaster_type' => $data['data'][0]['broadcaster_type'],
                 'description' => $data['data'][0]['description'],

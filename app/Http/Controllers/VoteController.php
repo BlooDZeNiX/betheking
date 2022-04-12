@@ -72,23 +72,24 @@ class VoteController extends Controller
             $topStreams[$key]['position'] = ++$i;
         }
 
-        $topGames = GameVotes::select('game_voted',
-                    GameVotes::raw('count("game_voted") as votes')
-                    )->groupBy('game_voted')
-                    ->orderByDesc('votes')
-                    ->take(10)->get()->toArray();
+        $topGames = GameVotes::select(
+            'game_voted',
+            GameVotes::raw('count("game_voted") as votes')
+        )->groupBy('game_voted')
+            ->orderByDesc('votes')
+            ->take(10)->get()->toArray();
         $i = 0;
         foreach ($topGames as $key => $value) {
             $id = $topGames[$key]['game_voted'];
             $name = Games::select('name as game')
-            ->where(
-                'id_game',
-                "=",
-                $id
-            )->get()->toArray()[0]['game'];
+                ->where(
+                    'id_game',
+                    "=",
+                    $id
+                )->get()->toArray()[0]['game'];
             $topGames[$key]['game_voted'] = $name;
             $topGames[$key]['position'] = ++$i;
         }
-        return ["topGames" => $topGames,"topStreams" => $topStreams];
+        return ["topGames" => $topGames, "topStreams" => $topStreams];
     }
 }

@@ -279,6 +279,7 @@ const navigation = [
   { name: "Hall of Fame", to: { name: "Home" } },
   { name: "Streamers", to: { name: "Streamers" } },
   { name: "Games", to: { name: "Games" } },
+  { name: "Voters", to: { name: "Voters" } },
 ];
 const userNavigation = [
   { name: "Profile", href: "#", f: "profile" },

@@ -50,7 +50,7 @@ function voteGame(ev) {
     ev.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute(
       "game_id"
     );
-    console.log(voteGames);
+  console.log(voteGames);
   store.dispatch("voteGame", voteGames).then(() => {
     console.log("voto realizado");
   });
