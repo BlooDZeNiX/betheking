@@ -128,7 +128,7 @@
                 <th scope="col" class="px-6 py-3">Votes</th>
               </tr>
             </thead>
-            <tbody v-for="votes in topVoted.streamers" :key="votes.id">
+            <tbody v-for="votes in topVoted.voters" :key="votes.voter">
               <tr
                 :class="{
                   'bg-teal-700 border-b text-white text-white dark:text-white text-base shadow-md sm:rounded-lg':
@@ -144,7 +144,7 @@
                 <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
                   {{ votes.position }}
                 </th>
-                <td class="px-6 py-4">{{ votes.streamer_voted }}</td>
+                <td class="px-6 py-4">{{ votes.voter }}</td>
                 <td class="px-6 py-4">{{ votes.votes }}</td>
               </tr>
             </tbody>
@@ -176,6 +176,7 @@ export default {
       topVoted: {
         streamers: [],
         games: [],
+        voters: [],
       },
     };
   },
@@ -185,6 +186,8 @@ export default {
       store.dispatch("getTopVoted").then((data) => {
         this.topVoted.streamers = data.data.topStreams;
         this.topVoted.games = data.data.topGames;
+        this.topVoted.voters = data.data.topVoters;
+        console.log(this.topVoted)
       });
     },
   },

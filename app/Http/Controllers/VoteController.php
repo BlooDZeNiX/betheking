@@ -59,7 +59,6 @@ class VoteController extends Controller
         ];
     }
 
-
     public function getTopVoted()
     {
         $topStreams = StreamVotes::select(
@@ -100,6 +99,19 @@ class VoteController extends Controller
             $topGames[$key]['game_voted'] = $name;
             $topGames[$key]['position'] = ++$i;
         }
-        return ["topGames" => $topGames, "topStreams" => $topStreams];
+
+        $streamVotes = StreamVotes::select('voter', StreamVotes::raw('count("voter") as votes'))->groupBy('voter')->get()->toArray();
+        $gameVotes = GameVotes::select('voter', GameVotes::raw('count("voter") as votes'))->groupBy('voter')->get()->toArray();
+        $i = 0;
+        foreach ($gameVotes as $key => $value) {
+            foreach ($streamVotes as $key2 => $value2) {
+                if($value['voter'] == $value2['voter']){
+                    $votes[] = ["voter" => User::select('username')->where('id', '=', $value['voter'])->get()->toArray()[0]['username']  , "votes" => $value['votes']+$value2['votes'], "position" => ++$i];
+                }
+            }
+        }
+
+
+        return ["topGames" => $topGames, "topStreams" => $topStreams, "topVoters" =>  $votes,];
     }
 }

@@ -10,7 +10,7 @@
               <ul class="text-gray-600 px-3 mt-3 divide-y rounded shadow-sm">
                 <li class="flex items-center justify-between">
                   <span class="text-gray-900 font-bold text-xl leading-8 my-1">
-                    {{ user.name }}
+                    {{ user.username }}
                   </span>
                   <button
                     class="bg-teal-700 py-1 px-2 rounded text-gray-200 text-sm"
@@ -107,15 +107,12 @@ export default {
   data: function () {},
   components: {},
   methods: {
-
   },
   mounted() {
-
-  },
+    },
   setup() {
     const store = useStore();
     const router = useRouter();
-
     store.dispatch("getUser");
     return {
       user: computed(() => store.state.user.data),

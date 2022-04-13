@@ -22,6 +22,7 @@ class AuthController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|string',
+            'username' => 'required|string',
             'email' => 'required|email|string|unique:users,email',
             'password' => [
                 'required',
@@ -32,7 +33,11 @@ class AuthController extends Controller
         /** @var \App\Models\User $user */
         $user = User::create([
             'name' => $data['name'],
+            'username' => $data['username'],
             'email' => $data['email'],
+            'active' => 1,
+            'last_login' => 'now()',
+            'deleted_at' => null,
             'imageUrl' => '../src/assets/images/betheking.png',
             'password' => bcrypt($data['password'])
         ]);

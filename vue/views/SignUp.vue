@@ -30,6 +30,18 @@
             placeholder="Name"
           />
         </div>
+         <div class="-space-y-px">
+          <label for="username" class="sr-only">Alias</label>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            autocomplete="username"
+            required
+            v-model="user.username"
+            placeholder="Nick, how you will be known in the kingdom"
+          />
+        </div>
         <div>
           <label for="email-address" class="sr-only">Email address</label>
           <input
@@ -150,6 +162,7 @@ const router = useRouter();
 
 const user = {
   name: "",
+  username: "",
   email: "",
   password: "",
   password_confirmation: "",
