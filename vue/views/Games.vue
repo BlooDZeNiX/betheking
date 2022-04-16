@@ -12,7 +12,7 @@
               />
             </a>
             <div class="rounded-b-lg justify-center">
-              <div class="text-center bg-gray-200 rounded-b-lg">
+              <div class="text-center bg-zinc-200 rounded-b-lg">
                 <div class="">
                   <p
                     class="
@@ -77,6 +77,7 @@ function voteGameAds(ev) {
     name: "GamesVoteAds",
     params: {
       game_id: ev.target.id,
+      name: ev.target.name,
       title: "Voting " + ev.target.name,
       voter: store.state.user.data.id,
     },

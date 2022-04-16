@@ -67,6 +67,13 @@ const store = createStore({
                     commit('setUser', res.data)
                 })
         },
+        getUserVotes({ commit }, user) {
+            return axiosClient.post('/userVotes', user)
+                .then(response => {
+                    commit('setUserVotes', response.data);
+                    return response.data;
+                })
+        },
         profile() {
             return axiosClient.get('/user')
                 .then(res => {
@@ -128,6 +135,9 @@ const store = createStore({
     mutations: {
         setUser: (state, user) => {
             state.user.data = user;
+        },
+        setUserVotes: (state, votes) => {
+            state.user.data.votes = votes;
         },
         setToken: (state, token) => {
             state.user.token = token;

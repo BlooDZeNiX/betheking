@@ -1,7 +1,6 @@
 <template>
-  <PageComponent title="Hall of Fame">
+  <PageComponent title="Kings">
     <div>
-      <!-- <h1>Actual King is {{topVoted.streamers[0]['streamer_voted']}} playing {{topVoted.games[0]['game_voted']}}</h1> -->
       <div class="w-full flex relative grid3">
         <div class="pr-1">
           <table

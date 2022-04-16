@@ -16,6 +16,9 @@ return new class extends Migration
         Schema::create('votes', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(\App\models\User::class, 'voter');
+            $table->unsignedBigInteger('vote');
+            $table->string('name_voted')->default('');
+            $table->string('type');
             $table->timestamps();
         });
     }

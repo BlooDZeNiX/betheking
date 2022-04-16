@@ -15,7 +15,7 @@
             />
           </a>
           <div class="rounded-b-lg justify-center pb-2">
-            <div class="text-center bg-gray-200 rounded-b-lg">
+            <div class="text-center bg-zinc-200 rounded-b-lg">
               <div class="pb-2">
                 <p
                   class="
@@ -34,6 +34,7 @@
                   v-on:click="voteStreamerAds"
                   :id="`${topStream.user_id}`"
                   :name="`${topStream.user_name}`"
+                  :title="`${topStream.user_login}`"
                   class="
                     border border-black-600
                     rounded-lg
@@ -77,7 +78,7 @@ function voteStreamerAds(ev) {
     name: "StreamersVoteAds",
     params: {
       streamer_id: ev.target.id,
-      login: ev.target.id,
+      login: ev.target.title,
       title: "Voting " + ev.target.name,
       voter: store.state.user.data.id,
     },
@@ -98,6 +99,7 @@ export default {
     getTopStreams: function () {
       store.dispatch("getTopStreams").then((data) => {
         this.topList = data;
+        console.log(this.topList)
       });
     },
   },

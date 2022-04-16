@@ -28,6 +28,7 @@ Route::post('/signup', [AuthController::class, 'signUp']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/getTopVoted', [Votecontroller::class, 'getTopVoted']);
+Route::post('/userVotes', [VoteController:: class, 'getUserVotes']);
 Route::post('/voteStreamer', [VoteController::class, 'voteStreamer']);
 Route::post('/voteGame', [VoteController::class, 'voteGame']);
 

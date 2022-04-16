@@ -35,6 +35,7 @@ import { ref } from "vue";
 
 const voteGames = {
   voter: "",
+  name: "",
   gameVoted: "",
 };
 
@@ -49,6 +50,10 @@ function voteGame(ev) {
   voteGames.gameVoted =
     ev.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute(
       "game_id"
+    );
+    voteGames.name =
+    ev.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute(
+      "name"
     );
   console.log(voteGames);
   store.dispatch("voteGame", voteGames).then(() => {

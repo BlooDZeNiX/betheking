@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\StreamVotes;
+use App\Models\Votes;
 use App\Models\GameVotes;
 use App\Models\Streamers;
 use App\Models\Games;
@@ -31,6 +32,13 @@ class VoteController extends Controller
             'game_voted' => $request['gameVoted'],
         ]);
 
+        Votes::create([
+            'voter' => $request['voter'],
+            'vote' => $vote['id'],
+            'name_voted' => $request['name'],
+            'type' => 'game',
+        ]);
+
         return response([
             $vote
         ]);
@@ -39,9 +47,16 @@ class VoteController extends Controller
     public function voteStreamer(Request $request)
     {
         /** @var \App\Models\StreamVotes $vote */
-        $vote = StreamVotes::create([
+        $streamVote = StreamVotes::create([
             'voter' => $request['voter'],
             'streamer_voted' => $request['streamerVoted'],
+        ]);
+
+        $vote = Votes::create([
+            'voter' => $request['voter'],
+            'vote' => $streamVote['id'],
+            'name_voted' => $request['streamerLogin'],
+            'type' => 'streamer',
         ]);
 
         return response([
@@ -51,12 +66,22 @@ class VoteController extends Controller
 
     public function getUserVotes(Request $request)
     {
-        $streamVotes = StreamVotes::where('voter', '=', $request['user_id'])->get();
-        $gameVotes = GameVotes::where('voter', '=', $request['user_id'])->get();
-
-        return ['streamVotes' => $streamVotes,
-                'gameVotes' => $gameVotes,
+        $votes = Votes::where('voter', '=', $request['id'])->take(10)->get();
+        $favorites = $this->getUserFavorites($request['id']);
+        return [
+            "votes" => $votes, "favorites" => [
+               "game" => $favorites['game']['name_voted'],
+               "streamer" => $favorites['streamer']['name_voted'],
+            ]
         ];
+    }
+
+    public function getUserFavorites($id)
+    {
+        $favorites['game'] = Votes::select('name_voted', Votes::raw('count("name_voted") as votes'))->where('voter', $id)->where('type', 'game')->groupBy('name_voted')->orderByDesc('votes')->first();
+        $favorites['streamer'] = Votes::select('name_voted', Votes::raw('count("name_voted") as votes'))->where('voter', $id)->where('type', 'streamer')->groupBy('name_voted')->orderByDesc('votes')->first();
+
+        return $favorites;
     }
 
     public function getTopVoted()
@@ -105,8 +130,8 @@ class VoteController extends Controller
         $i = 0;
         foreach ($gameVotes as $key => $value) {
             foreach ($streamVotes as $key2 => $value2) {
-                if($value['voter'] == $value2['voter']){
-                    $votes[] = ["voter" => User::select('username')->where('id', '=', $value['voter'])->get()->toArray()[0]['username']  , "votes" => $value['votes']+$value2['votes'], "position" => ++$i];
+                if ($value['voter'] == $value2['voter']) {
+                    $votes[] = ["voter" => User::select('username')->where('id', '=', $value['voter'])->get()->toArray()[0]['username'], "votes" => $value['votes'] + $value2['votes'], "position" => ++$i];
                 }
             }
         }

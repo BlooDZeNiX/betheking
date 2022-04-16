@@ -50,6 +50,7 @@ import { ref } from "vue";
 const voteStream = {
   voter: "",
   streamerVoted: "",
+  streamerLogin: "",
 };
 
 let loading = ref(false);
@@ -63,6 +64,10 @@ function voteStreamer(ev) {
   voteStream.streamerVoted =
     ev.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute(
       "streamer_id"
+    );
+     voteStream.streamerLogin =
+    ev.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute(
+      "login"
     );
   store.dispatch("voteStreamer", voteStream).then(() => {
     console.log("voto realizado");

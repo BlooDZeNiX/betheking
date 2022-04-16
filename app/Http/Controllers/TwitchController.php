@@ -43,7 +43,7 @@ class TwitchController extends Controller
     public function setStream($data)
     {
         /** @var \App\Models\Streams $stream */
-        $stream = Streams::where('id_streamer', $data['id'])->first();
+        $stream = Streams::where('user_login', $data['user_login'])->first();
         if (!$stream) {
             Streams::create([
                 'id_streamer' => $data['id'],
