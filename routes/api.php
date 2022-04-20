@@ -26,8 +26,11 @@ Route::middleware('auth:sanctum')->group(function() {
 
 Route::post('/signup', [AuthController::class, 'signUp']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/editUserImage', [AuthController::class, 'editUserImage']);
+Route::post('/editUserPassword', [AuthController::class, 'editUserPassword']);
+Route::post('/editUserData', [AuthController::class, 'editUserData']);
 
-Route::get('/getTopVoted', [Votecontroller::class, 'getTopVoted']);
+Route::get('/TopVoted', [Votecontroller::class, 'getTopVoted']);
 Route::post('/userVotes', [VoteController:: class, 'getUserVotes']);
 Route::post('/voteStreamer', [VoteController::class, 'voteStreamer']);
 Route::post('/voteGame', [VoteController::class, 'voteGame']);

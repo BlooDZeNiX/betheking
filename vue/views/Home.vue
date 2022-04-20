@@ -100,7 +100,7 @@
             </tbody>
           </table>
         </div>
-        <div class="">
+        <div class="pr-1">
           <table
             class="
               w-full
@@ -164,6 +164,7 @@ const router = useRouter();
 
 store.dispatch("getUser").then(() => {
   return store.state.user.data.id;
+
 });
 </script>
 
@@ -186,7 +187,7 @@ export default {
         this.topVoted.streamers = data.data.topStreams;
         this.topVoted.games = data.data.topGames;
         this.topVoted.voters = data.data.topVoters;
-        console.log(this.topVoted)
+        console.log(store.state.user.data)
       });
     },
   },

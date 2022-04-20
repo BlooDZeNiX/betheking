@@ -62,7 +62,6 @@ import store from "../src/store";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 
-
 const router = useRouter();
 let loading = ref(false);
 let errorMsg = ref("");
