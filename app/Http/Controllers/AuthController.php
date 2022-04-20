@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Testing\Fluent\Concerns\Has;
 use Illuminate\Validation\Rules\Password;
 use Laravel\Sanctum\NewAccessToken;
@@ -30,17 +31,9 @@ class AuthController extends Controller
                 Password::min(8)->mixedCase()->numbers()->symbols()
             ]
         ]);
+
         /** @var \App\Models\User $user */
-        $user = User::create([
-            'name' => $data['name'],
-            'username' => $data['username'],
-            'email' => $data['email'],
-            'active' => 1,
-            'last_login' => 'now()',
-            'deleted_at' => null,
-            'imageUrl' => '../src/assets/images/betheking.png',
-            'password' => bcrypt($data['password'])
-        ]);
+        $user = $this->createUser($data);
 
         $token = $user->createToken('main')->plainTextToken;
 
@@ -62,15 +55,15 @@ class AuthController extends Controller
         $remember = $credentials['remember'] ?? false;
         unset($credentials['remember']);
 
-        if (!Auth::attempt($credentials,$remember)) {
+        if (!Auth::attempt($credentials, $remember)) {
             return response([
                 'error' => 'The Provided credentials are not correct'
             ], 422);
         }
 
-            /** @var \App\Models\User $user */
-            $user = Auth::user();
-            $token = $user->createToken('token')->plainTextToken;
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $token = $user->createToken('token')->plainTextToken;
 
         return response([
             'user' => $user,
@@ -90,5 +83,63 @@ class AuthController extends Controller
         ]);
     }
 
+    public function createUser($data)
+    {
+        $user =  User::create([
+            'name' => $data['name'],
+            'username' => $data['username'],
+            'email' => $data['email'],
+            'active' => 1,
+            'last_login' => 'now()',
+            'deleted_at' => null,
+            'imageUrl' => '../src/assets/images/betheking.png',
+            'password' => bcrypt($data['password'])
+        ]);
 
+        return $user;
+    }
+
+    public function editUserImage(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
+        ]);
+        $fileName = time() . '.' . $request->file->getClientOriginalExtension();
+        $request->file->move("../vue/src/assets/uploads", $fileName);
+        $fileName = "../src/assets/uploads/" . $fileName;
+        User::where("id", $request->id)->update(['imageUrl' => $fileName]);
+        return response()->json([
+            'success' => 'You have successfully upload file.',
+            'fileName' => $fileName
+        ]);
+    }
+
+    public function editUserData(Request $request)
+    {
+        User::where('id', $request['id'])
+            ->update([
+                "name" => $request["name"],
+                "username" => $request["username"],
+                "email" => $request['email'],
+            ]);
+    }
+    public function editUserPassword(Request $request)
+    {
+
+        /** @var \App\Models\User $user */
+        $user =  User::where('id', $request['user_id'])->get();
+        $user->makeVisible(['password']);
+
+        if ((Hash::check($request['actual'], $user[0]['password']))) {
+            if (($request['actual'] !== $request['new'])) {
+                if ($request['new_repeat'] === $request['new']) {
+                    User::where('id', $request['user_id'])->update([
+                        "password" => bcrypt($request['new'])
+                    ]);
+                }
+            }
+        } else {
+            return 0;
+        }
+    }
 }

@@ -1,12 +1,14 @@
 import axios from "axios";
 import { createStore } from "vuex";
 import axiosClient from "../axios";
+import axiosClient2 from "../axios2";
 
 const store = createStore({
     state: {
         user: {
             data: {},
             token: sessionStorage.getItem("TOKEN"),
+            votes: {},
         },
         topStreams: {},
         topGames: {},
@@ -67,6 +69,25 @@ const store = createStore({
                     commit('setUser', res.data)
                 })
         },
+        editUserImage({ commit }, formData) {
+            return axiosClient2.post('/editUserImage', formData)
+                .then(res => {
+                    commit('setUserImage', res.data.fileName);
+                    return res;
+                })
+        },
+        editUserPassword({ commit }, changePassword) {
+            return axiosClient.post('/editUserPassword', changePassword)
+                .then(res => {
+                    return res;
+                })
+        },
+        editUserData({ commit }, edit) {
+            return axiosClient.post('/editUserData', edit)
+                .then(response => {
+                    return response;
+                })
+        },
         getUserVotes({ commit }, user) {
             return axiosClient.post('/userVotes', user)
                 .then(response => {
@@ -124,7 +145,7 @@ const store = createStore({
                 })
         },
         getTopVoted({ commit }) {
-            return axiosClient.get('/getTopVoted')
+            return axiosClient.get('/TopVoted')
                 .then((data) => {
                     commit('setTopVoted', data)
                     return store.state.topVoted;
@@ -136,8 +157,11 @@ const store = createStore({
         setUser: (state, user) => {
             state.user.data = user;
         },
+        setUserImage: (state, imageUrl) => {
+            state.user.data.imageUrl = imageUrl;
+        },
         setUserVotes: (state, votes) => {
-            state.user.data.votes = votes;
+            state.user.votes = votes;
         },
         setToken: (state, token) => {
             state.user.token = token;
@@ -167,6 +191,7 @@ const store = createStore({
         logout: (state) => {
             state.user.token = null;
             state.user.data = {};
+            state.user.votes = {};
             sessionStorage.removeItem("TOKEN");
         },
 

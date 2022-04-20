@@ -1,18 +1,19 @@
 import axios from "axios";
-import store from "../src/store";
+import store from "./store";
 import router from "../router";
 
-
-const axiosClient = axios.create({
+const axiosClient2 = axios.create({
     baseURL: `${import.meta.env.VITE_API_BASE_URL}/api`
+
 })
 
-axiosClient.interceptors.request.use(config => {
+axiosClient2.interceptors.request.use(config => {
     config.headers.Authorization = `Bearer ${store.state.user.token}`
+    config.headers.common.Accept = 'multipart/form-data'
     return config;
 })
 
-axiosClient.interceptors.response.use(response => {
+axiosClient2.interceptors.response.use(response => {
     return response;
 }, error => {
     if (error.response.status === 401) {
@@ -24,4 +25,4 @@ axiosClient.interceptors.response.use(response => {
     throw error;
 })
 
-export default axiosClient;
+export default axiosClient2;

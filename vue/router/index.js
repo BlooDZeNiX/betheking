@@ -7,6 +7,8 @@ import SignUp from "../views/SignUp.vue"
 import PasswordRecovery from "../views/PasswordRecovery.vue"
 import Games from "../views/Games.vue"
 import Profile from "../views/Profile.vue"
+import EditProfile from "../views/EditProfile.vue"
+import ChangePassword from "../views/ChangePassword.vue"
 import DefaultLayout from "../src/components/DefaultLayout.vue"
 import AuthLayout from "../src/components/AuthLayout.vue"
 import StreamersVoteAds from "../views/StreamersVoteAds.vue"
@@ -25,6 +27,8 @@ const routes = [{
             { path: '/Games', name: 'Games', component: Games },
             { path: '/Voters', name: 'Voters', component: Voters },
             { path: '/Profile', name: 'Profile', component: Profile },
+            { path: '/Profile/Edit', name: 'EditProfile', component: EditProfile, props: true },
+            { path: '/Profile/Edit/Password', name: 'ChangePassword', component: ChangePassword, props: true },
             { path: '/StreamersVoteAds', name: 'StreamersVoteAds', component: StreamersVoteAds, props: true },
             { path: '/GamesVoteAds', name: 'GamesVoteAds', component: GamesVoteAds, props: true },
         ]

@@ -275,213 +275,89 @@
     </Disclosure>
     <router-view></router-view>
     <!-- Footer -->
-    <div>
+    <div class="bottom-0 w-full">
       <footer class="text-gray-300 bg-gray-800">
         <div
           class="
             container
             px-5
-            py-9
+            py-5
             mx-auto
             flex
             md:items-center
             lg:items-start
             md:flex-row md:flex-nowrap
-            flex-wrap flex-col
+            flex-wrap
           "
         >
-          <div
-            class="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left"
-          >
-            <a
-              class="
-                flex
-                title-font
-                font-medium
-                items-center
-                md:justify-start
-                justify-center
-                text-gray-900
-              "
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="w-10 h-10 text-white p-2 bg-red-700 rounded-full"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
-                />
-              </svg>
-              <span class="ml-3 text-xl text-white">DEV</span>
-            </a>
-            <p class="mt-2 text-sm text-white">
-              Air plant banjo lyft occupy retro adaptogen indego
-            </p>
+          <div class="lg:w-1/5 md:w-1/5 w-full px-4">
+            <img
+              src="../assets/images/betheking.png"
+              alt="Logo"
+              style="height: 5rem"
+              class="mx-auto"
+            />
           </div>
           <div
             class="
               flex-grow flex flex-wrap
               md:pl-20
-              -mb-10
-              md:mt-0
-              mt-10
+              mt-6
               md:text-left
               text-center
             "
           >
-            <div class="lg:w-1/4 md:w-1/2 w-full px-4">
+            <div class="lg:w-1/4 md:w-1/4 w-full px-4">
               <h2
                 class="
-                  title-font
-                  font-bold
-                  text-white
+                  font-medium
+                  text-gray-300
+                  text-center
                   tracking-widest
-                  text-md
-                  mb-3
                 "
               >
-                CATEGORIES
+                About
               </h2>
-              <nav class="list-none mb-10">
-                <li>
-                  <a class="text-white hover:text-red-300" href="#"
-                    >First Link</a
-                  >
-                </li>
-                <li>
-                  <a class="text-white hover:text-red-300" href="#"
-                    >Second Link</a
-                  >
-                </li>
-                <li>
-                  <a class="text-white hover:text-red-300" href="#"
-                    >Third Link</a
-                  >
-                </li>
-                <li>
-                  <a class="text-white hover:text-red-300" href="#"
-                    >Fourth Link</a
-                  >
-                </li>
-              </nav>
             </div>
-            <div class="lg:w-1/4 md:w-1/2 w-full px-4">
+            <div class="lg:w-1/4 md:w-1/4 w-full px-4">
               <h2
                 class="
-                  title-font
-                  font-bold
-                  text-white
+                  font-medium
+                  text-gray-300
+                  text-center
                   tracking-widest
-                  text-md
-                  mb-3
                 "
               >
-                CATEGORIES
+                Help
               </h2>
-              <nav class="list-none mb-10">
-                <li>
-                  <a class="text-white hover:text-red-300" href="#"
-                    >First Link</a
-                  >
-                </li>
-                <li>
-                  <a class="text-white hover:text-red-300" href="#"
-                    >Second Link</a
-                  >
-                </li>
-                <li>
-                  <a class="text-white hover:text-red-300" href="#"
-                    >Third Link</a
-                  >
-                </li>
-                <li>
-                  <a class="text-white hover:text-red-300" href="#"
-                    >Fourth Link</a
-                  >
-                </li>
-              </nav>
             </div>
-            <div class="lg:w-1/4 md:w-1/2 w-full px-4">
+            <div class="lg:w-1/4 md:w-1/4 w-full px-4">
               <h2
                 class="
-                  title-font
-                  font-bold
-                  text-white
+                  font-medium
+                  text-gray-300
+                  text-center
                   tracking-widest
-                  text-md
-                  mb-3
                 "
               >
-                CATEGORIES
+                Privacy Policy
               </h2>
-              <nav class="list-none mb-10">
-                <li>
-                  <a class="text-white hover:text-red-300" href="#"
-                    >First Link</a
-                  >
-                </li>
-                <li>
-                  <a class="text-white hover:text-red-300" href="#"
-                    >Second Link</a
-                  >
-                </li>
-                <li>
-                  <a class="text-white hover:text-red-300" href="#"
-                    >Third Link</a
-                  >
-                </li>
-                <li>
-                  <a class="text-white hover:text-red-300" href="#"
-                    >Fourth Link</a
-                  >
-                </li>
-              </nav>
             </div>
-            <div class="lg:w-1/4 md:w-1/2 w-full px-4">
+            <div class="lg:w-1/4 md:w-1/4 w-full px-4">
               <h2
                 class="
-                  title-font
-                  font-bold
-                  text-white
+                  font-medium
+                  text-gray-300
+                  text-center
                   tracking-widest
-                  text-md
-                  mb-3
                 "
               >
-                CATEGORIES
+                Contact us
               </h2>
-              <nav class="list-none mb-10">
-                <li>
-                  <a class="text-white hover:text-red-300" href="#"
-                    >First Link</a
-                  >
-                </li>
-                <li>
-                  <a class="text-white hover:text-red-300" href="#"
-                    >Second Link</a
-                  >
-                </li>
-                <li>
-                  <a class="text-white hover:text-red-300" href="#"
-                    >Third Link</a
-                  >
-                </li>
-                <li>
-                  <a class="text-white hover:text-red-300" href="#"
-                    >Fourth Link</a
-                  >
-                </li>
-              </nav>
             </div>
           </div>
         </div>
-        <div class="bg-gray-900">
+        <div class="bg-teal-700">
           <div
             class="
               container
@@ -492,15 +368,8 @@
               sm:flex-row
             "
           >
-            <p class="text-white text-sm text-center sm:text-left">
-              © 2022 BeTheKing —
-              <a
-                href="https://twitter.com/knyttneve"
-                rel="noopener noreferrer"
-                class="text-gray-400 ml-1"
-                target="_blank"
-                >@Developer</a
-              >
+            <p class="text-gray-300 text-sm text-center sm:text-left">
+              © 2022 BeTheKing
             </p>
             <span
               class="
@@ -511,7 +380,7 @@
                 sm:justify-start
               "
             >
-              <a class="text-gray-200">
+              <a class="text-gray-300">
                 <svg
                   fill="currentColor"
                   stroke-linecap="round"
@@ -525,7 +394,7 @@
                   ></path>
                 </svg>
               </a>
-              <a class="ml-3 text-gray-200">
+              <a class="ml-3 text-gray-300">
                 <svg
                   fill="currentColor"
                   stroke-linecap="round"
@@ -539,7 +408,7 @@
                   ></path>
                 </svg>
               </a>
-              <a class="ml-3 text-gray-200">
+              <a class="ml-3 text-gray-300">
                 <svg
                   fill="none"
                   stroke="currentColor"
@@ -553,23 +422,6 @@
                   <path
                     d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"
                   ></path>
-                </svg>
-              </a>
-              <a class="ml-3 text-gray-200">
-                <svg
-                  fill="currentColor"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="0"
-                  class="w-5 h-5"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="none"
-                    d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"
-                  ></path>
-                  <circle cx="4" cy="4" r="2" stroke="none"></circle>
                 </svg>
               </a>
             </span>

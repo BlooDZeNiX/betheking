@@ -38,6 +38,7 @@ class VoteController extends Controller
             'name_voted' => $request['name'],
             'type' => 'game',
         ]);
+        $this->setGold($request['voter']);
 
         return response([
             $vote
@@ -58,28 +59,36 @@ class VoteController extends Controller
             'name_voted' => $request['streamerLogin'],
             'type' => 'streamer',
         ]);
+        $this->setGold($request['voter']);
 
         return response([
             $vote,
         ]);
     }
 
+    public function setGold($id)
+    {
+        $gold = User::select('gold')->where('id', $id)->get()->toArray()[0]['gold'] + 100;
+        User::where('id', $id)
+            ->update(['gold' => $gold]);
+    }
+
     public function getUserVotes(Request $request)
     {
-        $votes = Votes::where('voter', '=', $request['id'])->take(10)->get();
+        $votes = Votes::where('voter', '=', $request['id'])->take(15)->get();
         $favorites = $this->getUserFavorites($request['id']);
         return [
             "votes" => $votes, "favorites" => [
-               "game" => $favorites['game']['name_voted'],
-               "streamer" => $favorites['streamer']['name_voted'],
+                "game" => $favorites['game'],
+                "streamer" => $favorites['streamer'],
             ]
         ];
     }
 
     public function getUserFavorites($id)
     {
-        $favorites['game'] = Votes::select('name_voted', Votes::raw('count("name_voted") as votes'))->where('voter', $id)->where('type', 'game')->groupBy('name_voted')->orderByDesc('votes')->first();
-        $favorites['streamer'] = Votes::select('name_voted', Votes::raw('count("name_voted") as votes'))->where('voter', $id)->where('type', 'streamer')->groupBy('name_voted')->orderByDesc('votes')->first();
+        $favorites['game'] = Votes::select('name_voted', Votes::raw('count("name_voted") as votes'))->where('voter', $id)->where('type', 'game')->groupBy('name_voted')->orderByDesc('votes')->first() ? Votes::select('name_voted', Votes::raw('count("name_voted") as votes'))->where('voter', $id)->where('type', 'game')->groupBy('name_voted')->orderByDesc('votes')->first()->toArray()['name_voted'] : "";
+        $favorites['streamer'] = Votes::select('name_voted', Votes::raw('count("name_voted") as votes'))->where('voter', $id)->where('type', 'streamer')->groupBy('name_voted')->orderByDesc('votes')->first() ? Votes::select('name_voted', Votes::raw('count("name_voted") as votes'))->where('voter', $id)->where('type', 'streamer')->groupBy('name_voted')->orderByDesc('votes')->first()->toArray()['name_voted'] : "";
 
         return $favorites;
     }
