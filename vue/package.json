@@ -8,11 +8,16 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^6.1.1",
+        "@fortawesome/free-solid-svg-icons": "^6.1.1",
+        "@fortawesome/vue-fontawesome": "^3.0.0-5",
         "@headlessui/vue": "^1.5.0",
         "@heroicons/vue": "^1.0.5",
         "axios": "^0.26.1",
         "cross-env": "^7.0.3",
         "cross-fetch": "^3.1.5",
+        "datatables.net": "^1.11.5",
+        "datatables.net-dt": "^1.11.5",
         "vue": "^3.2.25",
         "vue-router": "^4.0.12",
         "vuex": "^4.0.2"

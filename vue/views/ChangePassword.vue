@@ -14,7 +14,7 @@
                       Actual Password
                     </span>
                     <input
-                      v-model="changePassword.actual"
+                      value="changePassword.actual"
                       class="border-2 border-gray-700 w-1/2 rounded-lg"
                       type="password"
                       name="actual"
@@ -26,7 +26,7 @@
                       New Password
                     </span>
                     <input
-                      v-model="changePassword.new"
+                      value="changePassword.new"
                       class="border-2 border-gray-700 w-1/2 rounded-lg"
                       type="password"
                       name="new"
@@ -38,7 +38,7 @@
                       New Password
                     </span>
                     <input
-                      v-model="changePassword.new_repeat"
+                      value="changePassword.new_repeat"
                       class="border-2 border-gray-700 w-1/2 rounded-lg"
                       type="password"
                       name="new_repeat"

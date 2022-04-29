@@ -26,7 +26,16 @@ const store = createStore({
         },
         dashboard: {
             loading: false,
-            data: {}
+            edit: {
+                user: {},
+                streamer: {},
+                game: {},
+            },
+            data: {
+                users: {},
+                streamers: {},
+                games: {},
+            },
         },
         notification: {
             show: false,
@@ -36,7 +45,7 @@ const store = createStore({
     },
     getters: {},
     actions: {
-
+        //Auth Functions
         signUp({ commit }, user) {
             return axiosClient.post('/signup', user)
                 .then(({ data }) => {
@@ -60,6 +69,8 @@ const store = createStore({
                     return response;
                 })
         },
+
+        //User Functions
         getUser({ commit }) {
             return axiosClient.get('/user')
                 .then(res => {
@@ -67,6 +78,20 @@ const store = createStore({
                         res.data.imageUrl = "../src/assets/images/default.png";
                     }
                     commit('setUser', res.data)
+                })
+        },
+        getUserById({ commit }, id) {
+            return axiosClient.post('/getUserById', id)
+                .then(res => {
+                    commit('setEditUser', res.data)
+                    return res;
+                })
+        },
+        getUsersDashboard({ commit }) {
+            return axiosClient.get('/getUsers')
+                .then(res => {
+                    commit('setUsersDashboard', res.data)
+                    return res;
                 })
         },
         editUserImage({ commit }, formData) {
@@ -88,6 +113,9 @@ const store = createStore({
                     return response;
                 })
         },
+        deleteUserData({ commit }, user) {
+            return axiosClient.post('/deleteUserData', user);
+        },
         getUserVotes({ commit }, user) {
             return axiosClient.post('/userVotes', user)
                 .then(response => {
@@ -101,6 +129,35 @@ const store = createStore({
                     return res.data;
                 })
         },
+
+        //Streamers Functions
+        getStreamersDashboard({ commit }) {
+            return axiosClient.get('/getStreamers')
+                .then(res => {
+                    commit('setStreamersDashboard', res.data)
+                    return res;
+                })
+        },
+        getTopStreams({ commit }) {
+            return axiosClient.get('/getTopStreams')
+                .then(({ data }) => {
+                    console.log(data)
+                    commit('setTopStreams', data)
+                    return store.state.topStreams;
+                })
+        },
+        getStreamer({ commit }, streamer_id) {
+            return axiosClient.post('/getStreamer', { id: streamer_id })
+                .then((data) => {
+                    commit('setVotingStreamer', data)
+                    return store.state.voteStream.votingStreamer;
+                })
+        },
+        deleteStreamer({ commit }, streamer) {
+            return axiosClient.post('/deleteStreamer', streamer);
+        },
+
+        //Voting Functions
         voteStreamer({ commit }, voteStream) {
             return axiosClient.post('/voteStreamer', voteStream)
                 .then(({ data }) => {
@@ -115,11 +172,21 @@ const store = createStore({
                     return store.state.voteGame.vote;
                 })
         },
-        getTopStreams({ commit }) {
-            return axiosClient.get('/getTopStreams')
-                .then(({ data }) => {
-                    commit('setTopStreams', data)
-                    return store.state.topStreams;
+        getTopVoted({ commit }) {
+            return axiosClient.get('/TopVoted')
+                .then((data) => {
+                    console.log(data)
+                    commit('setTopVoted', data)
+                    return store.state.topVoted;
+                })
+        },
+
+        //Games Functions
+        getGamesDashboard({ commit }) {
+            return axiosClient.get('/getGames')
+                .then(res => {
+                    commit('setGamesDashboard', res.data)
+                    return res;
                 })
         },
         getTopGames({ commit }) {
@@ -129,14 +196,6 @@ const store = createStore({
                     return store.state.topGames;
                 })
         },
-
-        getStreamer({ commit }, streamer_id) {
-            return axiosClient.post('/getStreamer', { id: streamer_id })
-                .then((data) => {
-                    commit('setVotingStreamer', data)
-                    return store.state.voteStream.votingStreamer;
-                })
-        },
         getGame({ commit }, streamer_id) {
             return axiosClient.post('/getGame', { id: streamer_id })
                 .then((data) => {
@@ -144,18 +203,26 @@ const store = createStore({
                     return store.state.voteGame.votingGame;
                 })
         },
-        getTopVoted({ commit }) {
-            return axiosClient.get('/TopVoted')
-                .then((data) => {
-                    commit('setTopVoted', data)
-                    return store.state.topVoted;
-                })
-        }
+        deleteGame({ commit }, game) {
+            return axiosClient.post('/deleteGame', game);
+        },
 
     },
     mutations: {
         setUser: (state, user) => {
             state.user.data = user;
+        },
+        setEditUser: (state, user) => {
+            state.dashboard.edit.user = user;
+        },
+        setUsersDashboard: (state, users) => {
+            state.dashboard.data.users = users;
+        },
+        setStreamersDashboard: (state, streamers) => {
+            state.dashboard.data.streamers = streamers;
+        },
+        setGamesDashboard: (state, Games) => {
+            state.dashboard.data.Games = Games;
         },
         setUserImage: (state, imageUrl) => {
             state.user.data.imageUrl = imageUrl;

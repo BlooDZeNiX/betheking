@@ -1,5 +1,5 @@
 <template>
-  <PageComponent title="Editing">
+  <PageComponent title="">
     <div class="bg-white">
       <div class="container mx-auto p-5 bg-white">
         <div class="md:flex no-wrap rounded-lg">

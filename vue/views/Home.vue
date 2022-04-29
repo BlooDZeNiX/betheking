@@ -1,7 +1,7 @@
 <template>
   <PageComponent title="Kings">
     <div>
-      <div class="w-full flex relative grid3">
+      <div class="grid3">
         <div class="pr-1">
           <table
             class="
@@ -187,7 +187,6 @@ export default {
         this.topVoted.streamers = data.data.topStreams;
         this.topVoted.games = data.data.topGames;
         this.topVoted.voters = data.data.topVoters;
-        console.log(store.state.user.data)
       });
     },
   },

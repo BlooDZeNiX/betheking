@@ -128,9 +128,8 @@ const router = useRouter();
 </script>
 
 <script>
-
 export default {
-  name: "profile",
+  name: "Profile",
   data: function () {
     return{
       user: {},

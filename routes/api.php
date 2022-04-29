@@ -29,6 +29,9 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/editUserImage', [AuthController::class, 'editUserImage']);
 Route::post('/editUserPassword', [AuthController::class, 'editUserPassword']);
 Route::post('/editUserData', [AuthController::class, 'editUserData']);
+Route::post('/deleteUserData', [AuthController::class, 'deleteUserData']);
+Route::post('/getUserById', [AuthController::class, 'getUserById']);
+Route::get('/getUsers', [AuthController::class, 'getUsers']);
 
 Route::get('/TopVoted', [Votecontroller::class, 'getTopVoted']);
 Route::post('/userVotes', [VoteController:: class, 'getUserVotes']);
@@ -37,5 +40,9 @@ Route::post('/voteGame', [VoteController::class, 'voteGame']);
 
 Route::get('/getTopStreams', [TwitchController::class, 'getTopStreams']);
 Route::get('/getTopGames', [TwitchController::class, 'getTopGames']);
+Route::get('/getStreamers', [TwitchController::class, 'getStreamers']);
 Route::post('/getStreamer', [TwitchController::class, 'getStreamer']);
+Route::post('/deleteStreamer', [TwitchController::class, 'deleteStreamer']);
 Route::post('/getGame', [TwitchController::class, 'getGame']);
+Route::get('/getGames', [TwitchController::class, 'getGames']);
+Route::post('/deleteGame', [TwitchController::class, 'deleteGame']);

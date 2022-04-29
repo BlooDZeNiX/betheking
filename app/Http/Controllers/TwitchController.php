@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Http;
 class TwitchController extends Controller
 {
     protected $headers = [
-        'Authorization' => "Bearer e1wlww25qpoew82axu3m566feqzvaz",
+        'Authorization' => "Bearer ch7qkg7j4z43zhmqrpls1omsn5nmqt",
         "Client-id" => "xd72gmt643nbmegt9990z4c4iuvmc1"
     ];
     /**
@@ -38,6 +38,12 @@ class TwitchController extends Controller
             $this->setStream($value);
         }
         return $response;
+    }
+
+    public function getStreamers()
+    {
+        $streamers = Streamers::all();
+        return $streamers;
     }
 
     public function setStream($data)
@@ -83,6 +89,12 @@ class TwitchController extends Controller
         return $streamer;
     }
 
+    public function deleteStreamer(Request $request)
+    {
+        return Streamers::where('id_streamer', $request['id'])
+            ->delete();
+    }
+
     public function getTopGames()
     {
         $data = Http::withHeaders($this->headers)
@@ -116,5 +128,17 @@ class TwitchController extends Controller
         $id = $request->all();
         $game = Games::where('id_game', '=', $id['id'])->get();
         return $game;
+    }
+
+    public function getGames(Request $request)
+    {
+        $games = Games::all();
+        return $games;
+    }
+
+    public function deleteGame(Request $request)
+    {
+        return Games::where('id', $request['id'])
+            ->delete();
     }
 }

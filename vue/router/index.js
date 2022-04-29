@@ -7,6 +7,12 @@ import SignUp from "../views/SignUp.vue"
 import PasswordRecovery from "../views/PasswordRecovery.vue"
 import Games from "../views/Games.vue"
 import Profile from "../views/Profile.vue"
+import Gold from "../views/Gold.vue"
+import Administration from "../src/components/Administration.vue"
+import Dashboard from "../views/Dashboard.vue"
+import GamesDashboard from "../views/GamesDashboard.vue"
+import StreamersDashboard from '../views/StreamersDashboard.vue'
+import UsersDashboard from '../views/UsersDashboard.vue'
 import EditProfile from "../views/EditProfile.vue"
 import ChangePassword from "../views/ChangePassword.vue"
 import DefaultLayout from "../src/components/DefaultLayout.vue"
@@ -27,6 +33,12 @@ const routes = [{
             { path: '/Games', name: 'Games', component: Games },
             { path: '/Voters', name: 'Voters', component: Voters },
             { path: '/Profile', name: 'Profile', component: Profile },
+            { path: '/Gold', name: 'Gold', component: Gold },
+            { path: '/Administration', name: 'Administration', component: Administration },
+            { path: '/Dashboard', name: 'Dashboard', component: Dashboard },
+            { path: '/GamesDashboard', name: 'GamesDashboard', component: GamesDashboard },
+            { path: '/UsersDashboard', name: 'UsersDashboard', component: UsersDashboard },
+            { path: '/StreamersDashboard', name: 'StreamersDashboard', component: StreamersDashboard },
             { path: '/Profile/Edit', name: 'EditProfile', component: EditProfile, props: true },
             { path: '/Profile/Edit/Password', name: 'ChangePassword', component: ChangePassword, props: true },
             { path: '/StreamersVoteAds', name: 'StreamersVoteAds', component: StreamersVoteAds, props: true },

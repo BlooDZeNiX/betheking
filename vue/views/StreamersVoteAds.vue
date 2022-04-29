@@ -90,6 +90,7 @@ export default {
       store
         .dispatch("getStreamer", this.$route.params.streamer_id)
         .then((data) => {
+          console.log(data)
           this.img = data.data["offline_image_url"];
           this.name = data.data["display_name"];
         });

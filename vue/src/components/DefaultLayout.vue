@@ -146,9 +146,21 @@
                         >Profile</a
                       >
                     </MenuItem>
+                     <MenuItem
+                      @click="gold"
+                      class="hover:text-white hover:bg-gray-400"
+                    >
+                      <a
+                        :class="[
+                          active ? 'bg-gray-100' : '',
+                          'block px-4 py-2 text-sm text-gray-700 rounded-md',
+                        ]"
+                        >Gold</a
+                      >
+                    </MenuItem>
                     <MenuItem
                       v-if="user.rol == 'admin'"
-                      @click="profile"
+                      @click="administration"
                       class="hover:text-white hover:bg-gray-400"
                     >
                       <a
@@ -255,6 +267,38 @@
               <a class="hover:text-white hover:bg-gray-700">Profile</a>
             </DisclosureButton>
             <DisclosureButton
+              v-if="user.rol == 'admin'"
+              @click="administration"
+              class="
+                block
+                px-3
+                py-2
+                rounded-md
+                text-base
+                font-medium
+                text-gray-400
+                hover:text-white hover:bg-gray-700
+              "
+            >
+              <a class="hover:text-white hover:bg-gray-700">Administration</a>
+            </DisclosureButton>
+             <DisclosureButton
+              v-if="user.rol == 'admin'"
+              @click="gold"
+              class="
+                block
+                px-3
+                py-2
+                rounded-md
+                text-base
+                font-medium
+                text-gray-400
+                hover:text-white hover:bg-gray-700
+              "
+            >
+              <a class="hover:text-white hover:bg-gray-700">Gold</a>
+            </DisclosureButton>
+            <DisclosureButton
               @click="logout"
               class="
                 block
@@ -275,7 +319,7 @@
     </Disclosure>
     <router-view></router-view>
     <!-- Footer -->
-    <div class="bottom-0 w-full">
+    <div class="w-full">
       <footer class="text-gray-300 bg-gray-800">
         <div
           class="
@@ -308,50 +352,22 @@
             "
           >
             <div class="lg:w-1/4 md:w-1/4 w-full px-4">
-              <h2
-                class="
-                  font-medium
-                  text-gray-300
-                  text-center
-                  tracking-widest
-                "
-              >
+              <h2 class="font-medium text-gray-300 text-center tracking-widest">
                 About
               </h2>
             </div>
             <div class="lg:w-1/4 md:w-1/4 w-full px-4">
-              <h2
-                class="
-                  font-medium
-                  text-gray-300
-                  text-center
-                  tracking-widest
-                "
-              >
+              <h2 class="font-medium text-gray-300 text-center tracking-widest">
                 Help
               </h2>
             </div>
             <div class="lg:w-1/4 md:w-1/4 w-full px-4">
-              <h2
-                class="
-                  font-medium
-                  text-gray-300
-                  text-center
-                  tracking-widest
-                "
-              >
+              <h2 class="font-medium text-gray-300 text-center tracking-widest">
                 Privacy Policy
               </h2>
             </div>
             <div class="lg:w-1/4 md:w-1/4 w-full px-4">
-              <h2
-                class="
-                  font-medium
-                  text-gray-300
-                  text-center
-                  tracking-widest
-                "
-              >
+              <h2 class="font-medium text-gray-300 text-center tracking-widest">
                 Contact us
               </h2>
             </div>
@@ -489,12 +505,26 @@ export default {
       });
     }
 
+    function gold() {
+      router.push({
+        name: "Gold",
+      });
+    }
+
+    function administration() {
+      router.push({
+        name: "UsersDashboard",
+      });
+    }
+
     return {
       user: computed(() => store.state.user.data),
       navigation,
       userNavigation,
       logout,
       profile,
+      gold,
+      administration,
     };
   },
 };

@@ -186,8 +186,7 @@ function signUp(ev) {
 
 <style scoped>
 input{
-  width:100%;
-   color: darkslategray;
+  color: darkslategray;
   border-color: gray;
   border-width: 1px;
   width: 100%;

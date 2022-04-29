@@ -1,0 +1,200 @@
+<template>
+<PageComponent title="Games Management">
+  <Administration>
+      <div>
+        <div class="pl-4">
+          <table
+            id="games-list"
+            class="
+              w-full
+              text-sm text-left text-gray-500
+              dark:text-gray-400
+              overflow-x-auto
+              shadow-md
+              rounded-lg
+              hover
+            "
+          >
+            <thead
+              class="
+                text-xs text-white
+                uppercase
+                bg-gray-700
+                dark:bg-gray-700 dark:text-gray-400
+                shadow-md
+                sm:rounded-lg
+              "
+            >
+              <tr>
+                <th scope="col" class="px-6 py-3">Id</th>
+                <th scope="col" class="px-6 py-3">Game</th>
+                <th scope="col" class="px-6 py-3"></th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div>
+          <Modal v-show="showModalDelete" @close="closeModal" id="modal-user">
+            <h2 class="text-xl font-bold text-gray-700">
+              Deleting User {{ store.state.dashboard.edit.game.username }}
+            </h2>
+            <h2 class="text-xl font-bold text-gray-700 mt-6">Are you sure?</h2>
+            <div class="mt-4 flex flex-row justify-center">
+              <div class="mr-8">
+                <button
+                  type="submit"
+                  @click="deleteGame"
+                  id="btn-delete-user"
+                  class="
+                    group
+                    relative
+                    w-full
+                    flex
+                    justify-center
+                    py-2
+                    px-4
+                    border border-transparent
+                    text-sm
+                    font-medium
+                    rounded-md
+                    text-white
+                    bg-gray-900
+                    hover-greenwater
+                    focus:outline-none
+                    focus:ring-2
+                    focus:ring-offset-2
+                    focus:ring-indigo-500
+                  "
+                >
+                  Yes
+                </button>
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  class="
+                    group
+                    relative
+                    w-full
+                    flex
+                    justify-center
+                    py-2
+                    px-4
+                    border border-transparent
+                    text-sm
+                    font-medium
+                    rounded-md
+                    text-white
+                    bg-gray-900
+                    hover-greenwater
+                    focus:outline-none
+                    focus:ring-2
+                    focus:ring-offset-2
+                    focus:ring-indigo-500
+                  "
+                  @click="showModalDelete = false"
+                >
+                  No
+                </button>
+              </div>
+            </div>
+          </Modal>
+        </div>
+        <button id="btd" class="hidden" @click="openModalDelete"></button>
+      </div>
+  </Administration>
+</PageComponent>
+</template>
+
+<script setup>
+import PageComponent from "../src/components/PageComponent.vue";
+import Administration from "../src/components/Administration.vue";
+import Modal from "../src/components/Modal.vue";
+import { LockClosedIcon } from "@heroicons/vue/solid";
+import store from "../src/store";
+import { useRouter } from "vue-router";
+import { ref } from "vue";
+
+const router = useRouter();
+let loading = ref(false);
+let errorMsg = ref("");
+</script>
+
+<script>
+export default {
+  name: "GamesDashboard",
+  data: function () {
+    return {
+      showModalDelete: false,
+    };
+  },
+  components: {},
+  methods: {
+    getGamesDashboard: function () {
+      store.dispatch("getGamesDashboard").then((data) => {
+        $("#games-list").DataTable({
+          response: true,
+          data: data.data,
+          searching: true,
+          columns: [
+            { data: "id" },
+            { data: "name" },
+            {
+              data: null,
+              defaultContent: '<button><i class="fa fa-trash"></i></button>',
+              className: "row-remove text-red-700 dt-center",
+              orderable: false,
+            },
+          ],
+          language: {
+            zeroRecords: " ",
+          },
+        });
+      });
+    },
+    openModalDelete: function (e) {
+      this.showModalDelete = true;
+    },
+        closeModal: function () {
+      this.showModalDelete = false;
+    },
+    deleteGame: function () {
+      store.dispatch("deleteGame", store.state.dashboard.edit.game);
+      this.closeModal();
+      $("#games-list").dataTable().fnClearTable();
+      $("#games-list").dataTable().fnDestroy();
+      this.getGamesDashboard();
+    },
+  },
+  mounted() {
+    this.getGamesDashboard();
+     $("#games-list").on(
+      "click",
+      "tbody tr td.row-remove button .fa-trash",
+      function (e) {
+        store.state.dashboard.edit.game = {};
+        var id = $(e.target)
+          .closest("button")
+          .parent()
+          .parent()
+          .children()
+          .eq(0)
+          .text();
+
+        var username = $(e.target)
+          .closest("button")
+          .parent()
+          .parent()
+          .children()
+          .eq(1)
+          .text();
+
+        store.state.dashboard.edit.game.id = id;
+        store.state.dashboard.edit.game.name = name;
+
+        $("#btd").trigger("click");
+      }
+    );
+  },
+};
+</script>

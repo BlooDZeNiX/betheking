@@ -83,6 +83,12 @@ class AuthController extends Controller
         ]);
     }
 
+    public function getUsers()
+    {
+        $users = User::all();
+        return $users;
+    }
+
     public function createUser($data)
     {
         $user =  User::create([
@@ -96,6 +102,12 @@ class AuthController extends Controller
             'password' => bcrypt($data['password'])
         ]);
 
+        return $user;
+    }
+
+    public function getUserbyId(Request $request)
+    {
+        $user = User::where('id', $request['id'])->get();
         return $user;
     }
 
@@ -116,12 +128,27 @@ class AuthController extends Controller
 
     public function editUserData(Request $request)
     {
-        User::where('id', $request['id'])
-            ->update([
-                "name" => $request["name"],
-                "username" => $request["username"],
-                "email" => $request['email'],
-            ]);
+        if (isset($request['gold'])) {
+           return User::where('id', $request['id'])
+                ->update([
+                    "name" => $request["name"],
+                    "username" => $request["username"],
+                    "email" => $request['email'],
+                    "gold" => $request['gold'],
+                ]);
+        } else {
+           return User::where('id', $request['id'])
+                ->update([
+                    "name" => $request["name"],
+                    "username" => $request["username"],
+                    "email" => $request['email'],
+                ]);
+        }
+    }
+    public function deleteUserData(Request $request)
+    {
+       return User::where('id', $request['id'])
+            ->delete();
     }
     public function editUserPassword(Request $request)
     {

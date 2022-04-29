@@ -96,6 +96,7 @@ export default {
     getTopGames: function () {
       store.dispatch("getTopGames").then((data) => {
         this.topGames = data;
+        console.log(this.topGames);
       });
     },
   },
