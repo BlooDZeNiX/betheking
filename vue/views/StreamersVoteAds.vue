@@ -1,4 +1,4 @@
-<template >
+<template>
   <PageComponent title="">
     <div>
       <div
@@ -22,16 +22,7 @@
       <div class="rounded-lg flex justify-center overflow-hidden">
         <button
           v-on:click="voteStreamer"
-          class="
-            border border-black-600
-            rounded-lg
-            px-4
-            text-white
-            bg-gray-800
-            font-semibold
-            leading-relaxed
-            hover-greenwater
-          "
+          class="border border-black-600 rounded-lg px-4 text-white bg-gray-800 font-semibold leading-relaxed hover-greenwater"
         >
           Vote
         </button>
@@ -47,14 +38,17 @@ import store from "../src/store";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 
+const router = useRouter();
+
 const voteStream = {
   voter: "",
   streamerVoted: "",
   streamerLogin: "",
 };
 
-let loading = ref(false);
-let errorMsg = ref("");
+let show = true;
+let message = '';
+
 function voteStreamer(ev) {
   ev.preventDefault();
   voteStream.voter =
@@ -65,12 +59,24 @@ function voteStreamer(ev) {
     ev.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute(
       "streamer_id"
     );
-     voteStream.streamerLogin =
+  voteStream.streamerLogin =
     ev.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute(
       "login"
     );
-  store.dispatch("voteStreamer", voteStream).then(() => {
-    console.log("voto realizado");
+  store.dispatch("voteStreamer", voteStream).then((data) => {
+    if (typeof data == "number") {
+      message =
+        "You cannot vote Streamers before " + parseInt(data) + " minutes.";
+    } else {
+      message = "Vote realized.";
+    }
+    router.push({
+      name: "Home",
+      params: {
+        show,
+        message,
+      },
+    });
   });
 }
 </script>
@@ -90,7 +96,7 @@ export default {
       store
         .dispatch("getStreamer", this.$route.params.streamer_id)
         .then((data) => {
-          console.log(data)
+          console.log(data);
           this.img = data.data["offline_image_url"];
           this.name = data.data["display_name"];
         });
@@ -105,4 +111,3 @@ export default {
   },
 };
 </script>
-

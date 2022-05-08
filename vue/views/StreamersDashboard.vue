@@ -34,7 +34,7 @@
           </table>
         </div>
         <div>
-          <Modal v-show="showModalDelete" @close="closeModal" id="modal-user">
+          <Modal v-show="showModalDelete" @close="closeModal" id="modal-user"  class="top-1/2 left-1/2">
             <h2 class="text-xl font-bold text-gray-700">
               Deleting User {{ store.state.dashboard.edit.streamer.username }}
             </h2>

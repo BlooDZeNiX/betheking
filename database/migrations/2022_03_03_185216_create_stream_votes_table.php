@@ -15,8 +15,12 @@ return new class extends Migration
     {
         Schema::create('stream_votes', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\models\User::class, 'voter');
-            $table->foreignIdFor(\App\models\Streamers::class, 'streamer_voted');
+            $table->foreignId('voter')
+            ->constrained('users');
+        $table->unsignedBigInteger('streamer_voted');
+        $table->foreign('streamer_voted')
+            ->references('id_streamer')
+            ->on('streamers');
             $table->timestamps();
         });
     }

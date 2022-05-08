@@ -14,8 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('streams', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('id_streamer')->unique();
+            $table->unsignedBigInteger('id_streamer')->unique()->primary();
             $table->string('language');
             $table->string('source');
             $table->string('user_login');

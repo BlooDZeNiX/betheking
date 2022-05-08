@@ -14,7 +14,7 @@
                       Actual Password
                     </span>
                     <input
-                      value="changePassword.actual"
+                      v-model="changePassword.actual"
                       class="border-2 border-gray-700 w-1/2 rounded-lg"
                       type="password"
                       name="actual"
@@ -26,7 +26,7 @@
                       New Password
                     </span>
                     <input
-                      value="changePassword.new"
+                      v-model="changePassword.new"
                       class="border-2 border-gray-700 w-1/2 rounded-lg"
                       type="password"
                       name="new"
@@ -38,11 +38,11 @@
                       New Password
                     </span>
                     <input
-                      value="changePassword.new_repeat"
+                      v-model="changePassword.new_confirmation"
                       class="border-2 border-gray-700 w-1/2 rounded-lg"
                       type="password"
-                      name="new_repeat"
-                      id="new_repeat"
+                      name="new_confirmation"
+                      id="new_confirmation"
                     />
                   </li>
                   <li class="flex justify-center py-3">
@@ -92,7 +92,7 @@ export default {
         user_id: store.state.user.data.id,
         actual: "",
         new: "",
-        new_repeat: "",
+        new_confirmation: "",
       },
       user: {},
     };
@@ -101,13 +101,10 @@ export default {
   methods: {
     getUserInfo() {
        store.dispatch("getUser");
-       console.log(store.state.user.data, this.changePassword)
     },
     editUserPassword(ev) {
       ev.preventDefault();
-      store.dispatch("editUserPassword", this.changePassword).then((data) =>{
-        console.log(data);
-      });
+      store.dispatch("editUserPassword", this.changePassword);
     }
   },
   mounted() {

@@ -19,51 +19,60 @@ import DefaultLayout from "../src/components/DefaultLayout.vue"
 import AuthLayout from "../src/components/AuthLayout.vue"
 import StreamersVoteAds from "../views/StreamersVoteAds.vue"
 import GamesVoteAds from "../views/GamesVoteAds.vue"
+import AboutUs from "../views/AboutUs.vue"
+import ContactUs from "../views/ContactUs.vue"
+import Help from "../views/Help.vue"
+import PrivacyPolicy from "../views/PrivacyPolicy.vue"
 import store from '../src/store/index'
 
 const routes = [{
         path: "/",
-        redirect: "/Home",
+        redirect: "/home",
         name: "Home",
         component: DefaultLayout,
         meta: { requiresAuth: true },
+        props:true,
         children: [
-            { path: '/Home', name: 'Home', component: Home },
-            { path: '/Streamers', name: 'Streamers', component: Streamers },
-            { path: '/Games', name: 'Games', component: Games },
-            { path: '/Voters', name: 'Voters', component: Voters },
-            { path: '/Profile', name: 'Profile', component: Profile },
-            { path: '/Gold', name: 'Gold', component: Gold },
-            { path: '/Administration', name: 'Administration', component: Administration },
-            { path: '/Dashboard', name: 'Dashboard', component: Dashboard },
-            { path: '/GamesDashboard', name: 'GamesDashboard', component: GamesDashboard },
-            { path: '/UsersDashboard', name: 'UsersDashboard', component: UsersDashboard },
-            { path: '/StreamersDashboard', name: 'StreamersDashboard', component: StreamersDashboard },
-            { path: '/Profile/Edit', name: 'EditProfile', component: EditProfile, props: true },
-            { path: '/Profile/Edit/Password', name: 'ChangePassword', component: ChangePassword, props: true },
-            { path: '/StreamersVoteAds', name: 'StreamersVoteAds', component: StreamersVoteAds, props: true },
-            { path: '/GamesVoteAds', name: 'GamesVoteAds', component: GamesVoteAds, props: true },
-        ]
-    },
-    {
-        path: '/auth',
-        redirect: '/login',
-        name: 'Auth',
-        component: AuthLayout,
-        children: [{
-                path: "/login",
-                name: "Login",
-                component: Login,
-            },
-            {
-                path: "/signup",
-                name: "SignUp",
-                component: SignUp,
-            }, {
-                path: "/passwordRecovery",
-                name: "PasswordRecovery",
-                component: PasswordRecovery,
-            },
+            { path: '/home', name: 'Home', component: Home, props: true },
+            { path: '/streamers', name: 'Streamers', component: Streamers },
+            { path: '/games', name: 'Games', component: Games },
+            { path: '/voters', name: 'Voters', component: Voters },
+            { path: '/profile', name: 'Profile', component: Profile },
+            { path: '/gold', name: 'Gold', component: Gold },
+            { path: '/administration', name: 'Administration', component: Administration },
+            { path: '/dashboard', name: 'Dashboard', component: Dashboard },
+            { path: '/games-dashboard', name: 'GamesDashboard', component: GamesDashboard },
+            { path: '/users-dashboard', name: 'UsersDashboard', component: UsersDashboard },
+            { path: '/streamers-dashboard', name: 'StreamersDashboard', component: StreamersDashboard },
+            { path: '/profile/edit', name: 'EditProfile', component: EditProfile, props: true },
+            { path: '/profile/edit/password', name: 'ChangePassword', component: ChangePassword, props: true },
+            { path: '/streamers-vote-ads', name: 'StreamersVoteAds', component: StreamersVoteAds, props: true },
+            { path: '/games-vote-ads', name: 'GamesVoteAds', component: GamesVoteAds, props: true },
+            { path: '/about-us', name: 'AboutUs', component: AboutUs},
+            { path: '/help', name: 'Help', component: Help},
+            { path: '/privacy-policy', name: 'PrivacyPolicy', component: PrivacyPolicy},
+            { path: '/contact-us', name: 'ContactUs', component: ContactUs},
+          ]
+        },
+        {
+          path: '/auth',
+          redirect: '/login',
+          name: 'Auth',
+          component: AuthLayout,
+          children: [{
+            path: "/login",
+            name: "Login",
+            component: Login,
+          },
+          {
+            path: "/signup",
+            name: "SignUp",
+            component: SignUp,
+          }, {
+            path: "/password-recovery",
+            name: "PasswordRecovery",
+            component: PasswordRecovery,
+          },
         ]
     },
 ];

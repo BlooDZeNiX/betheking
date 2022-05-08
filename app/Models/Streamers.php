@@ -21,4 +21,9 @@ class Streamers extends Model
         'offline_image_url',
         'profile_image_url',
     ];
+
+    public function streamerVotes()
+    {
+        return $this->hasMany(StreamerVotes::class, 'id');
+    }
 }

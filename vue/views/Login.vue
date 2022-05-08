@@ -84,7 +84,16 @@
             >
           </div>
         </div>
-
+      <Alert
+        v-if="Object.keys(errors).length"
+        class="flex-col items-stretch text-sm rounded-lg text-red border-2 border-red-900"
+      >
+          <div v-for="(field, i) of Object.keys(errors)" :key="i">
+            <div v-for="(error, ind) of errors[field] || []" :key="ind">
+              * {{ error.trim() }}
+            </div>
+          </div>
+      </Alert>
         <div>
           <button
             type="submit"
@@ -146,6 +155,7 @@ input:focus {
 </style>
 <script setup>
 import { LockClosedIcon } from "@heroicons/vue/solid";
+import Alert from "../src/components/Alert.vue";
 import store from "../src/store";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
@@ -156,8 +166,7 @@ const user = {
   password: "",
 };
 
-let loading = ref(false);
-let errorMsg = ref("");
+let errors = ref("");
 
 function login(ev) {
   ev.preventDefault();
@@ -168,9 +177,14 @@ function login(ev) {
         name: "Home",
       });
     })
-    .catch((err) => {
-      loading.value = false;
-      errorMsg.value = err.response.data.error;
+   .catch((error) => {
+     console.log(error.response.data)
+      if (error.response.status === 422) {
+        errors.value = error.response.data.errors;
+        if(error.response.data.error === 'The Provided credentials are not correct'){
+          errors.value = {"password":["Incorrect Password."]}
+        }
+      }
     });
 }
 </script>

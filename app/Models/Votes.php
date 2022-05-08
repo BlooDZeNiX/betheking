@@ -15,4 +15,10 @@ class Votes extends Model
         'name_voted',
         'type'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, "id");
+    }
+
 }

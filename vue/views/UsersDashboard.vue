@@ -37,7 +37,7 @@
         </table>
         <!-- Modal formulario -->
         <div>
-          <Modal v-show="showModalEdit" @close="closeModal" id="modal-user">
+          <Modal v-show="showModalEdit" @close="closeModal" id="modal-user"  class="lg:top-1/2 lg:left-1/2 top-0 left-0">
             <h2 class="text-xl font-bold text-gray-700">Edit User</h2>
             <hr />
             <div class="mt-4">
@@ -189,7 +189,7 @@
           </Modal>
         </div>
         <div>
-          <Modal v-show="showModalDelete" @close="closeModal" id="modal-user">
+          <Modal v-show="showModalDelete" @close="closeModal" id="modal-user" class="top-1/2 left-1/2">
             <h2 class="text-xl font-bold text-gray-700">
               Deleting User {{ store.state.dashboard.edit.user.username }}
             </h2>
@@ -334,9 +334,8 @@ export default {
   },
   components: {},
   methods: {
-    click: function () {},
     getUsersDashboard: function () {
-      store.dispatch("getUsersDashboard").then((data) => {
+        store.dispatch("getUsersDashboard").then((data) => {
         $(document).ready(function () {
           $("#user-list").DataTable({
             response: true,

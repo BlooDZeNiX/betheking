@@ -43,4 +43,19 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function votes()
+    {
+        return $this->hasMany(Votes::class, "id");
+    }
+
+    public function gameVotes()
+    {
+        return $this->hasMany(GameVotes::class, "id");
+    }
+
+    public function streamerVotes()
+    {
+        return $this->hasMany(StreamerVotes::class, "id");
+    }
 }

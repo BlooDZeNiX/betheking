@@ -18,4 +18,13 @@ class StreamVotes extends Model
         'voter',
         'streamer_voted',
     ];
+
+    public function streamer(){
+       return $this->belongsTo(Streamer::class, "id_streamer");
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, "id");
+    }
 }

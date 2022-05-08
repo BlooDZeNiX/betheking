@@ -3,10 +3,6 @@
     <div
       class="
         absolute
-        lg:top-1/2
-        lg:left-1/2
-        top-0
-        left-0
         transform
         lg:-translate-x-1/2 lg:-translate-y-1/2
         lg:w-1/2
@@ -60,7 +56,6 @@ export default {
   },
   watch: {
     showing(value) {
-      console.log(value);
     },
   },
   methods: {

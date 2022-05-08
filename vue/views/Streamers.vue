@@ -99,7 +99,6 @@ export default {
     getTopStreams: function () {
       store.dispatch("getTopStreams").then((data) => {
         this.topList = data;
-        console.log(this.topList)
       });
     },
   },

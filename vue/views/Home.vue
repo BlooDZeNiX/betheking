@@ -1,27 +1,16 @@
 <template>
   <PageComponent title="Kings">
+    <Modal v-show="show" class="lg:top-30 lg:left-1/2 left-0" @close="closeModal" id="modalMessage">
+      <p>{{message}}</p>
+    </Modal>
     <div>
       <div class="grid3">
         <div class="pr-1">
           <table
-            class="
-              w-full
-              text-sm text-left text-gray-500
-              dark:text-gray-400
-              overflow-x-auto
-              shadow-md
-              sm:rounded-lg
-            "
+            class="w-full text-sm text-left text-gray-500 dark:text-gray-400 overflow-x-auto shadow-md sm:rounded-lg"
           >
             <thead
-              class="
-                text-xs text-white
-                uppercase
-                bg-gray-700
-                dark:bg-gray-700 dark:text-gray-400
-                shadow-md
-                sm:rounded-lg
-              "
+              class="text-xs text-white uppercase bg-gray-700 dark:bg-gray-700 dark:text-gray-400 shadow-md sm:rounded-lg"
             >
               <tr>
                 <th scope="col" class="px-6 py-3">#</th>
@@ -53,24 +42,10 @@
         </div>
         <div class="pr-1">
           <table
-            class="
-              w-full
-              text-sm text-left text-gray-500
-              dark:text-gray-400
-              overflow-x-auto
-              shadow-md
-              sm:rounded-lg
-            "
+            class="w-full text-sm text-left text-gray-500 dark:text-gray-400 overflow-x-auto shadow-md sm:rounded-lg"
           >
             <thead
-              class="
-                text-xs text-white
-                uppercase
-                bg-gray-700
-                dark:bg-gray-700 dark:text-gray-400
-                shadow-md
-                sm:rounded-lg
-              "
+              class="text-xs text-white uppercase bg-gray-700 dark:bg-gray-700 dark:text-gray-400 shadow-md sm:rounded-lg"
             >
               <tr>
                 <th scope="col" class="px-6 py-3">#</th>
@@ -102,24 +77,10 @@
         </div>
         <div class="pr-1">
           <table
-            class="
-              w-full
-              text-sm text-left text-gray-500
-              dark:text-gray-400
-              overflow-x-auto
-              shadow-md
-              sm:rounded-lg
-            "
+            class="w-full text-sm text-left text-gray-500 dark:text-gray-400 overflow-x-auto shadow-md sm:rounded-lg"
           >
             <thead
-              class="
-                text-xs text-white
-                uppercase
-                bg-gray-700
-                dark:bg-gray-700 dark:text-gray-400
-                shadow-md
-                sm:rounded-lg
-              "
+              class="text-xs text-white uppercase bg-gray-700 dark:bg-gray-700 dark:text-gray-400 shadow-md sm:rounded-lg"
             >
               <tr>
                 <th scope="col" class="px-6 py-3">#</th>
@@ -156,15 +117,16 @@
 
 <script setup>
 import PageComponent from "../src/components/PageComponent.vue";
+import Modal from "../src/components/Modal.vue";
 import { LockClosedIcon } from "@heroicons/vue/solid";
 import store from "../src/store";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 
 store.dispatch("getUser").then(() => {
   return store.state.user.data.id;
-
 });
 </script>
 
@@ -178,17 +140,29 @@ export default {
         games: [],
         voters: [],
       },
+      show: false,
+      message: '',
     };
   },
   components: {},
   methods: {
     getTopVoted: function () {
+      if (this.$route.redirectedFrom) {
+        if (Object.keys(this.$route.redirectedFrom.params).length) {
+          this.show = true;
+          this.message = this.$route.redirectedFrom.params.message;
+          setTimeout(() => this.show = false, 5000);
+        }
+      }
       store.dispatch("getTopVoted").then((data) => {
         this.topVoted.streamers = data.data.topStreams;
         this.topVoted.games = data.data.topGames;
         this.topVoted.voters = data.data.topVoters;
       });
     },
+    closeModal: function () {
+      this.show = false;
+    }
   },
   mounted() {
     this.getTopVoted();

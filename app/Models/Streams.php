@@ -21,4 +21,5 @@ class Streams extends Model
         'user_name',
         'url',
     ];
+
 }

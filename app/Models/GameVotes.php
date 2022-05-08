@@ -18,4 +18,14 @@ class GameVotes extends Model
         'voter',
         'game_voted',
     ];
+
+    public function game()
+    {
+        return $this->belongsTo(Games::class, 'id_game');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, "id");
+    }
 }

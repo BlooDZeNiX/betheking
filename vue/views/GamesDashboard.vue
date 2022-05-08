@@ -34,7 +34,7 @@
           </table>
         </div>
         <div>
-          <Modal v-show="showModalDelete" @close="closeModal" id="modal-user">
+          <Modal v-show="showModalDelete" @close="closeModal" id="modal-user"  class="top-1/2 left-1/2">
             <h2 class="text-xl font-bold text-gray-700">
               Deleting User {{ store.state.dashboard.edit.game.username }}
             </h2>
@@ -137,7 +137,7 @@ export default {
           data: data.data,
           searching: true,
           columns: [
-            { data: "id" },
+            { data: "id_game" },
             { data: "name" },
             {
               data: null,

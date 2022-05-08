@@ -1,4 +1,4 @@
-<template >
+<template>
   <PageComponent title="">
     <div>
       <div class="rounded-lg flex justify-center overflow-hidden">
@@ -8,16 +8,7 @@
       <div class="rounded-lg flex justify-center overflow-hidden">
         <button
           v-on:click="voteGame"
-          class="
-            border border-black-600
-            rounded-lg
-            px-4
-            text-white
-            bg-gray-800
-            font-semibold
-            leading-relaxed
-            hover-greenwater
-          "
+          class="border border-black-600 rounded-lg px-4 text-white bg-gray-800 font-semibold leading-relaxed hover-greenwater"
         >
           Vote
         </button>
@@ -33,14 +24,15 @@ import store from "../src/store";
 import { useRouter } from "vue-router";
 import { ref } from "vue";
 
+const router = useRouter();
+
 const voteGames = {
   voter: "",
   name: "",
   gameVoted: "",
 };
-
-let loading = ref(false);
-let errorMsg = ref("");
+let show = true;
+let message = '';
 function voteGame(ev) {
   ev.preventDefault();
   voteGames.voter =
@@ -51,13 +43,23 @@ function voteGame(ev) {
     ev.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute(
       "game_id"
     );
-    voteGames.name =
+  voteGames.name =
     ev.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.getAttribute(
       "name"
     );
-  console.log(voteGames);
-  store.dispatch("voteGame", voteGames).then(() => {
-    console.log("voto realizado");
+  store.dispatch("voteGame", voteGames).then((data) => {
+    if(typeof(data) == "number"){
+      message = "You cannot vote Games before "+ parseInt(data) + " minutes.";
+    }else{
+      message = "Vote realized.";
+    }
+router.push({
+      name: "Home",
+      params: {
+        show,
+        message,
+      },
+    });
   });
 }
 </script>
@@ -75,7 +77,6 @@ export default {
   methods: {
     getGame: function () {
       store.dispatch("getGame", this.$route.params.game_id).then((data) => {
-        console.log(data.data);
         this.img = data.data[0]["box_art_url"];
         this.name = data.data[0]["name"];
       });
@@ -90,4 +91,3 @@ export default {
   },
 };
 </script>
-

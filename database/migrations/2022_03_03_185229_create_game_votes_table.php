@@ -15,8 +15,12 @@ return new class extends Migration
     {
         Schema::create('game_votes', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\models\User::class, 'voter');
-            $table->foreignIdFor(\App\models\Games::class, 'game_voted');
+            $table->foreignId('voter')
+                ->constrained('users');
+            $table->unsignedBigInteger('game_voted');
+            $table->foreign('game_voted')
+                ->references('id_game')
+                ->on('games');
             $table->timestamps();
         });
     }
@@ -28,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('Game_votes');
+        Schema::dropIfExists('game_votes');
     }
 };

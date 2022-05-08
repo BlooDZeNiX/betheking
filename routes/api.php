@@ -32,8 +32,10 @@ Route::post('/editUserData', [AuthController::class, 'editUserData']);
 Route::post('/deleteUserData', [AuthController::class, 'deleteUserData']);
 Route::post('/getUserById', [AuthController::class, 'getUserById']);
 Route::get('/getUsers', [AuthController::class, 'getUsers']);
+Route::get('/getTodayUsers', [AuthController::class, 'getTodayUsers']);
 
-Route::get('/TopVoted', [Votecontroller::class, 'getTopVoted']);
+Route::get('/TopVoted', [VoteController::class, 'getTopVoted']);
+Route::get('/getTodayVotes', [VoteController::class, 'getTodayVotes']);
 Route::post('/userVotes', [VoteController:: class, 'getUserVotes']);
 Route::post('/voteStreamer', [VoteController::class, 'voteStreamer']);
 Route::post('/voteGame', [VoteController::class, 'voteGame']);

@@ -14,8 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('games', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('id_game');
+            $table->unsignedBigInteger('id_game')->primary();
             $table->string('name');
             $table->text('box_art_url');
             $table->timestamps();

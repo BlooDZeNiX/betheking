@@ -19,4 +19,9 @@ class Games extends Model
         'box_art_url',
         'name',
     ];
+
+    public function gameVotes()
+    {
+        return $this->hasMany(GameVotes::class, 'id');
+    }
 }
