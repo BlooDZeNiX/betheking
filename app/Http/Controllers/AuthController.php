@@ -123,11 +123,11 @@ class AuthController extends Controller
         ]);
         $dir = 'images/';
         $absolutePath = public_path($dir);
+        $fileName = time() . '.' . $request->file->getClientOriginalExtension();
+        $relativePath = $dir . $fileName;
         if (!File::exists($absolutePath)) {
             File::makeDirectory($absolutePath, 0755, true);
         }
-        $fileName = time() . '.' . $request->file->getClientOriginalExtension();
-        $relativePath = $dir . $fileName;
         $request->file->move($relativePath . $fileName);
 
         User::where("id", $request->id)->update(['imageUrl' => $fileName]);
