@@ -1,7 +1,6 @@
 <template>
   <PageComponent title="Dashboard">
-    <p>hola soy la dashboard</p>
-    <!-- <Administration>
+    <Administration>
       <div>
         <div class="w-full flex flex-row text-center">
           <div
@@ -50,7 +49,7 @@
           </div>
         </div>
       </div>
-    </Administration> -->
+    </Administration>
   </PageComponent>
 </template>
 

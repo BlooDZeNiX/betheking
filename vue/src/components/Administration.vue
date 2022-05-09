@@ -12,7 +12,7 @@
                 :to="item.to"
                 active-class=""
                 :class="[
-                  item.to.name === item.to.name
+                  this.router.name === item.to.name
                     ? 'bg-gray-700 text-white border-2 border-teal-700 w-full'
                     : 'text-gray-300 hover:bg-gray-700 hover:text-white w-full',
                     'px-3 py-2 rounded-md text-sm font-medium w-full',
