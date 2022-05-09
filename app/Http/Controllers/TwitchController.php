@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Streams;
 use App\Models\Streamers;
 use App\Models\Games;
+use App\Models\StreamVotes;
+use App\Models\Votes;
+use App\Models\GameVotes;
 use Brick\Math\BigInteger;
 use Illuminate\Support\Facades\Http;
 
@@ -91,7 +94,9 @@ class TwitchController extends Controller
 
     public function deleteStreamer(Request $request)
     {
-        return Streamers::where('id_streamer', $request['id'])
+        StreamVotes::where('streamer_voted', $request['id'])->delete();
+        Votes::where('name_voted', $request['username'])->delete();
+        Streamers::where('id_streamer', $request['id'])
             ->delete();
     }
 
@@ -138,7 +143,9 @@ class TwitchController extends Controller
 
     public function deleteGame(Request $request)
     {
-        return Games::where('id', $request['id'])
+        GameVotes::where('game_voted', $request['id'])->delete();
+        Votes::where('name_voted', $request['username'])->delete();
+        Games::where('id_game', $request['id'])
             ->delete();
     }
 }

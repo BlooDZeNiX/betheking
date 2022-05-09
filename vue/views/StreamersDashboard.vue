@@ -36,7 +36,7 @@
         <div>
           <Modal v-show="showModalDelete" @close="closeModal" id="modal-user"  class="top-1/2 left-1/2">
             <h2 class="text-xl font-bold text-gray-700">
-              Deleting User {{ store.state.dashboard.edit.streamer.username }}
+              Deleting Streamer {{ store.state.dashboard.edit.streamer.username }} and all its votes.
             </h2>
             <h2 class="text-xl font-bold text-gray-700 mt-6">Are you sure?</h2>
             <div class="mt-4 flex flex-row justify-center">
