@@ -11,7 +11,12 @@
                 :key="item.name"
                 :to="item.to"
                 active-class=""
-                class= 'px-3 py-2 rounded-md text-sm font-medium w-full'
+                :class="[
+                  this.$route.name === item.to.name
+                    ? 'bg-gray-700 text-white border-2 border-teal-700 w-full'
+                    : 'text-gray-300 hover:bg-gray-700 hover:text-white w-full',
+                  'px-3 py-2 rounded-md text-sm font-medium w-full',
+                ]"
                 >{{ item.name }}</router-link
               >
             </div>
@@ -28,8 +33,8 @@
 import { LockClosedIcon } from "@heroicons/vue/solid";
 import store from "../store";
 import { useRouter } from "vue-router";
-
-const router = useRouter();
+  const store = useStore();
+    const router = useRouter();
 </script>
 
 <script>
