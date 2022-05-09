@@ -102,7 +102,7 @@ class AuthController extends Controller
             'active' => 1,
             'last_login' => 'now()',
             'deleted_at' => null,
-            'imageUrl' => 'public/images/betheking.png',
+            'imageUrl' => 'images/betheking.png',
             'password' => bcrypt($data['password'])
         ]);
 
@@ -121,8 +121,8 @@ class AuthController extends Controller
             'file' => 'required|image|mimes:jpg,jfif,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
         ]);
         $fileName = time() . '.' . $request->file->getClientOriginalExtension();
-        $request->file->move("public/images/", $fileName);
-        $fileName = "public/images/" . $fileName;
+        $request->file->move("images/", $fileName);
+        $fileName = "images/" . $fileName;
         User::where("id", $request->id)->update(['imageUrl' => $fileName]);
         return response()->json([
             'success' => 'You have successfully upload file.',
