@@ -1,6 +1,6 @@
 <template>
   <PageComponent title="Kings">
-    <Modal v-show="show" class="lg:top-30 lg:left-1/2 left-0" @close="closeModal" id="modalMessage">
+    <Modal v-show="show" class="absolute top-30 left-1/2" @close="closeModal" id="modalMessage">
       <p>{{message}}</p>
     </Modal>
     <div>

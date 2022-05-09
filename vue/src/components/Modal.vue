@@ -2,26 +2,34 @@
   <Transition name="fade">
     <div
       class="
+        bold
+        font-medium
         absolute
         transform
-        lg:-translate-x-1/2 lg:-translate-y-1/2
-        lg:w-1/2
-        lg:h-1/2
-        lg:h-screen
+        -translate-x-1/2 -translate-y-1/2
+        w-1/2
+        h-1/2 h-screen
         flex
         items-center
         justify-center
         h-full
         w-full
-        lg:text-base
-        text-xs
+        text-base text-xs
       "
       @click.self="close"
     >
       <div class="relative w-full bg-white shadow-lg rounded-lg p-8">
         <button
           aria-label="close"
-          class="absolute top-0 right-0 font-medium text-xl text-gray-500 my-2 mx-4"
+          class="
+            absolute
+            top-0
+            right-0
+            font-medium
+            text-xl text-gray-500
+            my-2
+            mx-4
+          "
           @click.prevent="close"
         >
           ×
@@ -55,8 +63,7 @@ export default {
     },
   },
   watch: {
-    showing(value) {
-    },
+    showing(value) {},
   },
   methods: {
     close() {

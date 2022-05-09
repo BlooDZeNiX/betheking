@@ -37,7 +37,7 @@
         </table>
         <!-- Modal formulario -->
         <div>
-          <Modal v-show="showModalEdit" @close="closeModal" id="modal-user"  class="lg:top-1/2 lg:left-1/2 top-0 left-0">
+          <Modal v-show="showModalEdit" @close="closeModal" id="modal-user"  class="top-1/2 left-1/2 sm:w-full">
             <h2 class="text-xl font-bold text-gray-700">Edit User</h2>
             <hr />
             <div class="mt-4">
