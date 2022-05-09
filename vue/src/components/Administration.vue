@@ -33,7 +33,7 @@
 import { LockClosedIcon } from "@heroicons/vue/solid";
 import store from "../store";
 import { useRouter } from "vue-router";
-  const store = useStore();
+
     const router = useRouter();
 </script>
 
