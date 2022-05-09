@@ -142,7 +142,7 @@
       </div>
     </form>
     <button id="btd" class="hidden" @click="openModalTerms"></button>
-    <Modal v-show="showModalTerms" @close="closeModal" id="modal-terms" class="lg:top-1/2 lg:left-1/2 top-0 left-0">
+    <Modal v-show="showModalTerms" @close="closeModal" id="modal-terms" class="lg:top-1/2 lg:left-1/2">
       <div class="max-h-[50vh] overflow-y-auto z20 pr-2">
         <div class="document-previewer-wrapper-a717db" align="justify">
           <div data-custom-class="body" align="justify">

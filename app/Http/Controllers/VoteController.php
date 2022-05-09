@@ -48,24 +48,25 @@ class VoteController extends Controller
                 $vote
             ]);
         } else {
-            try{
+            // try{
             //     $mail = new PHPMailer;
             //     $mail->SMTPDebug = 0;
             //     $mail->isSMTP();
             //     $mail->Host = 'smtp.hostinger.com';
-            //     $mail->Port = 465;
             //     $mail->SMTPAuth = true;
             //     $mail->Username = 'btk@betheking.online';
             //     $mail->Password = 'Fraternidad0=';
+            //     $mail->SMTPSecure="ssl";
+            //     $mail->Port = 465;
             //     $mail->setFrom('btk@betheking.online', 'BeTheKing');
             //     $mail->addAddress('cesarmsfelipe@gmail.com', 'Zenix');
             //     $mail->isHTML(true);
             //     $mail->Body = "done";
             //     $mail->Subject = 'Testing PHPMailer';
             //    $mail->send();
-            }catch(Exception $e){
-                return $e;
-            }
+            // }catch(Exception $e){
+            //     return $e;
+            // }
             return $able;
         }
     }
