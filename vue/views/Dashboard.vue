@@ -1,5 +1,5 @@
 <template>
-  <PageComponent title="Games Management">
+  <PageComponent title="Dashboard">
     <Administration>
       <div>
         <div class="w-full flex flex-row text-center">

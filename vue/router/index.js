@@ -1,20 +1,18 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
-import Streamers from '../views/Streamers.vue'
-import Voters from '../views/Voters.vue'
 import Login from '../views/Login.vue'
 import SignUp from "../views/SignUp.vue"
 import PasswordRecovery from "../views/PasswordRecovery.vue"
+import Home from '../views/Home.vue'
+import Streamers from '../views/Streamers.vue'
 import Games from "../views/Games.vue"
 import Profile from "../views/Profile.vue"
+import EditProfile from "../views/EditProfile.vue"
+import ChangePassword from "../views/ChangePassword.vue"
 import Gold from "../views/Gold.vue"
-import Administration from "../src/components/Administration.vue"
 import Dashboard from "../views/Dashboard.vue"
 import GamesDashboard from "../views/GamesDashboard.vue"
 import StreamersDashboard from '../views/StreamersDashboard.vue'
 import UsersDashboard from '../views/UsersDashboard.vue'
-import EditProfile from "../views/EditProfile.vue"
-import ChangePassword from "../views/ChangePassword.vue"
 import DefaultLayout from "../src/components/DefaultLayout.vue"
 import AuthLayout from "../src/components/AuthLayout.vue"
 import StreamersVoteAds from "../views/StreamersVoteAds.vue"
@@ -31,15 +29,13 @@ const routes = [{
         name: "Home",
         component: DefaultLayout,
         meta: { requiresAuth: true },
-        props:true,
+        props: true,
         children: [
             { path: '/home', name: 'Home', component: Home, props: true },
             { path: '/streamers', name: 'Streamers', component: Streamers },
             { path: '/games', name: 'Games', component: Games },
-            { path: '/voters', name: 'Voters', component: Voters },
             { path: '/profile', name: 'Profile', component: Profile },
             { path: '/gold', name: 'Gold', component: Gold },
-            { path: '/administration', name: 'Administration', component: Administration },
             { path: '/dashboard', name: 'Dashboard', component: Dashboard },
             { path: '/games-dashboard', name: 'GamesDashboard', component: GamesDashboard },
             { path: '/users-dashboard', name: 'UsersDashboard', component: UsersDashboard },
@@ -48,31 +44,31 @@ const routes = [{
             { path: '/profile/edit/password', name: 'ChangePassword', component: ChangePassword, props: true },
             { path: '/streamers-vote-ads', name: 'StreamersVoteAds', component: StreamersVoteAds, props: true },
             { path: '/games-vote-ads', name: 'GamesVoteAds', component: GamesVoteAds, props: true },
-            { path: '/about-us', name: 'AboutUs', component: AboutUs},
-            { path: '/help', name: 'Help', component: Help},
-            { path: '/privacy-policy', name: 'PrivacyPolicy', component: PrivacyPolicy},
-            { path: '/contact-us', name: 'ContactUs', component: ContactUs},
-          ]
-        },
-        {
-          path: '/auth',
-          redirect: '/login',
-          name: 'Auth',
-          component: AuthLayout,
-          children: [{
-            path: "/login",
-            name: "Login",
-            component: Login,
-          },
-          {
-            path: "/signup",
-            name: "SignUp",
-            component: SignUp,
-          }, {
-            path: "/password-recovery",
-            name: "PasswordRecovery",
-            component: PasswordRecovery,
-          },
+            { path: '/about-us', name: 'AboutUs', component: AboutUs },
+            { path: '/help', name: 'Help', component: Help },
+            { path: '/privacy-policy', name: 'PrivacyPolicy', component: PrivacyPolicy },
+            { path: '/contact-us', name: 'ContactUs', component: ContactUs },
+        ]
+    },
+    {
+        path: '/auth',
+        redirect: '/login',
+        name: 'Auth',
+        component: AuthLayout,
+        children: [{
+                path: "/login",
+                name: "Login",
+                component: Login,
+            },
+            {
+                path: "/signup",
+                name: "SignUp",
+                component: SignUp,
+            }, {
+                path: "/password-recovery",
+                name: "PasswordRecovery",
+                component: PasswordRecovery,
+            },
         ]
     },
 ];
