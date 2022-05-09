@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
 use Illuminate\Testing\Fluent\Concerns\Has;
 use Illuminate\Validation\Rules\Password;
 use Laravel\Sanctum\NewAccessToken;
@@ -120,13 +121,19 @@ class AuthController extends Controller
         $request->validate([
             'file' => 'required|image|mimes:jpg,jfif,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
         ]);
+        $dir = 'images/';
+        $absolutePath = public_path($dir);
+        if (!File::exists($absolutePath)) {
+            File::makeDirectory($absolutePath, 0755, true);
+        }
         $fileName = time() . '.' . $request->file->getClientOriginalExtension();
-        $request->file->move("assets/images//images/" . $fileName);
-        $fileName = "assets/images//images/" . $fileName;
+        $relativePath = $dir . $fileName;
+        $request->file->move($relativePath . $fileName);
+
         User::where("id", $request->id)->update(['imageUrl' => $fileName]);
         return response()->json([
             'success' => 'You have successfully upload file.',
-            'fileName' => $fileName
+            'fileName' => $relativePath,
         ]);
     }
 
