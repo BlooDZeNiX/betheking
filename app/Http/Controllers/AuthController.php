@@ -133,7 +133,7 @@ class AuthController extends Controller
         User::where("id", $request->id)->update(['imageUrl' => $fileName]);
         return response()->json([
             'success' => 'You have successfully upload file.',
-            'fileName' => $relativePath,
+            'fileName' => $absolutePath,
         ]);
     }
 
