@@ -123,7 +123,7 @@ class AuthController extends Controller
         ]);
         $dir = 'assets/images/';
 
-        $fileName = time() . '.' . $request->file->getClientOriginalExtension();
+        $fileName = time() . '.png';
         $relativePath = $dir . $fileName;
         $request->file->move($dir);
 
