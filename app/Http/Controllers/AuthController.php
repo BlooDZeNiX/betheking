@@ -121,7 +121,7 @@ class AuthController extends Controller
         $request->validate([
             'file' => 'required|image|mimes:jpg,jfif,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
         ]);
-        $dir = 'images/';
+        $dir = 'assets/images/';
         $absolutePath = public_path($dir);
         $fileName = time() . '.' . $request->file->getClientOriginalExtension();
         $relativePath = $dir;
@@ -133,7 +133,7 @@ class AuthController extends Controller
         User::where("id", $request->id)->update(['imageUrl' => $relativePath.$fileName]);
         return response()->json([
             'success' => 'You have successfully upload file.',
-            'fileName' => "images/".$fileName,
+            'fileName' => "assets/images/".$fileName,
         ]);
     }
 
