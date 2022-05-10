@@ -123,14 +123,14 @@ class AuthController extends Controller
         ]);
 
         $fileName = time() . '.' . $request->image->extension();
-        $dir = 'assets/images';
-        $request->image->move($dir, $fileName);
+
+        $request->image->move(public_path(), $fileName);
         // $path = $request->file('image')->store('public/assets/images');
 
-        User::where("id", $request->id)->update(['imageUrl' => $dir."/".$fileName]);
+        User::where("id", $request->id)->update(['imageUrl' => public_path()."/".$fileName]);
         return response()->json([
             'success' => 'You have successfully upload file.',
-            'fileName' => $dir . "/" . $fileName,
+            'fileName' => public_path(). "/" . $fileName,
         ]);
     }
 
