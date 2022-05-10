@@ -121,13 +121,10 @@ class AuthController extends Controller
         $request->validate([
             'file' => 'required|image|mimes:jpg,jfif,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
         ]);
-        $dir = 'images/';
-        $absolutePath = public_path($dir);
+         $absolutePath = public_path();
         $fileName = time() . '.png';
-        $relativePath = $dir . $fileName;
-        if (!File::exists($absolutePath)) {
-            File::makeDirectory($absolutePath, 0755, true);
-        }
+        $relativePath = $fileName;
+
         $request->file->move($relativePath . $fileName);
 
         User::where("id", $request->id)->update(['imageUrl' => $fileName]);
