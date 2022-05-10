@@ -34,9 +34,16 @@
           </table>
         </div>
         <div>
-          <Modal v-show="showModalDelete" @close="closeModal" id="modal-user"  class="top-1/2 left-1/2">
+          <Modal
+            v-show="showModalDelete"
+            @close="closeModal"
+            id="modal-user"
+            class="top-1/2 left-1/2"
+          >
             <h2 class="text-xl font-bold text-gray-700">
-              Deleting Streamer {{ store.state.dashboard.edit.streamer.username }} and all its votes.
+              Deleting Streamer
+              {{ store.state.dashboard.edit.streamer.username }} and all its
+              votes.
             </h2>
             <h2 class="text-xl font-bold text-gray-700 mt-6">Are you sure?</h2>
             <div class="mt-4 flex flex-row justify-center">
@@ -132,30 +139,32 @@ export default {
   methods: {
     getStreamersDashboard: function () {
       store.dispatch("getStreamersDashboard").then((data) => {
-        $("#streamer-list").DataTable({
-          response: true,
-          data: data.data,
-          searching: true,
-          columns: [
-            { data: "id_streamer" },
-            { data: "display_name" },
-            {
-              data: null,
-              defaultContent: '<button><i class="fa fa-trash"></i></button>',
-              className: "row-remove text-red-700 dt-center",
-              orderable: false,
+        $(document).ready(function () {
+          $("#streamer-list").DataTable({
+            response: true,
+            data: data.data,
+
+            columns: [
+              { data: "id_streamer" },
+              { data: "display_name" },
+              {
+                data: null,
+                defaultContent: '<button><i class="fa fa-trash"></i></button>',
+                className: "row-remove text-red-700 dt-center",
+                orderable: false,
+              },
+            ],
+            language: {
+              zeroRecords: " ",
             },
-          ],
-          language: {
-            zeroRecords: " ",
-          },
+          });
         });
       });
     },
     openModalDelete: function (e) {
       this.showModalDelete = true;
     },
-        closeModal: function () {
+    closeModal: function () {
       this.showModalDelete = false;
     },
     deleteStreamer: function () {
@@ -168,7 +177,7 @@ export default {
   },
   mounted() {
     this.getStreamersDashboard();
-     $("#streamer-list").on(
+    $("#streamer-list").on(
       "click",
       "tbody tr td.row-remove button .fa-trash",
       function (e) {
