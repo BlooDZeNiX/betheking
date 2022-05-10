@@ -121,7 +121,7 @@ class AuthController extends Controller
         $request->validate([
             'file' => 'required|image|mimes:jpg,jfif,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
         ]);
-        $relativePath = 'public_html/assets/images/';
+        $relativePath = 'assets/images/';
         $absolutePath = public_path($relativePath);
         $fileName = time() . '.' . $request->file->getClientOriginalExtension();
 
