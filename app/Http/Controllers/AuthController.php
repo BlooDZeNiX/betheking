@@ -125,7 +125,7 @@ class AuthController extends Controller
 
         $fileName = time() . '.' . $request->file->getClientOriginalExtension();
         $relativePath = $dir . $fileName;
-        $request->file->move($relativePath . $fileName);
+        $request->file->move($relativePath);
 
         User::where("id", $request->id)->update(['imageUrl' => $fileName]);
         return response()->json([
