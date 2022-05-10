@@ -406,6 +406,7 @@ export default {
   },
   mounted() {
     this.getUsersDashboard();
+
     //EventListener to set disable button from modal until there is no changes.
     $("#modal-user #name, #username, #email, #gold").on("input", function () {
       $("#btn-update-user").prop("disabled", false);

@@ -140,10 +140,12 @@ export default {
     getStreamersDashboard: function () {
       store.dispatch("getStreamersDashboard").then((data) => {
         $(document).ready(function () {
+          if($("#streamer-list").dataTable()){
+            $("#streamer-list").dataTable().fnDestroy();
+          }
           $("#streamer-list").DataTable({
             response: true,
             data: data.data,
-
             columns: [
               { data: "id_streamer" },
               { data: "display_name" },
@@ -177,6 +179,8 @@ export default {
   },
   mounted() {
     this.getStreamersDashboard();
+
+    //EventListener Click on remove
     $("#streamer-list").on(
       "click",
       "tbody tr td.row-remove button .fa-trash",
