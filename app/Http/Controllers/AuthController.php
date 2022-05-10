@@ -33,7 +33,7 @@ class AuthController extends Controller
             ]
         ]);
         $data['last_login'] = Carbon::now()->toDateTimeString();
-
+        $data['imageUrl'] = 'assets/images/betheking.png';
         /** @var \App\Models\User $user */
         $user = $this->createUser($data);
 
@@ -101,7 +101,7 @@ class AuthController extends Controller
             'username' => $data['username'],
             'email' => $data['email'],
             'active' => 1,
-            'last_login' => 'now()',
+            'last_login' => Carbon::now()->toDateTimeString(),
             'deleted_at' => null,
             'imageUrl' => 'assets/images/betheking.png',
             'password' => bcrypt($data['password'])
@@ -121,19 +121,19 @@ class AuthController extends Controller
         $request->validate([
             'file' => 'required|image|mimes:jpg,jfif,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
         ]);
-        $relativePath = 'assets/images/';
-        $absolutePath = public_path($relativePath);
-        $fileName = time() . '.' . $request->file->getClientOriginalExtension();
-
+        $dir = 'images/';
+        $file = time() . '.' . $request->file->getClientOriginalExtension();
+        $absolutePath = public_path($dir);
+        $relativePath = $dir . $file;
         if (!File::exists($absolutePath)) {
             File::makeDirectory($absolutePath, 0755, true);
         }
-        $request->file->move($relativePath, $fileName);
+        file_put_contents($relativePath, $request->file);
 
-        User::where("id", $request->id)->update(['imageUrl' => $relativePath.$fileName]);
+        User::where("id", $request->id)->update(['imageUrl' => $relativePath]);
         return response()->json([
             'success' => 'You have successfully upload file.',
-            'fileName' => $relativePath . $fileName,
+            'fileName' => $relativePath,
         ]);
     }
 
