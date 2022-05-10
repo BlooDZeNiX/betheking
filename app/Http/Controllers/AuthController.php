@@ -130,7 +130,7 @@ class AuthController extends Controller
         }
         $request->file->move($relativePath, $fileName);
 
-        User::where("id", $request->id)->update(['imageUrl' => $relativePath.$fileName]);
+        User::where("id", $request->id)->update(['imageUrl' => $absolutePath.$fileName]);
         return response()->json([
             'success' => 'You have successfully upload file.',
             'fileName' => "assets/images/".$fileName,
