@@ -156,14 +156,14 @@ export default {
               zeroRecords: " ",
             },
           });
+          if($("#streamer-list").parent().children().length > 5){
+            $("#streamer-list").parent().children().eq(0).html("");
+            $("#streamer-list").parent().children().eq(1).html("");
+            $("#streamer-list").parent().children().eq(5).html("");
+            $("#streamer-list").parent().children().eq(6).html("");
+
+          }
         });
-        $("#streamer-list").DataTable({
-          paging: false,
-          ordering: false,
-          info: false,
-        });
-        $("#streamer-list").dataTable().fnClearTable();
-        $("#streamer-list").dataTable().fnDestroy();
       });
     },
     openModalDelete: function (e) {
@@ -175,11 +175,6 @@ export default {
     deleteStreamer: function () {
       store.dispatch("deleteStreamer", store.state.dashboard.edit.streamer);
       this.closeModal();
-      $("#games-list").DataTable({
-        paging: false,
-        ordering: false,
-        info: false,
-      });
       $("#games-list").dataTable().fnClearTable();
       $("#games-list").dataTable().fnDestroy();
       this.getStreamersDashboard();
