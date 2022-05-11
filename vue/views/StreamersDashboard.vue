@@ -131,19 +131,21 @@ export default {
   data: function () {
     return {
       showModalDelete: false,
-      datatable: null,
     };
   },
   components: {},
   methods: {
     getStreamersDashboard: function () {
       store.dispatch("getStreamersDashboard").then((data) => {
-
+        $("#games-list").DataTable({
+          paging: false,
+          ordering: false,
+          info: false,
+        });
+        $("#games-list").dataTable().fnClearTable();
+        $("#games-list").dataTable().fnDestroy();
         $(document).ready(function () {
-          if(this.datatable){
-            this.datatable.fnDestroy();
-          }
-         this.datatable = $("#streamer-list").dataTable({
+          $("#streamer-list").dataTable({
             response: true,
             data: data.data,
             searching: true,
@@ -173,6 +175,11 @@ export default {
     deleteStreamer: function () {
       store.dispatch("deleteStreamer", store.state.dashboard.edit.streamer);
       this.closeModal();
+      $("#games-list").DataTable({
+        paging: false,
+        ordering: false,
+        info: false,
+      });
       $("#games-list").dataTable().fnClearTable();
       $("#games-list").dataTable().fnDestroy();
       this.getStreamersDashboard();
