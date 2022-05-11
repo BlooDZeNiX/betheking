@@ -137,13 +137,6 @@ export default {
   methods: {
     getStreamersDashboard: function () {
       store.dispatch("getStreamersDashboard").then((data) => {
-        $("#games-list").DataTable({
-          paging: false,
-          ordering: false,
-          info: false,
-        });
-        $("#games-list").dataTable().fnClearTable();
-        $("#games-list").dataTable().fnDestroy();
         $(document).ready(function () {
           $("#streamer-list").dataTable({
             response: true,
@@ -164,6 +157,13 @@ export default {
             },
           });
         });
+        $("#streamer-list").DataTable({
+          paging: false,
+          ordering: false,
+          info: false,
+        });
+        $("#streamer-list").dataTable().fnClearTable();
+        $("#streamer-list").dataTable().fnDestroy();
       });
     },
     openModalDelete: function (e) {
