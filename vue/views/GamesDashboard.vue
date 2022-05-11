@@ -1,109 +1,113 @@
 <template>
-<PageComponent title="Games Management">
-  <Administration>
-      <div>
-        <div class="pl-4">
-          <table
-            id="games-list"
+  <PageComponent title="Games Management">
+    <Administration>
+      <div class="p-4 overflow-auto">
+        <table
+          id="games-list"
+          class="
+            w-full
+            text-sm text-left text-gray-500
+            dark:text-gray-400
+            overflow-x-scroll
+            shadow-md
+            rounded-lg
+            hover
+          "
+        >
+          <thead
             class="
-              w-full
-              text-sm text-left text-gray-500
-              dark:text-gray-400
-              overflow-x-auto
+              text-xs text-white
+              uppercase
+              bg-gray-700
+              dark:bg-gray-700 dark:text-gray-400
               shadow-md
-              rounded-lg
-              hover
+              sm:rounded-lg
             "
           >
-            <thead
-              class="
-                text-xs text-white
-                uppercase
-                bg-gray-700
-                dark:bg-gray-700 dark:text-gray-400
-                shadow-md
-                sm:rounded-lg
-              "
-            >
-              <tr>
-                <th scope="col" class="px-6 py-3">Id</th>
-                <th scope="col" class="px-6 py-3">Game</th>
-                <th scope="col" class="px-6 py-3"></th>
-              </tr>
-            </thead>
-          </table>
-        </div>
-        <div>
-          <Modal  v-show="showModalDelete" @close="closeModal" id="modal-user"  class="absolute top-1/2 left-1/2">
-            <h2 class="text-xl font-bold text-gray-700">
-              Deleting the Game {{ store.state.dashboard.edit.game.username }} and all its votes.
-            </h2>
-            <h2 class="text-xl font-bold text-gray-700 mt-6">Are you sure?</h2>
-            <div class="mt-4 flex flex-row justify-center">
-              <div class="mr-8">
-                <button
-                  type="submit"
-                  @click="deleteGame"
-                  id="btn-delete-user"
-                  class="
-                    group
-                    relative
-                    w-full
-                    flex
-                    justify-center
-                    py-2
-                    px-4
-                    border border-transparent
-                    text-sm
-                    font-medium
-                    rounded-md
-                    text-white
-                    bg-gray-900
-                    hover-greenwater
-                    focus:outline-none
-                    focus:ring-2
-                    focus:ring-offset-2
-                    focus:ring-indigo-500
-                  "
-                >
-                  Yes
-                </button>
-              </div>
-              <div>
-                <button
-                  type="submit"
-                  class="
-                    group
-                    relative
-                    w-full
-                    flex
-                    justify-center
-                    py-2
-                    px-4
-                    border border-transparent
-                    text-sm
-                    font-medium
-                    rounded-md
-                    text-white
-                    bg-gray-900
-                    hover-greenwater
-                    focus:outline-none
-                    focus:ring-2
-                    focus:ring-offset-2
-                    focus:ring-indigo-500
-                  "
-                  @click="showModalDelete = false"
-                >
-                  No
-                </button>
-              </div>
-            </div>
-          </Modal>
-        </div>
-        <button id="btd" class="hidden" @click="openModalDelete"></button>
+            <tr>
+              <th scope="col" class="px-6 py-3">Id</th>
+              <th scope="col" class="px-6 py-3">Game</th>
+              <th scope="col" class="px-6 py-3"></th>
+            </tr>
+          </thead>
+        </table>
       </div>
-  </Administration>
-</PageComponent>
+      <div>
+        <Modal
+          v-show="showModalDelete"
+          @close="closeModal"
+          id="modal-user"
+          class="absolute top-1/2 left-1/2"
+        >
+          <h2 class="text-xl font-bold text-gray-700">
+            Deleting the Game {{ store.state.dashboard.edit.game.username }} and
+            all its votes.
+          </h2>
+          <h2 class="text-xl font-bold text-gray-700 mt-6">Are you sure?</h2>
+          <div class="mt-4 flex flex-row justify-center">
+            <div class="mr-8">
+              <button
+                type="submit"
+                @click="deleteGame"
+                id="btn-delete-user"
+                class="
+                  group
+                  relative
+                  w-full
+                  flex
+                  justify-center
+                  py-2
+                  px-4
+                  border border-transparent
+                  text-sm
+                  font-medium
+                  rounded-md
+                  text-white
+                  bg-gray-900
+                  hover-greenwater
+                  focus:outline-none
+                  focus:ring-2
+                  focus:ring-offset-2
+                  focus:ring-indigo-500
+                "
+              >
+                Yes
+              </button>
+            </div>
+            <div>
+              <button
+                type="submit"
+                class="
+                  group
+                  relative
+                  w-full
+                  flex
+                  justify-center
+                  py-2
+                  px-4
+                  border border-transparent
+                  text-sm
+                  font-medium
+                  rounded-md
+                  text-white
+                  bg-gray-900
+                  hover-greenwater
+                  focus:outline-none
+                  focus:ring-2
+                  focus:ring-offset-2
+                  focus:ring-indigo-500
+                "
+                @click="showModalDelete = false"
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </Modal>
+      </div>
+      <button id="btd" class="hidden" @click="openModalDelete"></button>
+    </Administration>
+  </PageComponent>
 </template>
 
 <script setup>
@@ -156,7 +160,7 @@ export default {
     openModalDelete: function (e) {
       this.showModalDelete = true;
     },
-        closeModal: function () {
+    closeModal: function () {
       this.showModalDelete = false;
     },
     deleteGame: function () {
@@ -169,7 +173,7 @@ export default {
   },
   mounted() {
     this.getGamesDashboard();
-     $("#games-list").on(
+    $("#games-list").on(
       "click",
       "tbody tr td.row-remove button .fa-trash",
       function (e) {

@@ -1,114 +1,112 @@
 <template>
   <PageComponent title="Streamers Management">
     <Administration>
-      <div>
-        <div class="pl-4">
-          <table
-            id="streamer-list"
+      <div class="p-4 overflow-auto">
+        <table
+          id="streamer-list"
+          class="
+            w-full
+            text-sm text-left text-gray-500
+            dark:text-gray-400
+            overflow-x-scroll
+            shadow-md
+            rounded-lg
+            hover
+          "
+        >
+          <thead
             class="
-              w-full
-              text-sm text-left text-gray-500
-              dark:text-gray-400
-              overflow-x-auto
+              text-xs text-white
+              uppercase
+              bg-gray-700
+              dark:bg-gray-700 dark:text-gray-400
               shadow-md
-              rounded-lg
-              hover
+              sm:rounded-lg
             "
           >
-            <thead
-              class="
-                text-xs text-white
-                uppercase
-                bg-gray-700
-                dark:bg-gray-700 dark:text-gray-400
-                shadow-md
-                sm:rounded-lg
-              "
-            >
-              <tr>
-                <th scope="col" class="px-6 py-3">Id</th>
-                <th scope="col" class="px-6 py-3">Streamer</th>
-                <th scope="col" class="px-6 py-3"></th>
-              </tr>
-            </thead>
-          </table>
-        </div>
-        <div>
-          <Modal
-            v-show="showModalDelete"
-            @close="closeModal"
-            id="modal-user"
-            class="top-1/2 left-1/2"
-          >
-            <h2 class="text-xl font-bold text-gray-700">
-              Deleting the Streamer
-              {{ store.state.dashboard.edit.streamer.username }} and all its
-              votes.
-            </h2>
-            <h2 class="text-xl font-bold text-gray-700 mt-6">Are you sure?</h2>
-            <div class="mt-4 flex flex-row justify-center">
-              <div class="mr-8">
-                <button
-                  type="submit"
-                  @click="deleteStreamer"
-                  id="btn-delete-user"
-                  class="
-                    group
-                    relative
-                    w-full
-                    flex
-                    justify-center
-                    py-2
-                    px-4
-                    border border-transparent
-                    text-sm
-                    font-medium
-                    rounded-md
-                    text-white
-                    bg-gray-900
-                    hover-greenwater
-                    focus:outline-none
-                    focus:ring-2
-                    focus:ring-offset-2
-                    focus:ring-indigo-500
-                  "
-                >
-                  Yes
-                </button>
-              </div>
-              <div>
-                <button
-                  type="submit"
-                  class="
-                    group
-                    relative
-                    w-full
-                    flex
-                    justify-center
-                    py-2
-                    px-4
-                    border border-transparent
-                    text-sm
-                    font-medium
-                    rounded-md
-                    text-white
-                    bg-gray-900
-                    hover-greenwater
-                    focus:outline-none
-                    focus:ring-2
-                    focus:ring-offset-2
-                    focus:ring-indigo-500
-                  "
-                  @click="showModalDelete = false"
-                >
-                  No
-                </button>
-              </div>
-            </div>
-          </Modal>
-        </div>
-        <button id="btd" class="hidden" @click="openModalDelete"></button>
+            <tr>
+              <th scope="col" class="px-6 py-3">Id</th>
+              <th scope="col" class="px-6 py-3">Streamer</th>
+              <th scope="col" class="px-6 py-3"></th>
+            </tr>
+          </thead>
+        </table>
       </div>
+      <div>
+        <Modal
+          v-show="showModalDelete"
+          @close="closeModal"
+          id="modal-user"
+          class="top-1/2 left-1/2"
+        >
+          <h2 class="text-xl font-bold text-gray-700">
+            Deleting the Streamer
+            {{ store.state.dashboard.edit.streamer.username }} and all its
+            votes.
+          </h2>
+          <h2 class="text-xl font-bold text-gray-700 mt-6">Are you sure?</h2>
+          <div class="mt-4 flex flex-row justify-center">
+            <div class="mr-8">
+              <button
+                type="submit"
+                @click="deleteStreamer"
+                id="btn-delete-user"
+                class="
+                  group
+                  relative
+                  w-full
+                  flex
+                  justify-center
+                  py-2
+                  px-4
+                  border border-transparent
+                  text-sm
+                  font-medium
+                  rounded-md
+                  text-white
+                  bg-gray-900
+                  hover-greenwater
+                  focus:outline-none
+                  focus:ring-2
+                  focus:ring-offset-2
+                  focus:ring-indigo-500
+                "
+              >
+                Yes
+              </button>
+            </div>
+            <div>
+              <button
+                type="submit"
+                class="
+                  group
+                  relative
+                  w-full
+                  flex
+                  justify-center
+                  py-2
+                  px-4
+                  border border-transparent
+                  text-sm
+                  font-medium
+                  rounded-md
+                  text-white
+                  bg-gray-900
+                  hover-greenwater
+                  focus:outline-none
+                  focus:ring-2
+                  focus:ring-offset-2
+                  focus:ring-indigo-500
+                "
+                @click="showModalDelete = false"
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </Modal>
+      </div>
+      <button id="btd" class="hidden" @click="openModalDelete"></button>
     </Administration>
   </PageComponent>
 </template>
@@ -169,7 +167,6 @@ export default {
     deleteStreamer: function () {
       store.dispatch("deleteStreamer", store.state.dashboard.edit.streamer);
       this.closeModal();
-      $("#streamer-list").DataTable().fnClearTable();
       $("#streamer-list").DataTable().fnDestroy();
       this.getStreamersDashboard();
     },
