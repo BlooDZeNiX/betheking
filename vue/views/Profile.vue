@@ -90,11 +90,13 @@
                 class="text-gray-600 px-3 mt-3"
               >
                 <li class="flex items-center justify-left">
-                  You voted the &nbsp;<span v-if="vote.type == 'game'">
+                  <div class="border-2 p-2 w-full rounded-md border-gray-900 bg-gray-500 text-white">
+                  You voted the <span v-if="vote.type == 'game'">
                     Game
                   </span>
-                  <span v-if="vote.type == 'streamer'"> Streamer </span>
-                  &nbsp;{{ vote.name_voted }}
+                  <span v-if="vote.type == 'streamer'">Streamer </span>
+                  {{ vote.name_voted }}
+                  </div>
                 </li>
               </ul>
             </div>

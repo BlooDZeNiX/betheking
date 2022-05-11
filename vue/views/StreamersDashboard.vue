@@ -41,7 +41,7 @@
             class="top-1/2 left-1/2"
           >
             <h2 class="text-xl font-bold text-gray-700">
-              Deleting Streamer
+              Deleting the Streamer
               {{ store.state.dashboard.edit.streamer.username }} and all its
               votes.
             </h2>

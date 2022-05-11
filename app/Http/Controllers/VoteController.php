@@ -106,7 +106,7 @@ class VoteController extends Controller
 
     public function getUserVotes(Request $request)
     {
-        $votes = Votes::where('voter', '=', $request['id'])->orderBy("created_at", "desc")->take(15)->get();
+        $votes = Votes::where('voter', '=', $request['id'])->orderBy("created_at", "desc")->take(10)->get();
         $favorites = $this->getUserFavorites($request['id']);
         return [
             "votes" => $votes, "favorites" => [

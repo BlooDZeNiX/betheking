@@ -4,7 +4,7 @@
       <div class="container mx-auto p-5 bg-white">
         <div class="md:flex no-wrap rounded-lg">
           <!-- Left Side -->
-          <div class="w-full md:w-6/12 md:mx-2 shadow-lg">
+          <div class="w-full md:mx-2 shadow-lg">
             <!-- Profile Card -->
             <div class="bg-white p-3">
               <form method="post" enctype="multipart/form-data">
