@@ -136,24 +136,25 @@ export default {
   methods: {
     getGamesDashboard: function () {
       store.dispatch("getGamesDashboard").then((data) => {
-        $("#games-list").dataTable().fnDestroy();
-        $("#games-list").DataTable({
-          response: true,
-          data: data.data,
-          searching: true,
-          columns: [
-            { data: "id_game" },
-            { data: "name" },
-            {
-              data: null,
-              defaultContent: '<button><i class="fa fa-trash"></i></button>',
-              className: "row-remove text-red-700 dt-center",
-              orderable: false,
+        $(document).ready(function () {
+          $("#games-list").DataTable({
+            response: true,
+            data: data.data,
+            searching: true,
+            columns: [
+              { data: "id_game" },
+              { data: "name" },
+              {
+                data: null,
+                defaultContent: '<button><i class="fa fa-trash"></i></button>',
+                className: "row-remove text-red-700 dt-center",
+                orderable: false,
+              },
+            ],
+            language: {
+              zeroRecords: " ",
             },
-          ],
-          language: {
-            zeroRecords: " ",
-          },
+          });
         });
       });
     },

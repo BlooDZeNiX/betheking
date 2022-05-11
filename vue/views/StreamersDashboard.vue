@@ -141,6 +141,7 @@ export default {
           $("#streamer-list").DataTable({
             response: true,
             data: data.data,
+            searching: true,
             columns: [
               { data: "id_streamer" },
               { data: "display_name" },
