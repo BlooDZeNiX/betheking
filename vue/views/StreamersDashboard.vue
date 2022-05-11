@@ -131,14 +131,19 @@ export default {
   data: function () {
     return {
       showModalDelete: false,
+      datatable: null,
     };
   },
   components: {},
   methods: {
     getStreamersDashboard: function () {
       store.dispatch("getStreamersDashboard").then((data) => {
+
         $(document).ready(function () {
-          $("#streamer-list").dataTable({
+          if(this.datatable){
+            this.datatable.fnDestroy();
+          }
+         this.datatable = $("#streamer-list").dataTable({
             response: true,
             data: data.data,
             searching: true,
