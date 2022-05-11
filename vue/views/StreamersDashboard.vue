@@ -140,7 +140,6 @@ export default {
     getStreamersDashboard: function () {
       store.dispatch("getStreamersDashboard").then((data) => {
         $(document).ready(function () {
-          $("#streamer-list").dataTable().fnDestroy();
           $("#streamer-list").DataTable({
             response: true,
             data: data.data,
@@ -170,8 +169,8 @@ export default {
     deleteStreamer: function () {
       store.dispatch("deleteStreamer", store.state.dashboard.edit.streamer);
       this.closeModal();
-      $("#streamer-list").dataTable().fnClearTable();
-      $("#streamer-list").dataTable().fnDestroy();
+      $("#streamer-list").DataTable().fnClearTable();
+      $("#streamer-list").DataTable().fnDestroy();
       this.getStreamersDashboard();
     },
   },
