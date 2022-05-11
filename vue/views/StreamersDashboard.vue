@@ -140,9 +140,7 @@ export default {
     getStreamersDashboard: function () {
       store.dispatch("getStreamersDashboard").then((data) => {
         $(document).ready(function () {
-          if($("#streamer-list").dataTable()){
-            $("#streamer-list").dataTable().fnDestroy();
-          }
+          $("#streamer-list").dataTable().fnDestroy();
           $("#streamer-list").DataTable({
             response: true,
             data: data.data,

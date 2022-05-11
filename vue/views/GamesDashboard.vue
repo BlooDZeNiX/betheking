@@ -132,6 +132,7 @@ export default {
   methods: {
     getGamesDashboard: function () {
       store.dispatch("getGamesDashboard").then((data) => {
+        $("#games-list").dataTable().fnDestroy();
         $("#games-list").DataTable({
           response: true,
           data: data.data,
