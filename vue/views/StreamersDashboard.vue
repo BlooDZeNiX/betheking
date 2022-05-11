@@ -156,6 +156,7 @@ export default {
               zeroRecords: " ",
             },
           });
+          console.log($("#streamer-list").parent().children().length)
           if($("#streamer-list").parent().children().length > 5){
             $("#streamer-list").parent().children().eq(0).html("");
             $("#streamer-list").parent().children().eq(1).html("");
