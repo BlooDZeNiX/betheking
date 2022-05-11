@@ -137,7 +137,7 @@ export default {
     getGamesDashboard: function () {
       store.dispatch("getGamesDashboard").then((data) => {
         $(document).ready(function () {
-          $("#games-list").DataTable({
+          $("#games-list").dataTable({
             response: true,
             data: data.data,
             searching: true,
