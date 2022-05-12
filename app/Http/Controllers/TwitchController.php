@@ -20,14 +20,15 @@ use Illuminate\Support\Facades\Http;
  */
 class TwitchController extends Controller
 {
+    //Credentials to authorization in calls to twitch api
     protected $headers = [
         'Authorization' => "Bearer ch7qkg7j4z43zhmqrpls1omsn5nmqt",
         "Client-id" => "xd72gmt643nbmegt9990z4c4iuvmc1"
     ];
     /**
-     * Undocumentefunctiond
+     * Function to get the 100 top Streams with most viewers from twitch.tv
      *
-     * @return void
+     * @return JSON top Streams
      */
     public function getTopStreams()
     {
@@ -43,12 +44,23 @@ class TwitchController extends Controller
         return $response;
     }
 
+    /**
+     * Get All streamers in database
+     *
+     * @return Array all streamers
+     */
     public function getStreamers()
     {
         $streamers = Streamers::all();
         return $streamers;
     }
 
+    /**
+     * Function to insert a stream in database
+     *
+     * @param [Array] stream's data
+     * @return Boolean
+     */
     public function setStream($data)
     {
         /** @var \App\Models\Streams $stream */
@@ -65,6 +77,12 @@ class TwitchController extends Controller
         }
     }
 
+    /**
+     * Function to get an streamer from database by ID
+     *
+     * @param Request streamer's ID
+     * @return Boolean
+     */
     public function getStreamer(Request $request)
     {
         $id = $request->all();
@@ -74,9 +92,15 @@ class TwitchController extends Controller
         return $this->setStreamer($data, $id['id']);
     }
 
+    /**
+     * Function to insert an streamer into database
+     *
+     * @param [Array] streamer's data
+     * @param [String] streamer's id
+     * @return Array Streamer's data
+     */
     public function setStreamer($data, $id)
     {
-
         /** @var \App\Models\Streamers $streamer */
         $streamer = Streamers::where('id_streamer', $id)->first();
         if (!$streamer) {
@@ -92,14 +116,25 @@ class TwitchController extends Controller
         return $streamer;
     }
 
+    /**
+     * Function to delete an streamer from database and all its votes
+     *
+     * @param Request streamer's id
+     * @return Boolean
+     */
     public function deleteStreamer(Request $request)
     {
         StreamVotes::where('streamer_voted', $request['id'])->delete();
-        Votes::where('name_voted', $request['username'])->delete();
+        Votes::where('name_voted', $request['name'])->delete();
         Streamers::where('id_streamer', $request['id'])
             ->delete();
     }
 
+    /**
+     * Function to get the 100 top Games with most viewers from twitch.tv
+     *
+     * @return JSON top Games
+     */
     public function getTopGames()
     {
         $data = Http::withHeaders($this->headers)
@@ -115,6 +150,12 @@ class TwitchController extends Controller
         return $response;
     }
 
+    /**
+     * Function to insert a Game in the database
+     *
+     * @param [Array] Game's data
+     * @return Boolean
+     */
     public function setGame($data)
     {
         /** @var \App\Models\Games $Game */
@@ -128,6 +169,12 @@ class TwitchController extends Controller
         }
     }
 
+    /**
+     * Function to get a game info by its ID
+     *
+     * @param Request game's id
+     * @return Array game's info
+     */
     public function getGame(Request $request)
     {
         $id = $request->all();
@@ -135,16 +182,27 @@ class TwitchController extends Controller
         return $game;
     }
 
-    public function getGames(Request $request)
+    /**
+     * Function to get all games in the database
+     *
+     * @return Array all games
+     */
+    public function getGames()
     {
         $games = Games::all();
         return $games;
     }
 
+    /**
+     * Function to delete a game from the database
+     *
+     * @param Request game's id
+     * @return Boolean
+     */
     public function deleteGame(Request $request)
     {
         GameVotes::where('game_voted', $request['id'])->delete();
-        Votes::where('name_voted', $request['username'])->delete();
+        Votes::where('name_voted', $request['name'])->delete();
         Games::where('id_game', $request['id'])
             ->delete();
     }

@@ -40,7 +40,7 @@
           class="absolute top-1/2 left-1/2"
         >
           <h2 class="text-xl font-bold text-gray-700">
-            Deleting the Game {{ store.state.dashboard.edit.game.username }} and
+            Deleting the Game {{ store.state.dashboard.edit.game.name }} and
             all its votes.
           </h2>
           <h2 class="text-xl font-bold text-gray-700 mt-6">Are you sure?</h2>

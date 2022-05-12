@@ -37,7 +37,12 @@
         </table>
         <!-- Modal formulario -->
         <div>
-          <Modal v-show="showModalEdit" @close="closeModal" id="modal-user"  class="top-1/2 left-1/2 sm:w-full">
+          <Modal
+            v-show="showModalEdit"
+            @close="closeModal"
+            id="modal-user"
+            class="top-1/2 left-1/2 sm:w-full"
+          >
             <h2 class="text-xl font-bold text-gray-700">Edit User</h2>
             <hr />
             <div class="mt-4">
@@ -189,7 +194,12 @@
           </Modal>
         </div>
         <div>
-          <Modal v-show="showModalDelete" @close="closeModal" id="modal-user" class="top-1/2 left-1/2">
+          <Modal
+            v-show="showModalDelete"
+            @close="closeModal"
+            id="modal-user"
+            class="top-1/2 left-1/2"
+          >
             <h2 class="text-xl font-bold text-gray-700">
               Deleting User {{ store.state.dashboard.edit.user.username }}
             </h2>
@@ -335,7 +345,7 @@ export default {
   components: {},
   methods: {
     getUsersDashboard: function () {
-        store.dispatch("getUsersDashboard").then((data) => {
+      store.dispatch("getUsersDashboard").then((data) => {
         $(document).ready(function () {
           $("#user-list").DataTable({
             response: true,
@@ -393,7 +403,7 @@ export default {
       $("#user-list").dataTable().fnDestroy();
       this.getUsersDashboard();
     },
-    deleteUser: function() {
+    deleteUser: function () {
       store.dispatch("deleteUserData", store.state.dashboard.edit.user);
       this.closeModal();
       $("#user-list").dataTable().fnClearTable();
@@ -410,6 +420,9 @@ export default {
     //EventListener to set disable button from modal until there is no changes.
     $("#modal-user #name, #username, #email, #gold").on("input", function () {
       $("#btn-update-user").prop("disabled", false);
+    });
+    $("#modal-user #name, #username, #email, #gold").off("input", function () {
+      $("#btn-update-user").css("cursor", "not-allowed");
     });
 
     //EventListener Click on edit button.

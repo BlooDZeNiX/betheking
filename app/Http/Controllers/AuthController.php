@@ -20,6 +20,12 @@ use Laravel\Sanctum\NewAccessToken;
  */
 class AuthController extends Controller
 {
+    /**
+     * Function to register an user in the database
+     *
+     * @param Request User data from form
+     * @return [$user, $token]
+     */
     public function signUp(Request $request)
     {
         $data = $request->validate([
@@ -46,6 +52,12 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Function to login in the website
+     *
+     * @param Request email and password
+     * @return [$user, $token]
+     */
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -76,6 +88,11 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Function to log out the website
+     *
+     * @return true
+     */
     public function logout()
     {
         /** @var \App\Models\User $user */
@@ -88,12 +105,23 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Function to get all user in the database
+     *
+     * @return $users
+     */
     public function getUsers()
     {
         $users = User::all();
         return $users;
     }
 
+    /**
+     * Function that creates an user in the database
+     *
+     * @param [Array] $data #data of user
+     * @return $user
+     */
     public function createUser($data)
     {
         $user =  User::create([
@@ -110,12 +138,24 @@ class AuthController extends Controller
         return $user;
     }
 
+    /**
+     * Function to get an user by his ID
+     *
+     * @param Request id
+     * @return $user
+     */
     public function getUserbyId(Request $request)
     {
         $user = User::where('id', $request['id'])->get();
         return $user;
     }
 
+    /**
+     * Function to change the image of the user
+     *
+     * @param Request new Image
+     * @return ['success' => 'You have successfully upload file.', 'fileName' => $relativePath]
+     */
     public function editUserImage(Request $request)
     {
         $request->validate([
@@ -137,6 +177,12 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Function to edit user's data
+     *
+     * @param Request user's data
+     * @return Boolean
+     */
     public function editUserData(Request $request)
     {
         if (isset($request['gold'])) {
@@ -157,12 +203,24 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Function to delete an user from database
+     *
+     * @param Request user's ID
+     * @return Boolean
+     */
     public function deleteUserData(Request $request)
     {
        return User::where('id', $request['id'])
             ->delete();
     }
 
+    /**
+     * Function to edit user's password
+     *
+     * @param Request ["actualpassword", "newpassword", "newpasswordconfirmation"]
+     * @return Boolean
+     */
     public function editUserPassword(Request $request)
     {
 
@@ -190,6 +248,11 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * Function to get total users, registered today and logged today
+     *
+     * @return ["total" => $total,"registered" => $registered,"loged" => $loged,]
+     */
     public function getTodayUsers()
     {
         $total = User::all()->count();

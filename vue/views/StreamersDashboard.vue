@@ -41,7 +41,7 @@
         >
           <h2 class="text-xl font-bold text-gray-700">
             Deleting the Streamer
-            {{ store.state.dashboard.edit.streamer.username }} and all its
+            {{ store.state.dashboard.edit.streamer.name }} and all its
             votes.
           </h2>
           <h2 class="text-xl font-bold text-gray-700 mt-6">Are you sure?</h2>
@@ -162,7 +162,6 @@ export default {
             $("#streamer-list").parent().children().eq(1).html("");
             $("#streamer-list").parent().children().eq(5).html("");
             $("#streamer-list").parent().children().eq(6).html("");
-
           }
         });
       });
@@ -176,8 +175,8 @@ export default {
     deleteStreamer: function () {
       store.dispatch("deleteStreamer", store.state.dashboard.edit.streamer);
       this.closeModal();
-      $("#games-list").dataTable().fnClearTable();
-      $("#games-list").dataTable().fnDestroy();
+      $("#streamer-list").dataTable().fnClearTable();
+      $("#streamer-list").dataTable().fnDestroy();
       this.getStreamersDashboard();
     },
   },
@@ -198,7 +197,7 @@ export default {
           .eq(0)
           .text();
 
-        var username = $(e.target)
+        var name = $(e.target)
           .closest("button")
           .parent()
           .parent()
@@ -207,7 +206,7 @@ export default {
           .text();
 
         store.state.dashboard.edit.streamer.id = id;
-        store.state.dashboard.edit.streamer.username = username;
+        store.state.dashboard.edit.streamer.name = name;
 
         $("#btd").trigger("click");
       }

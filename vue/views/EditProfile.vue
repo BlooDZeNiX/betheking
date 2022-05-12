@@ -1,7 +1,7 @@
 <template>
-  <PageComponent title="">
+  <PageComponent>
     <div class="bg-white">
-      <div class="container mx-auto p-5 bg-white">
+      <div class="container mx-auto p-2 bg-white">
         <div class="md:flex no-wrap rounded-lg">
           <!-- Left Side -->
           <div class="w-full md:mx-2 shadow-lg">
@@ -38,6 +38,7 @@
                       Email
                     </span>
                     <input
+                      disabled
                       v-model="edit.email"
                       class="border-2 border-gray-700 w-1/2 rounded-lg"
                       type="email"
@@ -51,13 +52,12 @@
                     </span>
                     <span
                       class="
-                        w-1/2
+                        w-1/5
                         border border-black-600
                         rounded-lg
                         px-4
                         py-2
-                        text-white
-                        text-center
+                        text-white text-center
                         bg-gray-800
                         font-semibold
                         leading-relaxed
@@ -65,9 +65,9 @@
                         pinter
                       "
                     >
-                    <router-link  :to="'Edit/Password'">
-                    Change Password
-                    </router-link>
+                      <router-link :to="'Edit/Password'">
+                        Change Password
+                      </router-link>
                     </span>
                   </li>
                   <li class="flex items-center justify-between py-1">
@@ -106,8 +106,9 @@
                         alt="profile photo"
                       />
                     </div>
-                    <label class="block" >
+                    <label class="block">
                       <input
+                      id="inputFile"
                         @change="onFileChange"
                         type="file"
                         accept="image/*"
@@ -147,10 +148,10 @@
                   </li>
                   <li class="flex justify-center py-3">
                     <button
+                    disabled
                       v-on:click="editProfile"
-                      :id="``"
+                      id="editProfile"
                       :name="``"
-                      :title="``"
                       class="
                         border border-black-600
                         rounded-lg
@@ -165,6 +166,7 @@
                     >
                       Save
                     </button>
+                    <span style="display:none; color:red;">No changes done yet.</span>
                   </li>
                 </ul>
               </form>
@@ -175,14 +177,27 @@
     </div>
   </PageComponent>
 </template>
+<script setup>
+import PageComponent from "../src/components/PageComponent.vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
+$(document).ready(function () {
+  $("#editProfile").on("click", function () {
+    router.push({
+      name: "Home",
+      params: {
+        show: true,
+        message: "Profile data changed."
+      },
+    });
+  });
+});
+</script>
 
 <script>
-import PageComponent from "../src/components/PageComponent.vue";
 import { LockClosedIcon } from "@heroicons/vue/solid";
 import { ref } from "vue";
 import store from "../src/store";
-import { useRouter } from "vue-router";
-const router = useRouter();
 
 export default {
   name: "EditProfile",
@@ -215,7 +230,7 @@ export default {
         this.edit.imageUrl = store.state.user.data.imageUrl;
         this.edit.rol = store.state.user.data.rol;
         this.edit.gold = store.state.user.data.gold;
-        this.edit.created_at = store.state.user.data.created_at.slice(0,10);
+        this.edit.created_at = store.state.user.data.created_at.slice(0, 10);
       });
     },
     onFileChange(e) {
@@ -237,13 +252,20 @@ export default {
           this.file_name = data.data.file_name;
         });
       }
-        store.dispatch("editUserData", this.edit).then((data) => {
-          console.log(data);
-        });
+      store.dispatch("editUserData", this.edit).then((data) => {
+        console.log(data);
+      });
     },
   },
   mounted() {
     this.getUserInfo();
+    //EventListener to set disable button from modal until there is no changes.
+    $("#name, #username, #email").on("input", function () {
+      $("#editProfile").prop("disabled", false);
+    });
+    $("#inputFile").on("change", function () {
+      $("#editProfile").prop("disabled", false);
+    });
   },
 };
 </script>
@@ -253,4 +275,14 @@ input:focus {
   border-color: #24728a;
   z-index: 10;
 }
+input:disabled {
+  background-color: #9ca3af;
+  color: white;
+}
+button:disabled {
+  background-color: #9ca3af;
+   border-width: 0;
+   cursor: not-allowed;
+}
+
 </style>
