@@ -137,7 +137,7 @@ export default {
   methods: {
     getStreamersDashboard: function () {
       if($('#streamer-list_wrapper')){
-        $('#streamer-list_wrapper').remove();
+        $('#streamer-list_wrapper').children().remove();
       }
       store.dispatch("getStreamersDashboard").then((data) => {
         $(document).ready(function () {
