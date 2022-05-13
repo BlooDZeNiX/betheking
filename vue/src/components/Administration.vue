@@ -1,11 +1,11 @@
 <template>
-    <div class="bg-white flex grow">
-      <aside class="w-32" aria-label="Sidebar">
+    <div class="justify-between lg:flex md:flex lg:grow md:grow h-full">
+      <aside class="lg:w-32 lg:flex md:flex block md:w-32 w-full mb-2" aria-label="Sidebar">
         <div
           class="overflow-y-auto bg-gray-800 rounded dark:bg-gray-900 h-full"
         >
-          <div class="hidden md:block">
-            <div class="w-full py-4 px-0.5 flex flex-col items-center items-baseline">
+          <div class="">
+            <div class="w-full py-4 px-0.5 flex lg:flex-col md:flex-col flex-row items-center items-baseline">
               <router-link
                 v-for="item in dashboardNavigation"
                 :key="item.name"

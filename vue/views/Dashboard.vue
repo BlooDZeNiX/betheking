@@ -1,10 +1,10 @@
 <template>
   <PageComponent title="Dashboard">
     <Administration>
-      <div>
-        <div class="w-full flex flex-row text-center">
+      <div class="w-full lg:flex md:flex lg:grow md:grow">
+        <div class="w-full flex lg:flex-row md:flex-row lg:text-center md:text-center flex-col">
           <div
-            class="w-1/3 rounded border-gray-900 ml-2 border-2 bg-gray-700 text-white px-3 py-2 font-medium"
+            class="lg:w-1/3 sm:w-1/3 w-full rounded border-gray-900 mb-1 border-2 bg-gray-700 text-white px-3 py-2 font-medium"
           >
             <div>
               <div>
@@ -14,12 +14,12 @@
                 <span class="">Total: {{todayUsers.total}} </span>
               </div>
               <div>
-            <ChartDoughnut :values="users.values" :colors="users.colors" :labels="users.labels"><p>10</p></ChartDoughnut>
+            <ChartDoughnut :values="users.values" :colors="users.colors" :labels="users.labels"></ChartDoughnut>
               </div>
             </div>
           </div>
           <div
-            class="w-1/3 rounded border-gray-900 ml-2 border-2 bg-gray-700 text-white px-3 py-2 font-medium"
+            class="lg:w-1/3 sm:w-1/3 w-full rounded border-gray-900 mb-1 border-2 bg-gray-700 text-white px-3 py-2 font-medium"
           >
             <div>
               <div>
@@ -34,7 +34,7 @@
             </div>
           </div>
           <div
-            class="w-1/3 rounded border-gray-900 ml-2 border-2 bg-gray-700 text-white px-3 py-2 font-medium"
+            class="lg:w-1/3 sm:w-1/3 w-full rounded border-gray-900 mb-1 border-2 bg-gray-700 text-white px-3 py-2 font-medium"
           >
             <div>
               <div></div>

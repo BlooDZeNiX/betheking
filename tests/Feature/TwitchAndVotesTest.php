@@ -16,6 +16,9 @@ use App\Models\StreamVotes;
 
 class TwitchTest extends TestCase
 {
+    /**
+     * Testea la creación de usuarios
+     */
     public function test_create_user()
     {
         $user = User::where("email", "test@test.com")->get()->count();
@@ -41,6 +44,9 @@ class TwitchTest extends TestCase
         $this->assertCount(1, User::where("email", "test@test.com")->get());
     }
 
+    /**
+     * Testea la obtención de Streamers por su id desde Twitch
+     */
     public function test_get_streamer()
     {
         $id = '36029255';
@@ -53,6 +59,9 @@ class TwitchTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /**
+     * Testea la obtención de Juegos por su id desde Twitch
+     */
     public function test_get_game()
     {
         $id = '21779';
@@ -64,6 +73,9 @@ class TwitchTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /**
+     * Testea la inserción de juegos en base de datos
+     */
     public function test_create_game()
     {
         Games::create([
@@ -76,6 +88,9 @@ class TwitchTest extends TestCase
         $response = $this->assertCount(1, Games::where("id_game", "112211111")->get());
     }
 
+    /**
+     * Testea la inserción de streamers en base de datos
+     */
     public function test_create_streamer()
     {
         Streamers::create([
@@ -91,6 +106,9 @@ class TwitchTest extends TestCase
         $this->assertCount(1, Streamers::where("id_streamer", "112211111")->get());
     }
 
+    /**
+     * Testea la inserción de votos a juegos en base de datos
+     */
     public function test_vote_game()
     {
         $voter = User::where("email", "test@test.com")->get()->toArray()[0]['id'];
@@ -100,6 +118,9 @@ class TwitchTest extends TestCase
         $this->assertCount(1, GameVotes::where("game_voted", "112211111")->get());
     }
 
+    /**
+     * Testea la inserción de votos a streamers en base de datos
+     */
     public function test_vote_streamer()
     {
         $voter = User::where("email", "test@test.com")->get()->toArray()[0]['id'];
@@ -109,6 +130,9 @@ class TwitchTest extends TestCase
         $this->assertCount(1, StreamVotes::where("streamer_voted", "112211111")->get());
     }
 
+    /**
+     * Testea la eliminación de juegos y sus votos en base de datos
+     */
     public function test_delete_game_and_votes()
     {
         $name = Games::where('id_game', '112211111')->get()->toArray()[0]['name'];
@@ -118,6 +142,9 @@ class TwitchTest extends TestCase
         $this->assertCount(0, Votes::where("name_voted", $name)->get());
     }
 
+    /**
+     * Testea la eliminación de streamers y sus votos en base de datos
+     */
     public function test_delete_streamer_and_votes()
     {
         $name = Streamers::where('id_streamer', '112211111')->get()->toArray()[0]['display_name'];
