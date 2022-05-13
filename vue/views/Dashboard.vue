@@ -19,7 +19,7 @@
             </div>
           </div>
           <div
-            class="lg:w-1/3 sm:w-1/3 w-full rounded border-gray-900 mb-1 border-2 bg-gray-700 text-white px-3 py-2 font-medium"
+            class="lg:w-1/3 sm:w-1/3 w-full rounded border-gray-900 mb-1 lg:ml-1 md:ml-1 border-2 bg-gray-700 text-white px-3 py-2 font-medium"
           >
             <div>
               <div>
@@ -34,7 +34,7 @@
             </div>
           </div>
           <div
-            class="lg:w-1/3 sm:w-1/3 w-full rounded border-gray-900 mb-1 border-2 bg-gray-700 text-white px-3 py-2 font-medium"
+            class="lg:w-1/3 sm:w-1/3 w-full rounded border-gray-900 mb-1 lg:ml-1 md:ml-1 border-2 bg-gray-700 text-white px-3 py-2 font-medium"
           >
             <div>
               <div></div>

@@ -157,11 +157,11 @@ export default {
             },
           });
           console.log($("#streamer-list").parent().children().length)
-          if($("#streamer-list").parent().children().length > 5){
+          if($("#streamer-list").children().length > 2){
             $("#streamer-list").parent().children().eq(0).html("");
             $("#streamer-list").parent().children().eq(1).html("");
-            $("#streamer-list").parent().children().eq(5).html("");
-            $("#streamer-list").parent().children().eq(6).html("");
+            $("#streamer-list").parent().children().eq(3).html("");
+            $("#streamer-list").parent().children().eq(4).html("");
           }
         });
       });
@@ -177,6 +177,7 @@ export default {
       this.closeModal();
       $("#streamer-list").dataTable().fnClearTable();
       $("#streamer-list").dataTable().fnDestroy();
+      $("#streamer-list").parent
       this.getStreamersDashboard();
     },
   },
