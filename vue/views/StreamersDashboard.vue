@@ -177,7 +177,7 @@ export default {
       this.closeModal();
       $("#streamer-list").dataTable().fnClearTable();
       $("#streamer-list").dataTable().fnDestroy();
-      $("#streamer-list").parent
+      $("#streamer-list").parent().remove();
       this.getStreamersDashboard();
     },
   },
