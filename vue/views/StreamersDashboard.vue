@@ -136,10 +136,10 @@ export default {
   components: {},
   methods: {
     getStreamersDashboard: function () {
-      $("#streamer-list").dataTable().fnClearTable();
-      $("#streamer-list").dataTable().fnDestroy();
-        store.dispatch("getStreamersDashboard").then((data) => {
+      store.dispatch("getStreamersDashboard").then((data) => {
         $(document).ready(function () {
+          $("#streamer-list").dataTable().fnClearTable();
+          $("#streamer-list").dataTable().fnDestroy();
           $("#streamer-list").dataTable({
             response: true,
             data: data.data,
