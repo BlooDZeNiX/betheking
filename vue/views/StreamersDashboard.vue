@@ -136,6 +136,9 @@ export default {
   components: {},
   methods: {
     getStreamersDashboard: function () {
+      if($('#streamer-list_wrapper')){
+        $('#streamer-list_wrapper').remove();
+      }
       store.dispatch("getStreamersDashboard").then((data) => {
         $(document).ready(function () {
           $("#streamer-list").dataTable({
@@ -177,7 +180,6 @@ export default {
       this.closeModal();
       $("#streamer-list").dataTable().fnClearTable();
       $("#streamer-list").dataTable().fnDestroy();
-      $("#streamer-list").parent().remove();
       this.getStreamersDashboard();
     },
   },
