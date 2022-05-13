@@ -136,10 +136,9 @@ export default {
   components: {},
   methods: {
     getStreamersDashboard: function () {
-      if($('#streamer-list_wrapper')){
-        $('#streamer-list_wrapper').children().remove();
-      }
-      store.dispatch("getStreamersDashboard").then((data) => {
+      $("#streamer-list").dataTable().fnClearTable();
+      $("#streamer-list").dataTable().fnDestroy();
+        store.dispatch("getStreamersDashboard").then((data) => {
         $(document).ready(function () {
           $("#streamer-list").dataTable({
             response: true,
@@ -159,13 +158,6 @@ export default {
               zeroRecords: " ",
             },
           });
-          console.log($("#streamer-list").parent().children().length)
-          if($("#streamer-list").children().length > 2){
-            $("#streamer-list").parent().children().eq(0).html("");
-            $("#streamer-list").parent().children().eq(1).html("");
-            $("#streamer-list").parent().children().eq(3).html("");
-            $("#streamer-list").parent().children().eq(4).html("");
-          }
         });
       });
     },
