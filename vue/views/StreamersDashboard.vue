@@ -41,8 +41,7 @@
         >
           <h2 class="text-xl font-bold text-gray-700">
             Deleting the Streamer
-            {{ store.state.dashboard.edit.streamer.name }} and all its
-            votes.
+            {{ store.state.dashboard.edit.streamer.name }} and all its votes.
           </h2>
           <h2 class="text-xl font-bold text-gray-700 mt-6">Are you sure?</h2>
           <div class="mt-4 flex flex-row justify-center">
@@ -138,8 +137,6 @@ export default {
     getStreamersDashboard: function () {
       store.dispatch("getStreamersDashboard").then((data) => {
         $(document).ready(function () {
-          $("#streamer-list").dataTable().fnClearTable();
-          $("#streamer-list").dataTable().fnDestroy();
           $("#streamer-list").dataTable({
             response: true,
             data: data.data,
@@ -157,6 +154,9 @@ export default {
             language: {
               zeroRecords: " ",
             },
+            bDestroy: true,
+            responsive: true,
+            autoWidth: true,
           });
         });
       });
@@ -172,12 +172,12 @@ export default {
       this.closeModal();
       $("#streamer-list").dataTable().fnClearTable();
       $("#streamer-list").dataTable().fnDestroy();
+      $("#streamer-list").dataTable().destroy();
       this.getStreamersDashboard();
     },
   },
   mounted() {
     this.getStreamersDashboard();
-
     //EventListener Click on remove
     $("#streamer-list").on(
       "click",
