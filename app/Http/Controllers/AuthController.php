@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use Illuminate\Testing\Fluent\Concerns\Has;
 use Illuminate\Validation\Rules\Password;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 use Laravel\Sanctum\NewAccessToken;
 
 /**
@@ -248,6 +250,28 @@ class AuthController extends Controller
         }
     }
 
+    public function verifyEmail(Request $request)
+    {
+         try{
+                $mail = new PHPMailer;
+                $mail->SMTPDebug = 0;
+                $mail->isSMTP();
+                $mail->Host = 'smtp.hostinger.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'btk@betheking.online';
+                $mail->Password = 'Fraternidad0=';
+                $mail->SMTPSecure="ssl";
+                $mail->Port = 465;
+                $mail->setFrom('btk@betheking.online', 'BeTheKing');
+                $mail->addAddress($request['email'], $request['username']);
+                $mail->isHTML(true);
+                $mail->Body = "done";
+                $mail->Subject = 'email Verification - BeTheking';
+                $mail->send();
+            }catch(Exception $e){
+                return $e;
+            }
+    }
     /**
      * Function to get total users, registered today and logged today
      *

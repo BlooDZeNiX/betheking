@@ -7,7 +7,8 @@
         absolute
         transform
         -translate-x-1/2 -translate-y-1/2
-        w-1/2
+        lg:w-1/2
+        md:w-1/2
         h-1/2 h-screen
         flex
         items-center
@@ -18,7 +19,7 @@
       "
       @click.self="close"
     >
-      <div class="relative w-full bg-white shadow-lg rounded-lg p-8">
+      <div class="relative lg:w-2/3 md:w-2/3 w-full bg-white shadow-lg rounded-lg p-8">
         <button
           aria-label="close"
           class="

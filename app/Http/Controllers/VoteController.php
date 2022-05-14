@@ -15,8 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Testing\Fluent\Concerns\Has;
 use Illuminate\Validation\Rules\Password;
 use Laravel\Sanctum\NewAccessToken;
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+
 
 /**
  * Class VoteController
@@ -54,25 +53,6 @@ class VoteController extends Controller
                 $vote
             ]);
         } else {
-            // try{
-            //     $mail = new PHPMailer;
-            //     $mail->SMTPDebug = 0;
-            //     $mail->isSMTP();
-            //     $mail->Host = 'smtp.hostinger.com';
-            //     $mail->SMTPAuth = true;
-            //     $mail->Username = 'btk@betheking.online';
-            //     $mail->Password = 'Fraternidad0=';
-            //     $mail->SMTPSecure="ssl";
-            //     $mail->Port = 465;
-            //     $mail->setFrom('btk@betheking.online', 'BeTheKing');
-            //     $mail->addAddress('cesarmsfelipe@gmail.com', 'Zenix');
-            //     $mail->isHTML(true);
-            //     $mail->Body = "done";
-            //     $mail->Subject = 'Testing PHPMailer';
-            //    $mail->send();
-            // }catch(Exception $e){
-            //     return $e;
-            // }
             return $able;
         }
     }

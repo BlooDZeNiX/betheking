@@ -37,7 +37,7 @@
           v-show="showModalDelete"
           @close="closeModal"
           id="modal-user"
-          class="absolute top-1/2 left-1/2"
+          class="absolute w-full top-1/2 left-1/2"
         >
           <h2 class="text-xl font-bold text-gray-700">
             Deleting the Game {{ store.state.dashboard.edit.game.name }} and

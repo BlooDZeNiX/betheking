@@ -16,13 +16,27 @@
                     v-on:click="editProfile"
                     class="bg-teal-700 py-1 px-2 rounded text-gray-200 text-sm"
                   >
-                    edit
+                    Edit
                   </button>
                 </li>
                 <li class="flex items-center py-3 justify-between">
                   <span class="text-gray-400 text-s my-1">
                     {{ store.state.user.data.email }}
                   </span>
+                   <button
+                    v-on:click="verifyEmail"
+                    v-if="!store.state.user.data.email_verified_at"
+                    class="bg-red-900 py-1 px-2 rounded text-gray-200 text-sm"
+                  >
+                    Confirm me!
+                  </button>
+                  <button
+                    v-else
+                    disabled
+                    class="bg-teal-700 py-1 px-2 rounded text-gray-200 text-sm"
+                  >
+                    Verified
+                  </button>
                 </li>
               </ul>
               <div class="image overflow-hidden">
@@ -124,6 +138,14 @@ const router = useRouter();
       params: {
         id: store.state.user.data.id,
         title: "Editing your data",
+      },
+    })
+  }
+  function verifyEmail(ev) {
+    router.push({
+      name: "EmailVerification",
+      params: {
+        title: "Email Verification",
       },
     })
   }

@@ -1,5 +1,5 @@
 <template>
-  <PageComponent title="Change your password">
+  <PageComponent title="Verify Your Email">
     <div class="bg-white">
       <div class="container mx-auto p-5 bg-white">
         <div class="md:flex no-wrap rounded-lg">
@@ -11,43 +11,19 @@
                 <ul class="text-gray-600 px-3 mt-3 divide-y rounded">
                   <li class="flex items-center justify-between py-1">
                     <span class="font-bold text-xl leading-8 my-1">
-                      Actual Password
+                      Your Email
                     </span>
                     <input
-                      v-model="changePassword.actual"
+                      v-model="email.email"
                       class="border-2 border-gray-700 w-1/2 rounded-lg"
-                      type="password"
+                      type="email"
                       name="actual"
                       id="actual"
                     />
                   </li>
-                  <li class="flex items-center justify-between py-1">
-                    <span class="font-bold text-xl leading-8 my-1">
-                      New Password
-                    </span>
-                    <input
-                      v-model="changePassword.new"
-                      class="border-2 border-gray-700 w-1/2 rounded-lg"
-                      type="password"
-                      name="new"
-                      id="new"
-                    />
-                  </li>
-                  <li class="flex items-center justify-between py-1">
-                    <span class="font-bold text-xl leading-8 my-1">
-                      New Password
-                    </span>
-                    <input
-                      v-model="changePassword.new_confirmation"
-                      class="border-2 border-gray-700 w-1/2 rounded-lg"
-                      type="password"
-                      name="new_confirmation"
-                      id="new_confirmation"
-                    />
-                  </li>
                   <li class="flex justify-center py-3">
                     <button
-                      v-on:click="editUserPassword"
+                      v-on:click="verifyEmail"
                       :id="``"
                       :name="``"
                       :title="``"
@@ -63,7 +39,7 @@
                         h-12
                       "
                     >
-                      Change Password
+                      Send email verification
                     </button>
                   </li>
                 </ul>
@@ -76,7 +52,6 @@
   </PageComponent>
 </template>
 <script setup>
-
 import PageComponent from "../src/components/PageComponent.vue";
 
 </script>
@@ -89,14 +64,13 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 export default {
-  name: "EditProfile",
+  name: "EmailVerification",
   data: function () {
     return {
-      changePassword: {
-        user_id: store.state.user.data.id,
-        actual: "",
-        new: "",
-        new_confirmation: "",
+      email: {
+        id: store.state.user.data.id,
+        username: store.state.user.data.username,
+        email: store.state.user.data.email,
       },
       user: {},
     };
@@ -106,9 +80,9 @@ export default {
     getUserInfo() {
        store.dispatch("getUser");
     },
-    editUserPassword(ev) {
+    verifyEmail(ev) {
       ev.preventDefault();
-      store.dispatch("editUserPassword", this.changePassword);
+      store.dispatch("verifyEmail", this.email);
     }
   },
   mounted() {

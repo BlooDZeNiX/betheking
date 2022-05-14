@@ -1,6 +1,6 @@
 <template>
   <PageComponent title="Kings">
-    <Modal v-show="show" class="absolute top-30 left-1/2" @close="closeModal" id="modalMessage">
+    <Modal v-show="show" class="w-1/3 absolute top-30 left-1/2" @close="closeModal" id="modalMessage">
       <p>{{message}}</p>
     </Modal>
     <div>
@@ -42,7 +42,7 @@
         </div>
         <div class="pr-1">
           <table
-            class="w-full text-sm text-left text-gray-500 dark:text-gray-400 overflow-x-auto shadow-md sm:rounded-lg"
+            class="w-full text-sm text-left text-gray-500 dark:text-gray-400 shadow-md sm:rounded-lg"
           >
             <thead
               class="text-xs text-white uppercase bg-gray-700 dark:bg-gray-700 dark:text-gray-400 shadow-md sm:rounded-lg"

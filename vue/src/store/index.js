@@ -86,6 +86,7 @@ const store = createStore({
                         res.data.imageUrl = "../src/assets/images/default.png";
                     }
                     commit('setUser', res.data)
+                    console.log(res.data)
                 })
         },
         getUserById({ commit }, id) {
@@ -137,6 +138,13 @@ const store = createStore({
                     commit('setUserVotes', response.data);
                     return response.data;
                 })
+        },
+        verifyEmail({ commit }, data) {
+            console.log(data)
+            return axiosClient.post('/verifyEmail', data)
+                .then(response => {
+                    commit('setUserVerification', response.data);
+                });
         },
         profile() {
             return axiosClient.get('/user')
@@ -234,6 +242,10 @@ const store = createStore({
         },
         setEditUser: (state, user) => {
             state.dashboard.edit.user = user;
+        },
+        setUserVerification: (state, verification) => {
+            state.user.data.email = verification.email;
+            state.user.data.email_verified_at = verification.email_verified_at;
         },
         setTodayVotes: (state, votes) => {
             state.dashboard.dashboard.todayVotes = votes;

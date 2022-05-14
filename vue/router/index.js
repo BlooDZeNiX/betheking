@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router
 import Login from '../views/Login.vue'
 import SignUp from "../views/SignUp.vue"
 import PasswordRecovery from "../views/PasswordRecovery.vue"
+import EmailVerification from "../views/EmailVerification.vue"
 import Home from '../views/Home.vue'
 import Streamers from '../views/Streamers.vue'
 import Games from "../views/Games.vue"
@@ -42,6 +43,7 @@ const routes = [{
             { path: '/streamers-dashboard', name: 'StreamersDashboard', component: StreamersDashboard, props: true },
             { path: '/profile/edit', name: 'EditProfile', component: EditProfile, props: true },
             { path: '/profile/edit/password', name: 'ChangePassword', component: ChangePassword, props: true },
+            { path: '/profile/edit/email-verification', name: 'EmailVerification', component: EmailVerification, props: true },
             { path: '/streamers-vote-ads', name: 'StreamersVoteAds', component: StreamersVoteAds, props: true },
             { path: '/games-vote-ads', name: 'GamesVoteAds', component: GamesVoteAds, props: true },
             { path: '/about-us', name: 'AboutUs', component: AboutUs },

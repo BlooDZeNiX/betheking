@@ -28,6 +28,7 @@ Route::post('/signup', [AuthController::class, 'signUp']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/editUserImage', [AuthController::class, 'editUserImage']);
 Route::post('/editUserPassword', [AuthController::class, 'editUserPassword']);
+Route::post('/verifyEmail', [AuthController::class, 'verifyEmail']);
 Route::post('/editUserData', [AuthController::class, 'editUserData']);
 Route::post('/deleteUserData', [AuthController::class, 'deleteUserData']);
 Route::post('/getUserById', [AuthController::class, 'getUserById']);
