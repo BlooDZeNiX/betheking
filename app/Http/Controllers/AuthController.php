@@ -166,12 +166,9 @@ class AuthController extends Controller
         ]);
         $dir = 'images/';
         $file = time() . '.' . $request->file->getClientOriginalExtension();
-        $absolutePath = public_path($dir);
-        $relativePath = $dir.$file;
-        if (!File::exists($absolutePath)) {
-            File::makeDirectory($absolutePath, 0755, true);
-        }
-        file_put_contents($absolutePath, $request->file);
+        $absolutePath = public_path($dir);        $relativePath = $dir.$file;
+
+        file_put_contents($relativePath, $request->file);
 
         User::where("id", $request->id)->update(['imageUrl' => 'https://api.betheking.online/api/image/'.$file]);
         return response()->json([
