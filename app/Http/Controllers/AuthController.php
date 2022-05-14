@@ -173,10 +173,10 @@ class AuthController extends Controller
         }
         file_put_contents($relativePath, $request->file);
 
-        User::where("id", $request->id)->update(['imageUrl' => 'https://api.betheking.online/image/'.$file]);
+        User::where("id", $request->id)->update(['imageUrl' => 'https://api.betheking.online/api/image/'.$file]);
         return response()->json([
             'success' => 'You have successfully upload file.',
-            'fileName' => "https://api.betheking.online/image/".$file,
+            'fileName' => "https://api.betheking.online/api/image/".$file,
         ]);
     }
 
