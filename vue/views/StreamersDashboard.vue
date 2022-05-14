@@ -137,7 +137,7 @@ export default {
   components: {},
   methods: {
     getStreamersDashboard: function () {
-      $('#streamer-list').html(this.table);
+      $('#streamer-list') = this.table;
         store.dispatch("getStreamersDashboard").then((data) => {
         $(document).ready(function () {
           $("#streamer-list").dataTable({
@@ -176,7 +176,7 @@ export default {
     },
   },
   mounted() {
-    this.table = $('#streamer-list').html();
+    this.table = $('#streamer-list');
     console.log(this.table);
     this.getStreamersDashboard();
     //EventListener Click on remove
