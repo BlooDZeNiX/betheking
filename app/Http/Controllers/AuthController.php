@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Testing\Fluent\Concerns\Has;
 use Illuminate\Validation\Rules\Password;
 use PHPMailer\PHPMailer\PHPMailer;
@@ -175,7 +176,7 @@ class AuthController extends Controller
         User::where("id", $request->id)->update(['imageUrl' => $relativePath]);
         return response()->json([
             'success' => 'You have successfully upload file.',
-            'fileName' => $relativePath,
+            'fileName' => "https://api.betheking.online/image/".$file,
         ]);
     }
 
@@ -248,6 +249,12 @@ class AuthController extends Controller
         } else {
             return 0;
         }
+    }
+
+    public function image($fileName)
+    {
+        $path = public_path() . 'images/' . $fileName;
+        return Response::download($path);
     }
 
     public function verifyEmail(Request $request)
