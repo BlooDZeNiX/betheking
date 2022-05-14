@@ -86,7 +86,6 @@ const store = createStore({
                         res.data.imageUrl = "../src/assets/images/default.png";
                     }
                     commit('setUser', res.data)
-                    console.log(res.data)
                 })
         },
         getUserById({ commit }, id) {
@@ -111,6 +110,7 @@ const store = createStore({
                 })
         },
         editUserImage({ commit }, formData) {
+            console.log(formData)
             return axiosClient2.post('/editUserImage', formData)
                 .then(res => {
                     commit('setUserImage', res.data.fileName);

@@ -244,9 +244,9 @@ export default {
     },
     editProfile(ev) {
       ev.preventDefault();
-      if (this.edit.image) {
+      if (this.edit.file) {
         let formData = new FormData();
-        formData.append("file", this.edit.image);
+        formData.append("file", this.edit.file);
         formData.append("id", this.edit.id);
         store.dispatch("editUserImage", formData).then((data) => {
           this.file_name = data.data.file_name;
