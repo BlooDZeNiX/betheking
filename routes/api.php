@@ -34,6 +34,7 @@ Route::post('/deleteUserData', [AuthController::class, 'deleteUserData']);
 Route::post('/getUserById', [AuthController::class, 'getUserById']);
 Route::get('/getUsers', [AuthController::class, 'getUsers']);
 Route::get('/getTodayUsers', [AuthController::class, 'getTodayUsers']);
+Route::get('/image/{filename}', [AuthController::class, 'image']);
 
 Route::get('/TopVoted', [VoteController::class, 'getTopVoted']);
 Route::get('/getTodayVotes', [VoteController::class, 'getTodayVotes']);
