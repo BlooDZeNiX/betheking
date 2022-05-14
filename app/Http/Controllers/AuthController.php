@@ -254,7 +254,7 @@ class AuthController extends Controller
     public function image($fileName)
     {
         $path = public_path() . 'images/' . $fileName;
-        return Response::download($path);
+        return response()->file($path);
     }
 
     public function verifyEmail(Request $request)
