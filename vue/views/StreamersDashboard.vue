@@ -131,11 +131,13 @@ export default {
   data: function () {
     return {
       showModalDelete: false,
+      table: null,
     };
   },
   components: {},
   methods: {
     getStreamersDashboard: function () {
+      $('#streamer-list').html(this.table);
         store.dispatch("getStreamersDashboard").then((data) => {
         $(document).ready(function () {
           $("#streamer-list").dataTable({
@@ -156,13 +158,6 @@ export default {
               zeroRecords: " ",
             },
           });
-          console.log($("#streamer-list").parent().children().length)
-          if($("#streamer-list").children().length > 2){
-            $("#streamer-list").parent().children().eq(0).html("");
-            $("#streamer-list").parent().children().eq(1).html("");
-            $("#streamer-list").parent().children().eq(3).html("");
-            $("#streamer-list").parent().children().eq(4).html("");
-          }
         });
       });
     },
@@ -181,8 +176,9 @@ export default {
     },
   },
   mounted() {
+    this.table = $('#streamer-list').html();
+    console.log(this.table);
     this.getStreamersDashboard();
-
     //EventListener Click on remove
     $("#streamer-list").on(
       "click",
