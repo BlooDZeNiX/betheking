@@ -6,14 +6,9 @@
           <!-- Left Side -->
           <div class="md:mx-2">
             <!-- Gold Card -->
-            <div class="font-medium text-gray-700 p-3">
-              <span
-                >You have
-                <span
-                  class="bg-teal-700 py-1 px-2 rounded text-white text-sm"
-                  >{{ store.state.user.data.gold }}</span
-                >
-                Gold</span
+            <div class="text-3xl font boldtext-gray-700">
+              <h2
+                >You have {{ store.state.user.data.gold }} Gold</h2
               >
             </div>
             <form action="">
@@ -33,6 +28,26 @@
                     v-model="user.name"
                     placeholder="Name"
                   />
+                </div>
+                <div>
+                  <button
+                      id="editProfile"
+                      :name="``"
+                      class="
+                        border border-black-600
+                        rounded-lg
+                        mt-4
+                        px-4
+                        text-white
+                        bg-gray-800
+                        font-semibold
+                        leading-relaxed
+                        hover-greenwater
+                        h-12
+                      "
+                    >
+                      Get it
+                    </button>
                 </div>
               </div>
             </form>
@@ -55,10 +70,6 @@ input {
 input:focus {
   border-color: #24728a;
   z-index: 10;
-}
-
-#fill{
-  height:54.97vh;
 }
 </style>
 

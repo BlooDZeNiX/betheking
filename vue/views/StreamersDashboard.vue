@@ -26,18 +26,66 @@
           >
             <tr>
               <th scope="col" class="px-6 py-3">Id</th>
-              <th scope="col" class="px-6 py-3">Streamer</th>
-              <th scope="col" class="px-6 py-3"></th>
+              <th scope="col" class="px-6 pr-50 py-3">Streamer</th>
+              <th scope="col" class="px-6 py-3 max-w-[5%]"></th>
+              <th scope="col" class="px-6 py-3 max-w-[5%]"></th>
             </tr>
           </thead>
         </table>
+      </div>
+      <div>
+        <!-- Modal info -->
+        <Modal
+          v-show="showModalInfo"
+          @close="closeModal"
+          id="modal-streamer-info"
+          class="top-1/2 left-1/2"
+        >
+          <h2 class="text-xl font-bold text-gray-700">
+            {{ store.state.dashboard.edit.streamer.name }}
+          </h2>
+          <h3 class="font-medium text-gray-500 mt-4">
+            {{ store.state.dashboard.edit.streamer.description }}
+          </h3>
+          <img :src="`${store.state.dashboard.edit.streamer.offline_image}`" alt="" class="mt-4">
+          <div class="mt-4 flex flex-row justify-center">
+            <div>
+              <button
+                type="submit"
+                class="
+                  group
+                  relative
+                  w-full
+                  flex
+                  justify-center
+                  py-2
+                  px-4
+                  border border-transparent
+                  text-sm
+                  font-medium
+                  rounded-md
+                  text-white
+                  bg-gray-900
+                  hover-greenwater
+                  focus:outline-none
+                  focus:ring-2
+                  focus:ring-offset-2
+                  focus:ring-indigo-500
+                "
+                @click="showModalInfo = false"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </Modal>
       </div>
       <div>
         <!-- Modal delete -->
         <Modal
           v-show="showModalDelete"
           @close="closeModal"
-          id="modal-user"
+          id="modal-streamer-delete"
           class="top-1/2 left-1/2"
         >
           <h2 class="text-xl font-bold text-gray-700">
@@ -107,6 +155,7 @@
         </Modal>
       </div>
       <button id="btd" class="hidden" @click="openModalDelete"></button>
+      <button id="bti" class="hidden" @click="getStreamer"></button>
     </Administration>
   </PageComponent>
 </template>
@@ -131,6 +180,7 @@ export default {
   data: function () {
     return {
       showModalDelete: false,
+      showModalInfo: false,
     };
   },
   components: {},
@@ -149,9 +199,17 @@ export default {
               { data: "display_name" },
               {
                 data: null,
+                defaultContent: '<button><i class="fa fa-info-circle"></i></button>',
+                className: "row-info text-blue-700 dt-center",
+                orderable: false,
+                "width": "10%",
+              },
+              {
+                data: null,
                 defaultContent: '<button><i class="fa fa-trash"></i></button>',
                 className: "row-remove text-red-700 dt-center",
                 orderable: false,
+                "width": "10%",
               },
             ],
             language: {
@@ -161,11 +219,25 @@ export default {
         });
       });
     },
+     openModalInfo: function (e) {
+      this.showModalInfo = true;
+      this.showModalDelete = false;
+    },
     openModalDelete: function (e) {
       this.showModalDelete = true;
+      this.showModalInfo = false;
     },
     closeModal: function () {
       this.showModalDelete = false;
+      this.showModalInfo = false;
+    },
+    getStreamer: function () {
+      store.dispatch("getStreamer", store.state.dashboard.edit.streamer.id).then((data) => {
+        console.log(data.data);
+        store.state.dashboard.edit.streamer.offline_image = data.data.offline_image_url;
+        store.state.dashboard.edit.streamer.description = data.data.description;
+        this.openModalInfo();
+      })
     },
     deleteStreamer: function () {
       store.dispatch("deleteStreamer", store.state.dashboard.edit.streamer);
@@ -177,7 +249,37 @@ export default {
   },
   mounted() {
     this.getStreamersDashboard();
-    //EventListener Click on remove
+
+//EventListener Click on info icon
+    $("#streamer-list").on(
+      "click",
+      "tbody tr td.row-info button .fa-info-circle",
+      function (e) {
+        store.state.dashboard.edit.streamer = {};
+        var id = $(e.target)
+          .closest("button")
+          .parent()
+          .parent()
+          .children()
+          .eq(0)
+          .text();
+
+        var name = $(e.target)
+          .closest("button")
+          .parent()
+          .parent()
+          .children()
+          .eq(1)
+          .text();
+
+        store.state.dashboard.edit.streamer.id = id;
+        store.state.dashboard.edit.streamer.name = name;
+
+        $("#bti").trigger("click");
+      }
+    );
+
+    //EventListener Click on remove icon
     $("#streamer-list").on(
       "click",
       "tbody tr td.row-remove button .fa-trash",

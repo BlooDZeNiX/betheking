@@ -28,15 +28,65 @@
               <th scope="col" class="px-6 py-3">Id</th>
               <th scope="col" class="px-6 py-3">Game</th>
               <th scope="col" class="px-6 py-3"></th>
+              <th scope="col" class="px-6 py-3"></th>
             </tr>
           </thead>
         </table>
       </div>
+            <div>
+        <!-- Modal info -->
+        <Modal
+          v-show="showModalInfo"
+          @close="closeModal"
+          id="modal-game-info"
+          class="top-1/2 left-1/2"
+        >
+        <div class="flex justify-center">
+          <h2 class="text-xl font-bold text-gray-700">
+            {{ store.state.dashboard.edit.game.name }}
+          </h2>
+        </div>
+        <div class="flex justify-center mt-4">
+          <img :src="`${store.state.dashboard.edit.game.image}`" alt="" class="mt-4">
+        </div>
+          <div class="mt-4 flex flex-row justify-center">
+            <div>
+              <button
+                type="submit"
+                class="
+                  group
+                  relative
+                  w-full
+                  flex
+                  justify-center
+                  py-2
+                  px-4
+                  border border-transparent
+                  text-sm
+                  font-medium
+                  rounded-md
+                  text-white
+                  bg-gray-900
+                  hover-greenwater
+                  focus:outline-none
+                  focus:ring-2
+                  focus:ring-offset-2
+                  focus:ring-indigo-500
+                "
+                @click="showModalInfo = false"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </Modal>
+      </div>
       <div>
+        <!-- Modal delete -->
         <Modal
           v-show="showModalDelete"
           @close="closeModal"
-          id="modal-user"
+          id="modal-game-delete"
           class="absolute w-full top-1/2 left-1/2"
         >
           <h2 class="text-xl font-bold text-gray-700">
@@ -105,6 +155,7 @@
           </div>
         </Modal>
       </div>
+      <button id="bti" class="hidden" @click="getGame"></button>
       <button id="btd" class="hidden" @click="openModalDelete"></button>
     </Administration>
   </PageComponent>
@@ -129,6 +180,7 @@ export default {
   name: "GamesDashboard",
   data: function () {
     return {
+      showModalInfo: false,
       showModalDelete: false,
     };
   },
@@ -148,9 +200,17 @@ export default {
               { data: "name" },
               {
                 data: null,
+                defaultContent: '<button><i class="fa fa-info-circle"></i></button>',
+                className: "row-info text-blue-700 dt-center",
+                orderable: false,
+                "width": "10%",
+              },
+              {
+                data: null,
                 defaultContent: '<button><i class="fa fa-trash"></i></button>',
                 className: "row-remove text-red-700 dt-center",
                 orderable: false,
+                "width": "10%",
               },
             ],
             language: {
@@ -160,11 +220,24 @@ export default {
         });
       });
     },
+    openModalInfo: function (e) {
+      this.showModalInfo = true;
+      this.showModalDelete = false;
+    },
     openModalDelete: function (e) {
       this.showModalDelete = true;
+      this.showModalInfo = false;
     },
     closeModal: function () {
       this.showModalDelete = false;
+      this.showModalInfo = false;
+    },
+    getGame: function () {
+      store.dispatch("getGame", store.state.dashboard.edit.game.id).then((data) => {
+        console.log(data.data);
+        store.state.dashboard.edit.game.image = data.data[0]['box_art_url'];
+        this.openModalInfo();
+      })
     },
     deleteGame: function () {
       store.dispatch("deleteGame", store.state.dashboard.edit.game);
@@ -176,6 +249,37 @@ export default {
   },
   mounted() {
     this.getGamesDashboard();
+
+//EventListener Click on info icon
+    $("#games-list").on(
+      "click",
+      "tbody tr td.row-info button .fa-info-circle",
+      function (e) {
+        store.state.dashboard.edit.game = {};
+        var id = $(e.target)
+          .closest("button")
+          .parent()
+          .parent()
+          .children()
+          .eq(0)
+          .text();
+
+        var name = $(e.target)
+          .closest("button")
+          .parent()
+          .parent()
+          .children()
+          .eq(1)
+          .text();
+
+        store.state.dashboard.edit.game.id = id;
+        store.state.dashboard.edit.game.name = name;
+
+        $("#bti").trigger("click");
+      }
+    );
+
+//EventListener Click on trash icon
     $("#games-list").on(
       "click",
       "tbody tr td.row-remove button .fa-trash",

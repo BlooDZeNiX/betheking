@@ -238,8 +238,8 @@ const store = createStore({
                     return store.state.topGames;
                 })
         },
-        getGame({ commit }, streamer_id) {
-            return axiosClient.post('/getGame', { id: streamer_id })
+        getGame({ commit }, game_id) {
+            return axiosClient.post('/getGame', { id: game_id })
                 .then((data) => {
                     commit('setVotingGame', data)
                     return store.state.voteGame.votingGame;
