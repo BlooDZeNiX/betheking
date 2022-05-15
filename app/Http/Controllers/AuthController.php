@@ -82,8 +82,9 @@ class AuthController extends Controller
         /** @var \App\Models\User $user */
         $user = Auth::user();
         User::where('id', $user->id)->update([
-            'last_login' => Carbon::now()->toDateTimeString()]);
-            $token = $user->createToken('token')->plainTextToken;
+            'last_login' => Carbon::now()->toDateTimeString()
+        ]);
+        $token = $user->createToken('token')->plainTextToken;
 
         return response([
             'user' => $user,
@@ -161,19 +162,23 @@ class AuthController extends Controller
      */
     public function editUserImage(Request $request)
     {
+        // return $request;
         $request->validate([
             'file' => 'required|image|mimes:jpg,jfif,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
         ]);
         $dir = 'images/';
         $file = time() . '.' . $request->file->getClientOriginalExtension();
-        $absolutePath = public_path($dir);        $relativePath = $dir.$file;
-        $image = $request->file('image');
-        $image->move($relativePath, $file);
+        $absolutePath = public_path($dir);
+        $relativePath = $dir . $file;
+        if (!File::exists($absolutePath)) {
+            File::makeDirectory($absolutePath, 0755, true);
+        }
+        file_put_contents($relativePath, $request->file('image'));
 
-        User::where("id", $request->id)->update(['imageUrl' => 'https://api.betheking.online/api/image/'.$file]);
+        User::where("id", $request->id)->update(['imageUrl' => 'https://api.betheking.online/image/' . $file]);
         return response()->json([
             'success' => 'You have successfully upload file.',
-            'fileName' => "https://api.betheking.online/api/image/".$file,
+            'fileName' => "https://api.betheking.online/image/" . $file,
         ]);
     }
 
@@ -186,7 +191,7 @@ class AuthController extends Controller
     public function editUserData(Request $request)
     {
         if (isset($request['gold'])) {
-           return User::where('id', $request['id'])
+            return User::where('id', $request['id'])
                 ->update([
                     "name" => $request["name"],
                     "username" => $request["username"],
@@ -194,7 +199,7 @@ class AuthController extends Controller
                     "gold" => $request['gold'],
                 ]);
         } else {
-           return User::where('id', $request['id'])
+            return User::where('id', $request['id'])
                 ->update([
                     "name" => $request["name"],
                     "username" => $request["username"],
@@ -211,7 +216,7 @@ class AuthController extends Controller
      */
     public function deleteUserData(Request $request)
     {
-       return User::where('id', $request['id'])
+        return User::where('id', $request['id'])
             ->delete();
     }
 
@@ -248,33 +253,27 @@ class AuthController extends Controller
         }
     }
 
-    public function image($fileName)
-    {
-        $path = public_path() . 'images/' . $fileName;
-        return response()->file($path);
-    }
-
     public function verifyEmail(Request $request)
     {
-         try{
-                $mail = new PHPMailer;
-                $mail->SMTPDebug = 0;
-                $mail->isSMTP();
-                $mail->Host = 'smtp.hostinger.com';
-                $mail->SMTPAuth = true;
-                $mail->Username = 'btk@betheking.online';
-                $mail->Password = 'Fraternidad0=';
-                $mail->SMTPSecure="ssl";
-                $mail->Port = 465;
-                $mail->setFrom('btk@betheking.online', 'BeTheKing');
-                $mail->addAddress($request['email'], $request['username']);
-                $mail->isHTML(true);
-                $mail->Body = "done";
-                $mail->Subject = 'email Verification - BeTheking';
-                $mail->send();
-            }catch(Exception $e){
-                return $e;
-            }
+        try {
+            $mail = new PHPMailer;
+            $mail->SMTPDebug = 0;
+            $mail->isSMTP();
+            $mail->Host = 'smtp.hostinger.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'btk@betheking.online';
+            $mail->Password = 'Fraternidad0=';
+            $mail->SMTPSecure = "tls";
+            $mail->Port = 465;
+            $mail->setFrom('btk@betheking.online', 'BeTheKing');
+            $mail->addAddress($request['email'], $request['username']);
+            $mail->isHTML(true);
+            $mail->Body = "done";
+            $mail->Subject = 'email Verification - BeTheking';
+            $mail->send();
+        } catch (Exception $e) {
+            return $e;
+        }
     }
     /**
      * Function to get total users, registered today and logged today

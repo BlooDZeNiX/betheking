@@ -110,11 +110,13 @@ const store = createStore({
                 })
         },
         editUserImage({ commit }, formData) {
-            console.log(formData)
             return axiosClient2.post('/editUserImage', formData)
                 .then(res => {
                     commit('setUserImage', res.data.fileName);
                     return res;
+                })
+                .catch(error => {
+                    console.log(error)
                 })
         },
         editUserPassword({ commit }, changePassword) {

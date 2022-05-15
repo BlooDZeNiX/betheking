@@ -238,15 +238,15 @@ export default {
         this.edit.file = "";
       } else {
         const file = e.target.files[0];
-        this.edit.image = file;
+        this.edit.image = URL.createObjectURL(file)
         this.edit.file = URL.createObjectURL(file);
       }
     },
     editProfile(ev) {
       ev.preventDefault();
-      if (this.edit.file) {
+      if (this.edit.image) {
         let formData = new FormData();
-        formData.append("file", this.edit.file);
+        formData.append("file", this.edit.image);
         formData.append("id", this.edit.id);
         store.dispatch("editUserImage", formData).then((data) => {
           this.file_name = data.data.file_name;
