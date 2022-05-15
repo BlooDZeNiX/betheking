@@ -181,17 +181,17 @@
 import PageComponent from "../src/components/PageComponent.vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
-$(document).ready(function () {
-  $("#editProfile").on("click", function () {
-    router.push({
-      name: "Home",
-      params: {
-        show: true,
-        message: "Profile data changed."
-      },
-    });
-  });
-});
+// $(document).ready(function () {
+//   $("#editProfile").on("click", function () {
+//     router.push({
+//       name: "Home",
+//       params: {
+//         show: true,
+//         message: "Profile data changed."
+//       },
+//     });
+//   });
+// });
 </script>
 
 <script>
@@ -238,7 +238,7 @@ export default {
         this.edit.file = "";
       } else {
         const file = e.target.files[0];
-        this.edit.image = URL.createObjectURL(file)
+        this.edit.image = file;
         this.edit.file = URL.createObjectURL(file);
       }
     },
@@ -246,15 +246,15 @@ export default {
       ev.preventDefault();
       if (this.edit.image) {
         let formData = new FormData();
-        formData.append("file", this.edit.image);
-        formData.append("id", this.edit.id);
+        formData.append('file', this.edit.file);
+        formData.append('id', this.edit.id);
         store.dispatch("editUserImage", formData).then((data) => {
           this.file_name = data.data.file_name;
         });
       }
-      store.dispatch("editUserData", this.edit).then((data) => {
-        console.log(data);
-      });
+      // store.dispatch("editUserData", this.edit).then((data) => {
+      //   console.log(data);
+      // });
     },
   },
   mounted() {

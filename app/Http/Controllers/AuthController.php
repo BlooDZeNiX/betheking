@@ -162,18 +162,17 @@ class AuthController extends Controller
      */
     public function editUserImage(Request $request)
     {
-        // return $request;
         $request->validate([
             'file' => 'required|image|mimes:jpg,jfif,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
         ]);
         $dir = 'images/';
-        $file = time() . '.' . $request->file->getClientOriginalExtension();
+        $file = time() . '_' . $request->file->getClientOriginalName();
         $absolutePath = public_path($dir);
         $relativePath = $dir . $file;
         if (!File::exists($absolutePath)) {
             File::makeDirectory($absolutePath, 0755, true);
         }
-        file_put_contents($relativePath, $request->file('image'));
+        file_put_contents($relativePath, $request->file);
 
         User::where("id", $request->id)->update(['imageUrl' => 'https://api.betheking.online/image/' . $file]);
         return response()->json([
