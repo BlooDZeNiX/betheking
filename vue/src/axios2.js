@@ -13,7 +13,6 @@ axiosClient2.interceptors.request.use(config => {
     config.headers.common['Access-Control-Allow-Origin'] = "*";
     config.headers.common['Access-Control-Allow-Credentials'] = "true";
     config.headers.common['Content-Type'] = "application/json";
-    config.headers.common['Access-Control-Request-Method'] = "GET,HEAD,OPTIONS,POST,PUT";
     console.log(config)
     return config;
 })
