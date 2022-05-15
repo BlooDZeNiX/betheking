@@ -33,6 +33,7 @@
         </table>
       </div>
       <div>
+        <!-- Modal delete -->
         <Modal
           v-show="showModalDelete"
           @close="closeModal"
@@ -41,8 +42,7 @@
         >
           <h2 class="text-xl font-bold text-gray-700">
             Deleting the Streamer
-            {{ store.state.dashboard.edit.streamer.name }} and all its
-            votes.
+            {{ store.state.dashboard.edit.streamer.name }} and all its votes.
           </h2>
           <h2 class="text-xl font-bold text-gray-700 mt-6">Are you sure?</h2>
           <div class="mt-4 flex flex-row justify-center">
@@ -131,18 +131,19 @@ export default {
   data: function () {
     return {
       showModalDelete: false,
-      table: null,
     };
   },
   components: {},
   methods: {
     getStreamersDashboard: function () {
-        store.dispatch("getStreamersDashboard").then((data) => {
+      store.dispatch("getStreamersDashboard").then((data) => {
         $(document).ready(function () {
+          $("#streamer-list").dataTable().fnClearTable();
+          $("#streamer-list").dataTable().fnDestroy();
           $("#streamer-list").dataTable({
             response: true,
             data: data.data,
-            searching: false,
+            searching: true,
             columns: [
               { data: "id_streamer" },
               { data: "display_name" },

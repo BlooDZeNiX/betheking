@@ -31,6 +31,8 @@ Route::post('/editUserPassword', [AuthController::class, 'editUserPassword']);
 Route::post('/verifyEmail', [AuthController::class, 'verifyEmail']);
 Route::post('/editUserData', [AuthController::class, 'editUserData']);
 Route::post('/deleteUserData', [AuthController::class, 'deleteUserData']);
+Route::post('/disableUser', [AuthController::class, 'disableUser']);
+Route::post('/enableUser', [AuthController::class, 'enableUser']);
 Route::post('/getUserById', [AuthController::class, 'getUserById']);
 Route::get('/getUsers', [AuthController::class, 'getUsers']);
 Route::get('/getTodayUsers', [AuthController::class, 'getTodayUsers']);

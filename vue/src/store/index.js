@@ -131,6 +131,18 @@ const store = createStore({
                     return response;
                 })
         },
+        disableUser({ commit }, user) {
+            return axiosClient.post('/disableUser', user)
+                .then(response => {
+                    return response;
+                })
+        },
+        enableUser({ commit }, user) {
+            return axiosClient.post('/enableUser', user)
+                .then(response => {
+                    return response;
+                })
+        },
         deleteUserData({ commit }, user) {
             return axiosClient.post('/deleteUserData', user);
         },

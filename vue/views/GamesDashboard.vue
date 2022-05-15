@@ -40,8 +40,8 @@
           class="absolute w-full top-1/2 left-1/2"
         >
           <h2 class="text-xl font-bold text-gray-700">
-            Deleting the Game {{ store.state.dashboard.edit.game.name }} and
-            all its votes.
+            Deleting the Game {{ store.state.dashboard.edit.game.name }} and all
+            its votes.
           </h2>
           <h2 class="text-xl font-bold text-gray-700 mt-6">Are you sure?</h2>
           <div class="mt-4 flex flex-row justify-center">
@@ -137,6 +137,8 @@ export default {
     getGamesDashboard: function () {
       store.dispatch("getGamesDashboard").then((data) => {
         $(document).ready(function () {
+          $("#games-list").dataTable().fnClearTable();
+          $("#games-list").dataTable().fnDestroy();
           $("#games-list").dataTable({
             response: true,
             data: data.data,

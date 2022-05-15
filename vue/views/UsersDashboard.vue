@@ -30,12 +30,14 @@
               <th scope="col" class="px-6 py-3">Name</th>
               <th scope="col" class="px-6 py-3">Email</th>
               <th scope="col" class="px-6 py-3">Gold</th>
+              <th scope="col" class="px-6 py-3">Enabled</th>
+              <th scope="col" class="px-6 py-3"></th>
               <th scope="col" class="px-6 py-3"></th>
               <th scope="col" class="px-6 py-3"></th>
             </tr>
           </thead>
         </table>
-        <!-- Modal formulario -->
+        <!-- Modal edit -->
         <div>
           <Modal
             v-show="showModalEdit"
@@ -193,6 +195,7 @@
             </div>
           </Modal>
         </div>
+        <!-- Modal delete -->
         <div>
           <Modal
             v-show="showModalDelete"
@@ -265,8 +268,114 @@
             </div>
           </Modal>
         </div>
+        <!-- Modal disable -->
+        <div>
+          <Modal
+            v-show="showModalDisable"
+            @close="closeModal"
+            id="modal-user"
+            class="top-1/2 left-1/2"
+          >
+            <h2 class="text-xl font-bold text-gray-700">
+              Do you want to
+              <span v-if="store.state.dashboard.edit.user.active == 'Active'"
+                >disable</span
+              ><span v-else>enable</span> User
+              {{ store.state.dashboard.edit.user.username }} ?
+            </h2>
+            <div class="mt-4 flex flex-row justify-center">
+              <div v-if="store.state.dashboard.edit.user.active == 'Active'" class="mr-8">
+                <button
+                  type="submit"
+                  @click="disableUser"
+                  id="btn-disable-user"
+                  class="
+                    group
+                    relative
+                    w-full
+                    flex
+                    justify-center
+                    py-2
+                    px-4
+                    border border-transparent
+                    text-sm
+                    font-medium
+                    rounded-md
+                    text-white
+                    bg-gray-900
+                    hover-greenwater
+                    focus:outline-none
+                    focus:ring-2
+                    focus:ring-offset-2
+                    focus:ring-indigo-500
+                  "
+                >
+                  Yes
+                </button>
+              </div>
+              <div v-else class="mr-8">
+                <button
+                  type="submit"
+                  @click="enableUser"
+                  id="btn-enable-user"
+                  class="
+                    group
+                    relative
+                    w-full
+                    flex
+                    justify-center
+                    py-2
+                    px-4
+                    border border-transparent
+                    text-sm
+                    font-medium
+                    rounded-md
+                    text-white
+                    bg-gray-900
+                    hover-greenwater
+                    focus:outline-none
+                    focus:ring-2
+                    focus:ring-offset-2
+                    focus:ring-indigo-500
+                  "
+                >
+                  Yes
+                </button>
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  class="
+                    group
+                    relative
+                    w-full
+                    flex
+                    justify-center
+                    py-2
+                    px-4
+                    border border-transparent
+                    text-sm
+                    font-medium
+                    rounded-md
+                    text-white
+                    bg-gray-900
+                    hover-greenwater
+                    focus:outline-none
+                    focus:ring-2
+                    focus:ring-offset-2
+                    focus:ring-indigo-500
+                  "
+                  @click="showModalDisable = false"
+                >
+                  No
+                </button>
+              </div>
+            </div>
+          </Modal>
+        </div>
         <button id="bte" class="hidden" @click="openModalEdit"></button>
         <button id="btd" class="hidden" @click="openModalDelete"></button>
+        <button id="btdd" class="hidden" @click="openModalDisable"></button>
       </div>
     </Administration>
   </PageComponent>
@@ -327,7 +436,6 @@ import { ref } from "vue";
 const router = useRouter();
 let loading = ref(false);
 let errorMsg = ref("");
-let tab;
 </script>
 
 <script>
@@ -340,6 +448,7 @@ export default {
       btnEditar: false,
       showModalEdit: false,
       showModalDelete: false,
+      showModalDisable: false,
     };
   },
   components: {},
@@ -347,7 +456,7 @@ export default {
     getUsersDashboard: function () {
       store.dispatch("getUsersDashboard").then((data) => {
         $(document).ready(function () {
-          $("#user-list").DataTable({
+          $("#user-list").dataTable({
             response: true,
             data: data.data,
             searching: true,
@@ -357,6 +466,7 @@ export default {
               { data: "name" },
               { data: "email" },
               { data: "gold" },
+              { data: "active" },
               {
                 data: null,
                 defaultContent: '<button><i class="fa fa-pen"></i></button>',
@@ -369,9 +479,27 @@ export default {
                 className: "row-remove text-red-700 dt-center",
                 orderable: false,
               },
+              {
+                data: null,
+                defaultContent: '<button><i class="fa fa-ban"></i></button>',
+                className: "row-disable text-yellow-700",
+                orderable: false,
+              },
             ],
             language: {
               zeroRecords: " ",
+            },
+            createdRow: function (row, data, index) {
+              console.log(data);
+              if (data.active == 0) {
+                $("td", row).eq(5).addClass("text-danger").text("Inactive");
+                $("td", row)
+                  .eq(8)
+                  .removeClass("text-yellow-700")
+                  .addClass("text-green-700");
+              } else {
+                $("td", row).eq(5).addClass("text-success").text("Active");
+              }
             },
           });
         });
@@ -379,16 +507,26 @@ export default {
     },
     openModalEdit: function (e) {
       this.showModalDelete = false;
+      this.showModalDisable = false;
       this.showModalEdit = true;
       $("#btn-update-user").prop("disabled", true);
+      $("#modal-user #btn-update-user").css("cursor", "not-allowed");
     },
     openModalDelete: function (e) {
       this.showModalEdit = false;
+      this.showModalDisable = false;
       this.showModalDelete = true;
+      $("#btn-update-user").prop("disabled", true);
+    },
+    openModalDisable: function (e) {
+      this.showModalEdit = false;
+      this.showModalDelete = false;
+      this.showModalDisable = true;
       $("#btn-update-user").prop("disabled", true);
     },
     closeModal: function () {
       this.showModalEdit = false;
+      this.showModalDisable = false;
       this.showModalDelete = false;
     },
     editUser: function () {
@@ -410,19 +548,30 @@ export default {
       $("#user-list").dataTable().fnDestroy();
       this.getUsersDashboard();
     },
+    disableUser: function () {
+      store.dispatch("disableUser", store.state.dashboard.edit.user);
+      this.closeModal();
+      $("#user-list").dataTable().fnClearTable();
+      $("#user-list").dataTable().fnDestroy();
+      this.getUsersDashboard();
+    },
+    enableUser: function () {
+      store.dispatch("enableUser", store.state.dashboard.edit.user);
+      this.closeModal();
+      $("#user-list").dataTable().fnClearTable();
+      $("#user-list").dataTable().fnDestroy();
+      this.getUsersDashboard();
+    },
     close() {
       this.$emit("close");
     },
   },
   mounted() {
     this.getUsersDashboard();
-
-    //EventListener to set disable button from modal until there is no changes.
+    //EventListener to enable button from modal and giving it pointer style when changes.
     $("#modal-user #name, #username, #email, #gold").on("input", function () {
       $("#btn-update-user").prop("disabled", false);
-    });
-    $("#modal-user #name, #username, #email, #gold").off("input", function () {
-      $("#btn-update-user").css("cursor", "not-allowed");
+      $("#modal-user #btn-update-user").css("cursor", "pointer");
     });
 
     //EventListener Click on edit button.
@@ -507,6 +656,44 @@ export default {
         store.state.dashboard.edit.user.username = username;
 
         $("#btd").trigger("click");
+      }
+    );
+
+    //EventListener Click on disable button.
+    $("#user-list").on(
+      "click",
+      "tbody tr td.row-disable button .fa-ban",
+      function (e) {
+        store.state.dashboard.edit.user = {};
+        var id = $(e.target)
+          .closest("button")
+          .parent()
+          .parent()
+          .children()
+          .eq(0)
+          .text();
+
+        var username = $(e.target)
+          .closest("button")
+          .parent()
+          .parent()
+          .children()
+          .eq(1)
+          .text();
+
+        var active = $(e.target)
+          .closest("button")
+          .parent()
+          .parent()
+          .children()
+          .eq(5)
+          .text();
+
+        store.state.dashboard.edit.user.id = id;
+        store.state.dashboard.edit.user.username = username;
+        store.state.dashboard.edit.user.active = active;
+
+        $("#btdd").trigger("click");
       }
     );
   },

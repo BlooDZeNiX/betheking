@@ -81,6 +81,15 @@ class AuthController extends Controller
 
         /** @var \App\Models\User $user */
         $user = Auth::user();
+
+        if(!$user->active){
+            return response(["errors" =>[
+
+                'message' => [0 => 'The user is disabled']
+                ]
+            ], 422);
+        }
+
         User::where('id', $user->id)->update([
             'last_login' => Carbon::now()->toDateTimeString()
         ]);
@@ -205,6 +214,36 @@ class AuthController extends Controller
                     "email" => $request['email'],
                 ]);
         }
+    }
+
+    /**
+     * Function to disable an user
+     *
+     * @param Request user's ID
+     * @return Boolean
+     */
+    public function disableUser(Request $request)
+    {
+        // return $request;
+        return User::where('id', $request['id'])
+            ->update([
+                "active" => '0',
+            ]);
+    }
+
+    /**
+     * Function to enable an user
+     *
+     * @param Request user's ID
+     * @return Boolean
+     */
+    public function enableUser(Request $request)
+    {
+        // return $request;
+        return User::where('id', $request['id'])
+            ->update([
+                "active" => '1',
+            ]);
     }
 
     /**
