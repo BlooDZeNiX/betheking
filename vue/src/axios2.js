@@ -10,7 +10,7 @@ const axiosClient2 = axios.create({
 axiosClient2.interceptors.request.use(config => {
     config.headers.Authorization = `Bearer ${store.state.user.token}`
     config.headers.common.Accept = 'multipart/form-data'
-    config.headers['Access-Control-Allow-Origin'] = "*";
+    config.headers['Access-Control-Allow-Origin'] = "https://betheking.online";
     config.headers['Content-Type'] = "application/json";
     config.headers['Access-Control-Request-Method'] = "POST";
     console.log(config)
