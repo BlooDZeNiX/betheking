@@ -181,17 +181,17 @@
 import PageComponent from "../src/components/PageComponent.vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
-// $(document).ready(function () {
-//   $("#editProfile").on("click", function () {
-//     router.push({
-//       name: "Home",
-//       params: {
-//         show: true,
-//         message: "Profile data changed."
-//       },
-//     });
-//   });
-// });
+$(document).ready(function () {
+  $("#editProfile").on("click", function () {
+    router.push({
+      name: "Home",
+      params: {
+        show: true,
+        message: "Profile data changed."
+      },
+    });
+  });
+});
 </script>
 
 <script>
@@ -252,9 +252,9 @@ export default {
           this.file_name = data.data.file_name;
         });
       }
-      // store.dispatch("editUserData", this.edit).then((data) => {
-      //   console.log(data);
-      // });
+      store.dispatch("editUserData", this.edit).then((data) => {
+        console.log(data);
+      });
     },
   },
   mounted() {
