@@ -10,7 +10,7 @@
               <form method="post" enctype="multipart/form-data">
                 <ul class="text-gray-600 px-3 mt-3 divide-y rounded">
                   <li class="flex items-center justify-between py-1">
-                    <span class="font-bold text-xl leading-8 my-1">
+                    <span class="font-bold lg:text-xl md:text-l text-m leading-8 my-1">
                       Username
                     </span>
                     <input
@@ -22,7 +22,7 @@
                     />
                   </li>
                   <li class="flex items-center justify-between py-1">
-                    <span class="font-bold text-xl leading-8 my-1">
+                    <span class="font-bold lg:text-xl md:text-l text-m leading-8 my-1">
                       Real name
                     </span>
                     <input
@@ -34,7 +34,7 @@
                     />
                   </li>
                   <li class="flex items-center justify-between py-1">
-                    <span class="font-bold text-xl leading-8 my-1">
+                    <span class="font-bold lg:text-xl md:text-l text-m leading-8 my-1">
                       Email
                     </span>
                     <input
@@ -47,12 +47,13 @@
                     />
                   </li>
                   <li class="flex items-center justify-between py-1">
-                    <span class="font-bold text-xl leading-8 my-1">
+                    <span class="font-bold lg:text-xl md:text-l text-m leading-8 my-1">
                       Password
                     </span>
                     <span
                       class="
-                        w-1/5
+                        lg:w-1/5
+                        w-2/5
                         border border-black-600
                         rounded-lg
                         px-4
@@ -71,8 +72,9 @@
                     </span>
                   </li>
                   <li class="flex items-center justify-between py-1">
-                    <span class="font-bold text-xl leading-8 my-1">
-                      Profile image
+                    <span class="font-bold lg:text-xl md:text-l text-m leading-8 my-1">
+                      Profile
+                      image
                     </span>
                     <div class="shrink-0">
                       <img
@@ -106,44 +108,42 @@
                         alt="profile photo"
                       />
                     </div>
-                    <label class="block">
+                    <label class="lg:w-1/6
+                      w-2/5
+                    text-center
+                          py-2
+                          px-4
+                          rounded-lg
+                          border-0
+                          font-semibold
+                          bg-gray-800
+                          text-white
+                          hover:bg-cyan-700">
                       <input
                       id="inputFile"
                         @change="onFileChange"
                         type="file"
                         accept="image/*"
                         class="
-                          w-40
-                          sm:w-40
-                          text-sm text-gray-500
-                          file:mr-4
-                          file:py-2
-                          file:px-4
-                          file:rounded-lg
-                          file:border-0
-                          file:text-sm
-                          file:font-semibold
-                          file:bg-gray-800
-                          file:text-white
-                          hover:file:bg-cyan-700
+                          hidden
                         "
                       />
-                    </label>
+                    Select File</label>
                   </li>
                   <li class="flex items-center justify-between py-1">
-                    <span class="font-bold text-xl leading-8 my-1">
+                    <span class="font-bold lg:text-xl md:text-l text-m leading-8 my-1">
                       Account type
                     </span>
                     <span>{{ edit.rol }}</span>
                   </li>
                   <li class="flex items-center justify-between py-1">
-                    <span class="font-bold text-xl leading-8 my-1">
+                    <span class="font-bold lg:text-xl md:text-l text-m leading-8 my-1">
                       Account created
                     </span>
                     <span>{{ edit.created_at }}</span>
                   </li>
                   <li class="flex items-center justify-between py-1">
-                    <span class="font-bold text-xl leading-8 my-1"> Gold </span>
+                    <span class="font-bold lg:text-xl md:text-l text-m leading-8 my-1"> Gold </span>
                     <span>{{ edit.gold }}</span>
                   </li>
                   <li class="flex justify-center py-3">

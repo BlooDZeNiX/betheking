@@ -51,7 +51,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 if (store.state.user.data.rol != "admin") {
   let show = true;
-  let message = "No tienes acceso a este área";
+  let message = "You cannot access this page";
   router.push({
     name: "Home",
     params: {
