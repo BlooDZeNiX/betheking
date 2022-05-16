@@ -7,7 +7,7 @@
         class="rounded-lg flex justify-center overflow-hidden"
       >
         <iframe
-          :src="`https://player.twitch.tv/?channel=${name}&parent=localhost&autoplay=false`"
+          :src="`https://player.twitch.tv/?channel=${name}&parent=https://betheking.online&autoplay=false`"
           height="320"
           width="640"
           allowfullscreen
