@@ -2,14 +2,23 @@
   <PageComponent title="Contact Us">
     <div class="w-full">
       <div class="p-6 rounded-lg shadow-lg">
-        <form method="POST" action="https://herotofu.com/start">
+        <form>
           <label class="block mb-6">
             <span class="text-gray-700">Username</span>
             <input
               type="text"
               name="name"
               disabled
-              class="block w-1/2 mt-1 border-gray-300 rounded-md disabled:bg-gray-200 shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              class="
+                block
+                w-1/2
+                mt-1
+                border-gray-300
+                rounded-md
+                disabled:bg-gray-200
+                shadow-sm
+                focus:ring focus:ring-indigo-200 focus:ring-opacity-50
+              "
               v-model="user.username"
             />
           </label>
@@ -19,7 +28,16 @@
               name="email"
               type="email"
               disabled
-              class="block w-1/2 mt-1 border-gray-300 rounded-md disabled:bg-gray-200 shadow-sm focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              class="
+                block
+                w-1/2
+                mt-1
+                border-gray-300
+                rounded-md
+                disabled:bg-gray-200
+                shadow-sm
+                focus:ring focus:ring-indigo-200 focus:ring-opacity-50
+              "
               v-model="user.email"
             />
           </label>
@@ -27,26 +45,34 @@
             <span class="text-gray-700">Message</span>
             <textarea
               name="message"
-              class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-teal-700 focus:ring-opacity-50"
+              class="
+                block
+                w-full
+                mt-1
+                border-gray-300
+                rounded-md
+                shadow-sm
+                focus:ring focus:ring-teal-700 focus:ring-opacity-50
+              "
               rows="3"
               placeholder="Tell us what you're thinking about..."
             ></textarea>
           </label>
           <div class="mb-6">
             <button
-              type="submit"
+              v-on:click="contactUs"
               class="
-                        border border-black-600
-                        rounded-lg
-                        px-4
-                        text-white
-                        bg-gray-800
-                        font-semibold
-                        leading-relaxed
-                        hover-greenwater
-                        h-12
-                      "
-                    >
+                border border-black-600
+                rounded-lg
+                px-4
+                text-white
+                bg-gray-800
+                font-semibold
+                leading-relaxed
+                hover-greenwater
+                h-12
+              "
+            >
               Contact Us
             </button>
           </div>
@@ -63,8 +89,29 @@ import { useRouter } from "vue-router";
 import { ref } from "vue";
 
 const router = useRouter();
+
 let loading = ref(false);
-let errorMsg = ref("");
+let show = true;
+let message = "";
+
+const contact = {
+  username: "",
+  email: "",
+  contact_message: "",
+};
+
+function contactUs(ev) {
+  //  store.dispatch("contactUs", contact).then((data) => {
+  message = "Mail contact sent.";
+  router.push({
+    name: "Home",
+    params: {
+      show,
+      message,
+    },
+  });
+  // });
+}
 </script>
 <script>
 export default {

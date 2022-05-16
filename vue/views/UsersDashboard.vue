@@ -567,7 +567,9 @@ export default {
     },
   },
   mounted() {
+    if (store.state.user.data.rol == "admin"){
     this.getUsersDashboard();
+    }
     //EventListener to enable button from modal and giving it pointer style when changes.
     $("#modal-user #name, #username, #email, #gold").on("input", function () {
       $("#btn-update-user").prop("disabled", false);

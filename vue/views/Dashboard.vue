@@ -114,8 +114,10 @@ export default {
     },
   },
     mounted() {
-      this.getTodayVotes();
-      this.getTodayUsers();
+      if (store.state.user.data.rol == "admin"){
+        this.getTodayVotes();
+        this.getTodayUsers();
+      }
     },
 };
 </script>

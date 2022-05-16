@@ -1,6 +1,47 @@
 <template>
   <PageComponent title="About Us">
-
+    <div class="text-center mb-20" data-v-f44d9bd4="">
+      <h1
+        class="
+          text-3xl
+          font-medium
+          text-center
+          title-font
+          text-gray-900
+          mb-4
+        "
+        data-v-f44d9bd4=""
+      >
+        What we do?
+      </h1>
+      <p
+        class="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto"
+        data-v-f44d9bd4=""
+      >
+        We crown the new kings.
+      </p>
+    </div>
+     <div class="text-center mb-20" data-v-f44d9bd4="">
+      <h1
+        class="
+          text-3xl
+          font-medium
+          text-center
+          title-font
+          text-gray-900
+          mb-4
+        "
+        data-v-f44d9bd4=""
+      >
+        What we offer to you?
+      </h1>
+      <p
+        class="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto"
+        data-v-f44d9bd4=""
+      >
+        Help us by voting for the pretenders to become new kings and you will be able to purchase subscriptions to their channels.
+      </p>
+    </div>
   </PageComponent>
 </template>
 

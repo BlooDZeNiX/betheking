@@ -203,14 +203,14 @@ export default {
                 defaultContent: '<button><i class="fa fa-info-circle"></i></button>',
                 className: "row-info text-blue-700 dt-center",
                 orderable: false,
-                "width": "10%",
+                "width": "5%",
               },
               {
                 data: null,
                 defaultContent: '<button><i class="fa fa-trash"></i></button>',
                 className: "row-remove text-red-700 dt-center",
                 orderable: false,
-                "width": "10%",
+                "width": "5%",
               },
             ],
             language: {
@@ -248,8 +248,9 @@ export default {
     },
   },
   mounted() {
+    if (store.state.user.data.rol == "admin"){
     this.getGamesDashboard();
-
+    }
 //EventListener Click on info icon
     $("#games-list").on(
       "click",

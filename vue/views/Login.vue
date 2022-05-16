@@ -178,12 +178,9 @@ function login(ev) {
       });
     })
    .catch((error) => {
-     console.log(error.response.data)
       if (error.response.status === 422) {
         errors.value = error.response.data.errors;
-        if(error.response.data.error === 'The Provided credentials are not correct'){
-          errors.value = {"password":["Incorrect Password."]}
-        }
+        console.log(errors);
       }
     });
 }

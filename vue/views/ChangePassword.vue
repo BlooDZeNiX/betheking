@@ -14,11 +14,11 @@
                       Actual Password
                     </span>
                     <input
-                      v-model="changePassword.actual"
+                      v-model="changePassword.actual_password"
                       class="border-2 border-gray-700 w-1/2 rounded-lg"
                       type="password"
-                      name="actual"
-                      id="actual"
+                      name="actual_password"
+                      id="actual_password"
                     />
                   </li>
                   <li class="flex items-center justify-between py-1">
@@ -26,45 +26,69 @@
                       New Password
                     </span>
                     <input
-                      v-model="changePassword.new"
+                      v-model="changePassword.new_password"
                       class="border-2 border-gray-700 w-1/2 rounded-lg"
                       type="password"
-                      name="new"
-                      id="new"
+                      name="new_password"
+                      id="new_passwor"
                     />
                   </li>
                   <li class="flex items-center justify-between py-1">
                     <span class="font-bold text-xl leading-8 my-1">
-                      New Password
+                      Repeat New Password
                     </span>
                     <input
-                      v-model="changePassword.new_confirmation"
+                      v-model="changePassword.new_password_confirmation"
                       class="border-2 border-gray-700 w-1/2 rounded-lg"
                       type="password"
-                      name="new_confirmation"
-                      id="new_confirmation"
+                      name="new_password_confirmation"
+                      id="new_password_confirmation"
                     />
                   </li>
-                  <li class="flex justify-center py-3">
-                    <button
-                      v-on:click="editUserPassword"
-                      :id="``"
-                      :name="``"
-                      :title="``"
-                      class="
-                        border border-black-600
-                        rounded-lg
-                        px-4
-                        text-white
-                        bg-gray-800
-                        font-semibold
-                        leading-relaxed
-                        hover-greenwater
-                        h-12
-                      "
-                    >
-                      Change Password
-                    </button>
+                  <li class="flex flex-col items-center py-3">
+                    <div>
+                      <Alert
+                        v-if="Object.keys(errors).length"
+                        class="
+                          flex-col
+                          items-stretch
+                          text-sm
+                          rounded-lg
+                          text-red
+                          border-2 border-red-900
+                        "
+                      >
+                        <div v-for="(field, i) of Object.keys(errors)" :key="i">
+                          <div
+                            v-for="(error, ind) of errors[field] || []"
+                            :key="ind"
+                          >
+                            * {{ error.trim() }}
+                          </div>
+                        </div>
+                      </Alert>
+                    </div>
+                    <div class="mt-4">
+                      <button
+                        v-on:click="editUserPassword"
+                        :id="``"
+                        :name="``"
+                        :title="``"
+                        class="
+                          border border-black-600
+                          rounded-lg
+                          px-4
+                          text-white
+                          bg-gray-800
+                          font-semibold
+                          leading-relaxed
+                          hover-greenwater
+                          h-12
+                        "
+                      >
+                        Change Password
+                      </button>
+                    </div>
                   </li>
                 </ul>
               </form>
@@ -76,17 +100,20 @@
   </PageComponent>
 </template>
 <script setup>
-
 import PageComponent from "../src/components/PageComponent.vue";
-
+import Alert from "../src/components/Alert.vue";
 </script>
 
 <script>
 import { LockClosedIcon } from "@heroicons/vue/solid";
 import { ref } from "vue";
 import store from "../src/store";
-import { useRouter } from "vue-router";
+import { RouterLink, useRouter } from "vue-router";
+
 const router = useRouter();
+let errors = ref("");
+let show = false;
+let message = "";
 
 export default {
   name: "EditProfile",
@@ -94,9 +121,9 @@ export default {
     return {
       changePassword: {
         user_id: store.state.user.data.id,
-        actual: "",
-        new: "",
-        new_confirmation: "",
+        actual_password: "",
+        new_password: "",
+        new_password_confirmation: "",
       },
       user: {},
     };
@@ -104,12 +131,35 @@ export default {
   components: {},
   methods: {
     getUserInfo() {
-       store.dispatch("getUser");
+      store.dispatch("getUser");
     },
+    toHome() {},
     editUserPassword(ev) {
       ev.preventDefault();
-      store.dispatch("editUserPassword", this.changePassword);
-    }
+      store
+        .dispatch("editUserPassword", this.changePassword)
+        .then((response) => {
+          if (response) {
+            show = true;
+            message = "Password Changed";
+            this.$router.push({
+              name: "Home",
+              params:{
+                show,
+                message,
+              }
+            })
+          }
+        })
+        .catch((error) => {
+          if (error) {
+            if (error.response.status === 422) {
+              errors.value = error.response.data.errors;
+              this.getUserInfo();
+            }
+          }
+        });
+    },
   },
   mounted() {
     this.getUserInfo();

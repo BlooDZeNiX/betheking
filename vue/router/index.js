@@ -37,7 +37,7 @@ const routes = [{
             { path: '/games', name: 'Games', component: Games },
             { path: '/profile', name: 'Profile', component: Profile },
             { path: '/gold', name: 'Gold', component: Gold },
-            { path: '/dashboard', name: 'Dashboard', component: Dashboard, props: true },
+            { path: '/dashboard', name: 'Dashboard', component: Dashboard, props: true, meta: { rol: ['admin'] } },
             { path: '/games-dashboard', name: 'GamesDashboard', component: GamesDashboard, props: true },
             { path: '/users-dashboard', name: 'UsersDashboard', component: UsersDashboard, props: true },
             { path: '/streamers-dashboard', name: 'StreamersDashboard', component: StreamersDashboard, props: true },

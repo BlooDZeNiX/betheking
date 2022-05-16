@@ -75,17 +75,19 @@ class AuthController extends Controller
 
         if (!Auth::attempt($credentials, $remember)) {
             return response([
-                'error' => 'The Provided credentials are not correct'
+                "errors" => [
+                    'password' => [0 => 'Incorrect Password.']
+                ]
             ], 422);
         }
 
         /** @var \App\Models\User $user */
         $user = Auth::user();
 
-        if(!$user->active){
-            return response(["errors" =>[
-
-                'message' => [0 => 'The user is disabled']
+        if (!$user->active) {
+            return response([
+                "errors" => [
+                    'disabled' => [0 => 'The user is disabled.']
                 ]
             ], 422);
         }
@@ -266,9 +268,13 @@ class AuthController extends Controller
      */
     public function editUserPassword(Request $request)
     {
-
-        $data = $request->validate([
-            'new' => [
+        $request->validate([
+            'actual_password' => [
+                'required',
+                Password::min(8)->mixedCase()->numbers()->symbols(),
+                // Hash::check($request['actual_password'], $user[0]['password'])
+            ],
+            'new_password' => [
                 'required',
                 'confirmed',
                 Password::min(8)->mixedCase()->numbers()->symbols()
@@ -277,17 +283,33 @@ class AuthController extends Controller
         /** @var \App\Models\User $user */
         $user =  User::where('id', $request['user_id'])->get();
         $user->makeVisible(['password']);
-
-        if ((Hash::check($request['actual'], $user[0]['password']))) {
-            if (($request['actual'] !== $request['new'])) {
-                if ($request['new_confirmation'] === $request['new']) {
-                    User::where('id', $request['user_id'])->update([
-                        "password" => bcrypt($request['new'])
+        if ((Hash::check($request['actual_password'], $user[0]['password']))) {
+            if (($request['actual_password'] !== $request['new_password'])) {
+                if ($request['new_password_confirmation'] === $request['new_password']) {
+                   $user = User::where('id', $request['user_id'])->update([
+                        "password" => bcrypt($request['new_password'])
                     ]);
+                    return User::where('id', $request['user_id'])->get();
+                } else {
+                    return response([
+                        "errors" => [
+                            'New Password' => [0 => 'The new password confirmation does not match.']
+                        ]
+                    ], 422);
                 }
+            } else {
+                return response([
+                    "errors" => [
+                        'Actual Password' => [0 => 'The actual password and new password cannot be equals.']
+                    ]
+                ], 422);
             }
         } else {
-            return 0;
+            return response([
+                "errors" => [
+                    'Actual Password' => [0 => 'The actual password is not correct.']
+                ]
+            ], 422);
         }
     }
 

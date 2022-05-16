@@ -8,7 +8,16 @@
       <div class="rounded-lg flex justify-center overflow-hidden">
         <button
           v-on:click="voteGame"
-          class="border border-black-600 rounded-lg px-4 text-white bg-gray-800 font-semibold leading-relaxed hover-greenwater"
+          class="
+            border border-black-600
+            rounded-lg
+            px-4
+            text-white
+            bg-gray-800
+            font-semibold
+            leading-relaxed
+            hover-greenwater
+          "
         >
           Vote
         </button>
@@ -32,7 +41,7 @@ const voteGames = {
   gameVoted: "",
 };
 let show = true;
-let message = '';
+let message = "";
 function voteGame(ev) {
   ev.preventDefault();
   voteGames.voter =
@@ -48,12 +57,12 @@ function voteGame(ev) {
       "name"
     );
   store.dispatch("voteGame", voteGames).then((data) => {
-    if(typeof(data) == "number"){
-      message = "You cannot vote Games before "+ parseInt(data) + " minutes.";
-    }else{
+    if (typeof data == "number") {
+      message = "You cannot vote Games before " + parseInt(data) + " minutes.";
+    } else {
       message = "Vote realized.";
     }
-router.push({
+    router.push({
       name: "Home",
       params: {
         show,

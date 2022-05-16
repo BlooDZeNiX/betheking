@@ -248,7 +248,9 @@ export default {
     },
   },
   mounted() {
+    if (store.state.user.data.rol == "admin"){
     this.getStreamersDashboard();
+    }
 
 //EventListener Click on info icon
     $("#streamer-list").on(
