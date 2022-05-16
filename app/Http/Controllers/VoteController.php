@@ -180,7 +180,7 @@ class VoteController extends Controller
             $topGames[$key]['position'] = ++$i;
         }
 
-        $Votes = Votes::select('voter', GameVotes::raw('count("voter") as votes'))->groupBy('voter')->get()->toArray();
+        $Votes = Votes::select('voter', GameVotes::raw('count("voter") as votes'))->groupBy('voter')-> take(10)->get()->toArray();
         foreach ($Votes as $key => $value) {
             if ($value['voter']) {
                 $votes[] = ["voter" => User::select('username')->where('id', '=', $value['voter'])->get()->toArray()[0]['username'], "votes" => $value['votes']];
