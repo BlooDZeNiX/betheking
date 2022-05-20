@@ -1,7 +1,7 @@
 <template>
   <PageComponent title="Users Management">
     <Administration>
-      <div class="overflow-auto">
+      <div  class="max-h-[56vh] overflow-auto">
         <div class="flex h-full justify-self-end mb-4">
           <button
             id="btau"
@@ -666,8 +666,7 @@ export default {
       store.dispatch("getUsersDashboard").then((data) => {
         $(document).ready(function () {
           $("#user-list").dataTable({
-            buttons: true,
-            // buttons: ["copy", "excel", "pdf"],
+
             response: true,
             data: data.data,
             searching: true,
@@ -700,7 +699,7 @@ export default {
             language: {
               zeroRecords: " ",
             },
-            buttons: ["copyHtml5", "excelHtml5", "csvHtml5", "pdfHtml5"],
+
             createdRow: function (row, data, index) {
               console.log(data);
               if (data.active == 0) {
@@ -761,34 +760,34 @@ export default {
       store.state.dashboard.edit.user.gold = $("#gold").val();
       store.dispatch("editUserData", store.state.dashboard.edit.user);
       this.closeModal();
-      $("#user-list").dataTable().fnClearTable();
+      // $("#user-list").dataTable().fnClearTable();
       $("#user-list").dataTable().fnDestroy();
       this.getUsersDashboard();
     },
     deleteUser: function () {
       store.dispatch("deleteUserData", store.state.dashboard.edit.user);
       this.closeModal();
-      $("#user-list").dataTable().fnClearTable();
+      // $("#user-list").dataTable().fnClearTable();
       $("#user-list").dataTable().fnDestroy();
       this.getUsersDashboard();
     },
     disableUser: function () {
       store.dispatch("disableUser", store.state.dashboard.edit.user);
       this.closeModal();
-      $("#user-list").dataTable().fnClearTable();
+      // $("#user-list").dataTable().fnClearTable();
       $("#user-list").dataTable().fnDestroy();
       this.getUsersDashboard();
     },
     enableUser: function () {
       store.dispatch("enableUser", store.state.dashboard.edit.user);
       this.closeModal();
-      $("#user-list").dataTable().fnClearTable();
+      // $("#user-list").dataTable().fnClearTable();
       $("#user-list").dataTable().fnDestroy();
       this.getUsersDashboard();
     },
     update: function () {
       this.closeModal();
-      $("#user-list").dataTable().fnClearTable();
+      // $("#user-list").dataTable().fnClearTable();
       $("#user-list").dataTable().fnDestroy();
       this.getUsersDashboard();
     },

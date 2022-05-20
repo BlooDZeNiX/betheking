@@ -1,7 +1,7 @@
 <template>
   <PageComponent title="Dashboard">
     <Administration>
-      <div class="w-full lg:flex md:flex lg:grow md:grow">
+      <div class="min-h-[50vh] w-full lg:flex md:flex lg:grow md:grow">
         <div class="w-full flex lg:flex-row md:flex-row lg:text-center md:text-center flex-col">
           <div
             class="lg:w-1/3 sm:w-1/3 w-full rounded border-gray-900 mb-1 border-2 bg-gray-700 text-white px-3 py-2 font-medium"

@@ -188,7 +188,7 @@ export default {
     getStreamersDashboard: function () {
       store.dispatch("getStreamersDashboard").then((data) => {
         $(document).ready(function () {
-          $("#streamer-list").dataTable().fnClearTable();
+          // $("#streamer-list").dataTable().fnClearTable();
           $("#streamer-list").dataTable().fnDestroy();
           $("#streamer-list").dataTable({
             response: true,
@@ -242,7 +242,7 @@ export default {
     deleteStreamer: function () {
       store.dispatch("deleteStreamer", store.state.dashboard.edit.streamer);
       this.closeModal();
-      $("#streamer-list").dataTable().fnClearTable();
+      // $("#streamer-list").dataTable().fnClearTable();
       $("#streamer-list").dataTable().fnDestroy();
       this.getStreamersDashboard();
     },

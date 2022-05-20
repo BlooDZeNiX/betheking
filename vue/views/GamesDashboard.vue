@@ -189,7 +189,7 @@ export default {
     getGamesDashboard: function () {
       store.dispatch("getGamesDashboard").then((data) => {
         $(document).ready(function () {
-          $("#games-list").dataTable().fnClearTable();
+          // $("#games-list").dataTable().fnClearTable();
           $("#games-list").dataTable().fnDestroy();
           $("#games-list").dataTable({
             response: true,
@@ -242,7 +242,7 @@ export default {
     deleteGame: function () {
       store.dispatch("deleteGame", store.state.dashboard.edit.game);
       this.closeModal();
-      $("#games-list").dataTable().fnClearTable();
+      // $("#games-list").dataTable().fnClearTable();
       $("#games-list").dataTable().fnDestroy();
       this.getGamesDashboard();
     },
