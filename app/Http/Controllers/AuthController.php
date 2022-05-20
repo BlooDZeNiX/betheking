@@ -55,6 +55,29 @@ class AuthController extends Controller
         ]);
     }
 
+    public function addUser(Request $request)
+    {
+        $data = $request->validate([
+            'name' => 'required|string',
+            'username' => 'required|string',
+            'email' => 'required|email|string|unique:users,email',
+            'password' => [
+                'required',
+                Password::min(8)->mixedCase()->numbers()->symbols()
+            ]
+        ]);
+
+        $user = User::create([
+            'username' => $data['username'],
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+
+        ]);
+        return $user;
+
+    }
+
     /**
      * Function to login in the website
      *

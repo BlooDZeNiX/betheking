@@ -30,6 +30,7 @@ Route::post('/editUserImage', [AuthController::class, 'editUserImage']);
 Route::post('/editUserPassword', [AuthController::class, 'editUserPassword']);
 Route::post('/verifyEmail', [AuthController::class, 'verifyEmail']);
 Route::post('/editUserData', [AuthController::class, 'editUserData']);
+Route::post('/addUser', [AuthController::class, 'addUser']);
 Route::post('/deleteUserData', [AuthController::class, 'deleteUserData']);
 Route::post('/disableUser', [AuthController::class, 'disableUser']);
 Route::post('/enableUser', [AuthController::class, 'enableUser']);

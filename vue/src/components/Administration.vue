@@ -84,8 +84,14 @@ export default {
     };
   },
   components: {},
-  methods: {},
-  mounted() {},
+  methods: {
+     getUserInfo: function () {
+      store.dispatch("getUser");
+    },
+  },
+  mounted() {
+    this.getUserInfo();
+  },
   setup() {
     return {};
   },

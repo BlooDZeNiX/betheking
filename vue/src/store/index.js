@@ -125,6 +125,12 @@ const store = createStore({
                     return res;
                 })
         },
+        addUser({ commit }, user) {
+            return axiosClient.post('/addUser', user)
+                .then(response => {
+                    return response;
+                })
+        },
         editUserData({ commit }, edit) {
             return axiosClient.post('/editUserData', edit)
                 .then(response => {
